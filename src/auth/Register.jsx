@@ -41,12 +41,13 @@ const Register = () => {
             const userData = {
                 email: data.email,
                 displayName: data.name,
-                photoURL: imageUrl
+                photoURL: imageUrl,
+                role:data.role
             };
 
             const dbRes = await axiosSecure.post("/user", userData);
 
-            // step 4: update firebase profile
+
             await updateUser({
                 displayName: data.name,
                 photoURL: imageUrl
@@ -105,6 +106,13 @@ const Register = () => {
                     {errors.photo && (
                         <p className="text-red-500">Photo is required</p>
                     )}
+                    {/* user role */}
+                    <select defaultValue="Pick a language" className="select select-secondary" {...register("role",{required:true})}>
+                        <option disabled={true}>Pick a Role</option>
+                        <option>Buyer</option>
+                        <option>Manager</option>
+                       
+                    </select>
 
                     {/* Password */}
                     <label className="label">Password</label>

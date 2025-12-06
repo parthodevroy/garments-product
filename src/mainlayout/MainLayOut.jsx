@@ -1,7 +1,6 @@
 import React from 'react';
 import Logo from '../component/Logo';
 import { Link, Outlet } from 'react-router';
-import img from "../assets/authImage.png"
 
 const MainLayOut = () => {
     return (
@@ -10,7 +9,7 @@ const MainLayOut = () => {
             <div className='flex items-center'>
                 <div className='flex-1'><Outlet/></div>
                 <div className='flex-1 h-screen bg-[#c5e494]'>
-                    <img src={img} alt=""/>
+                    
                 </div>
             </div>
         </div>

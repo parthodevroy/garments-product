@@ -2,16 +2,11 @@ import React from 'react';
 import { Autoplay, Pagination } from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
-import amazon from '../../assets/amazon.png'
-import casio from '../../assets/casio.png'
-import moonstar from '../../assets/moonstar.png'
-import star from '../../assets/star.png'
-import star_people from '../../assets/start_people.png'
-import amazon_vector from '../../assets/amazon_vector.png'
+
 
 
 const Brands = () => {
-    const brandlogos=[amazon,casio,moonstar,star,star_people,amazon_vector];
+    const brandlogos=[];
     return (
         <div>
             <Swiper

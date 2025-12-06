@@ -1,11 +1,9 @@
 import React from 'react';
 import { Link, Outlet } from 'react-router';
-import { CiDeliveryTruck } from "react-icons/ci";
 import { RiSecurePaymentFill } from "react-icons/ri";
 import { FaProductHunt, FaUser } from 'react-icons/fa6';
 import useRole from '../hooks/useRole';
 import { SiRider } from "react-icons/si";
-import imglogo from "../assets/../../src/assets/logo.png"
 import LoadingPage from '../component/LoadingPage/LoadingPage';
 
 
@@ -46,7 +44,7 @@ const DashBoard = () => {
             {/* List item */}
           
           <Link to={"/"}><li>
-            <img src={imglogo} alt="home" srcset="" className='w-20' />
+           
           </li></Link>
             <li>
               <Link to={"/dashboard"} className="is-drawer-close:tooltip is-drawer-close:tooltip-right" data-tip="Homepage">
@@ -64,7 +62,7 @@ const DashBoard = () => {
                 {/* Settings icon */}
 
                 <FaProductHunt />
-                <span className="is-drawer-close:hidden">My Parcels</span>
+                <span className="is-drawer-close:hidden">My Product</span>
               </button>
             </li>
             </Link>
@@ -82,7 +80,7 @@ const DashBoard = () => {
             </Link>
             {/* only rider see this page */}
             {
-              role === "rider" &&<>
+              role === "manager" &&<>
                <Link to={"/dashboard/assign-delivery"}>
                <li>
              

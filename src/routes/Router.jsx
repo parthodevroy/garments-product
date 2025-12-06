@@ -26,6 +26,7 @@ import MyParcels from "../pages/dashboard/Mydashboard/MyParcels";
 import DashboardHome from "../pages/dashboard/DashboardHome/DashboardHome";
 
 import ProductTraking from "../pages/porductTraking/productTraking";
+import AllProducts from "../pages/AllProducts/AllProducts";
 
 
 export const router = createBrowserRouter([
@@ -61,6 +62,10 @@ export const router = createBrowserRouter([
       {
         path:'/traking-log/:trackingId',
         Component:ProductTraking
+      },
+      {
+        path:'/allproducts',
+        Component:AllProducts
       }
     ]
   },

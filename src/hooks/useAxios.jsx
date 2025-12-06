@@ -4,7 +4,7 @@ import useAuth from './useAuth';
 import { useNavigate } from 'react-router';
 
 const axiosSecure=axios.create({
-    baseURL:"https://zap-shift-server-alpha-six.vercel.app"
+    baseURL:"http://localhost:3000"
 })
 
 const useAxios = () => {
@@ -25,15 +25,15 @@ const useAxios = () => {
     return response;
   }, (error)=> {
     console.log(error);
-   const statusCod = error.response?.status;
+//    const statusCod = error.response?.status;
 
-    if (statusCod===401 || statusCod===403) {
-        signout()
-        .then(()=>{
-            navigate("/login")
+//     if (statusCod===401 || statusCod===403) {
+//         signout()
+//         .then(()=>{
+//             navigate("/login")
 
-        })
-        }
+//         })
+//         }
 
     
     

@@ -9,7 +9,7 @@ const ProductTraking = () => {
   const { data: logs = [] } = useQuery({
     queryKey: ["tracking", trackingId],
     queryFn: async () => {
-      const res = await axios.get(`https://zap-shift-server-alpha-six.vercel.app/tracking/${trackingId}`);
+      const res = await axios.get(`http://localhost:3000/tracking/${trackingId}`);
       return res.data;
     },
   });

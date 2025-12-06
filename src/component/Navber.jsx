@@ -38,12 +38,12 @@ const Navbar = () => {
         className="relative"
       >
         <span className="cursor-pointer text-gray-700 font-extrabold hover:text-teal-600 px-2 py-1 transition-all">
-          Projects
+          Products
         </span>
         {showDropdown && (
           <ul className="absolute top-full left-0 bg-white shadow-lg rounded mt-2 w-48">
             <li className="px-4 py-2 hover:bg-teal-100">
-              <NavLink to="/project-page">Project Page</NavLink>
+              <NavLink to="/allproducts">All Products</NavLink>
             </li>
             <li className="px-4 py-2 hover:bg-teal-100">
               <NavLink to="/project-details">Project Details</NavLink>
