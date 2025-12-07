@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import useAuth from '../hooks/useAuth';
 import SocialLogin from './social/SocialLogin';
-import { Link } from 'react-router';
+import { data, Link } from 'react-router';
 import axios from 'axios';
 import useAxios from '../hooks/useAxios';
 
@@ -45,6 +45,7 @@ const Register = () => {
                 role:data.role
             };
 
+
             const dbRes = await axiosSecure.post("/user", userData);
 
 
@@ -63,6 +64,7 @@ const Register = () => {
             setError("Registration failed! Please try again.");
         }
     };
+console.log(data);
 
     return (
         <div className="card w-full mx-auto max-w-sm p-4 shadow-md">

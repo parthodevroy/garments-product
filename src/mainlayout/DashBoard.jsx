@@ -56,9 +56,9 @@ const DashBoard = () => {
            
 
             {/* my parcels */}
-            <Link to={"/dashboard/my-parcels"}>
+            <Link to={"/dashboard/my-orders"}>
             <li>
-              <button className="is-drawer-close:tooltip is-drawer-close:tooltip-right" data-tip="My-Parcels">
+              <button className="is-drawer-close:tooltip is-drawer-close:tooltip-right" data-tip="My-Products">
                 {/* Settings icon */}
 
                 <FaProductHunt />
@@ -80,13 +80,13 @@ const DashBoard = () => {
             </Link>
             {/* only rider see this page */}
             {
-              role === "manager" &&<>
-               <Link to={"/dashboard/assign-delivery"}>
+              role === "Manager" &&<>
+               <Link to={"/dashboard/manage-order"}>
                <li>
              
-                <button className="is-drawer-close:tooltip is-drawer-close:tooltip-right" data-tip="Assign-rider">
+                <button className="is-drawer-close:tooltip is-drawer-close:tooltip-right" data-tip="Manage Order">
                   <FaUser />
-                  <span className="is-drawer-close:hidden">Assign Delivery</span>
+                  <span className="is-drawer-close:hidden">Manage Order</span>
                 </button>
               
             </li>
@@ -94,9 +94,9 @@ const DashBoard = () => {
              <Link to={"/dashboard/completed-delivery"}>
                <li>
              
-                <button className="is-drawer-close:tooltip is-drawer-close:tooltip-right" data-tip="Completed-Dekivery">
+                <button className="is-drawer-close:tooltip is-drawer-close:tooltip-right" data-tip="Completed-Ordered">
                   <FaUser />
-                  <span className="is-drawer-close:hidden">Completed Delivery</span>
+                  <span className="is-drawer-close:hidden">Completed Ordered</span>
                 </button>
              
             </li>
@@ -124,11 +124,11 @@ const DashBoard = () => {
              <Link to={"/dashboard/assign-rider"}>
                <li>
               
-                <button className="is-drawer-close:tooltip is-drawer-close:tooltip-right" data-tip="assign rider">
+                <button className="is-drawer-close:tooltip is-drawer-close:tooltip-right" data-tip="Assign Manager">
 
 
                   <SiRider/>
-                  <span className="is-drawer-close:hidden">Assign Rider</span>
+                  <span className="is-drawer-close:hidden">Assign Manager</span>
                 </button>
              
             </li>
@@ -136,11 +136,11 @@ const DashBoard = () => {
           <Link to={"/dashboard/rider-approval"}>
              <li>
               
-                <button className="is-drawer-close:tooltip is-drawer-close:tooltip-right" data-tip="rider approval">
+                <button className="is-drawer-close:tooltip is-drawer-close:tooltip-right" data-tip="manager approval">
 
 
                   <RiSecurePaymentFill />
-                  <span className="is-drawer-close:hidden">rider approval</span>
+                  <span className="is-drawer-close:hidden">Manager approval</span>
                 </button>
              
             </li>

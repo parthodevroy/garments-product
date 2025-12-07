@@ -27,6 +27,10 @@ import DashboardHome from "../pages/dashboard/DashboardHome/DashboardHome";
 
 import ProductTraking from "../pages/porductTraking/productTraking";
 import AllProducts from "../pages/AllProducts/AllProducts";
+import DetailsProducts from "../pages/AllProducts/DetailsProducts";
+import Booking from "../pages/Booking/Booking";
+import MyOrders from "../pages/dashboard/MyOrder/MyOrder";
+import ManageOrder from "../pages/dashboard/manageOrder/ManageOrder";
 
 
 export const router = createBrowserRouter([
@@ -46,13 +50,9 @@ export const router = createBrowserRouter([
       
       
       {
-        path: "/parcel",
-        loader: () => fetch("/warehouses.json").then(res => res.json()),
-        element: (
-          <PrivateRoutes>
-            <SendParcel />
-          </PrivateRoutes>
-        )
+        path: "/booking",
+        
+        element:<Booking/>
       },
       {
         path:"/rider",
@@ -64,9 +64,13 @@ export const router = createBrowserRouter([
         Component:ProductTraking
       },
       {
-        path:'/allproducts',
+        path:'/products',
         Component:AllProducts
-      }
+      },
+       { path: '/details/:id',
+         element: <DetailsProducts />
+         },
+      
     ]
   },
 
@@ -99,11 +103,11 @@ export const router = createBrowserRouter([
 
       },
       {
-        path: "my-parcels",
-        Component: MyParcels
+        path: "my-orders",
+        Component:MyOrders
       },
       {
-        path: "payment/:paymentId",
+        path: "payment/:orderId",
         Component: Payment
       },
       {
@@ -124,10 +128,15 @@ export const router = createBrowserRouter([
       },
       // rider related routes only rider can see this page
       {
-        path:"assign-delivery",
-        element:<AssignDelivery></AssignDelivery>
+        path:"manage-order",
+        element:<ManageOrder/>
 
       },
+      // {
+      //   path:"assign-delivery",
+      //   element:<AssignDelivery></AssignDelivery>
+
+      // },
 
       // admin related page only admin can access
       {

@@ -39,11 +39,9 @@ const PaymentSuccess = () => {
 // }, [sessionId]); 
 
 const calledRef = useRef(false);
-
 useEffect(() => {
     if (!sessionId) return;
-
-    if (calledRef.current) return; // already called
+    if (calledRef.current) return;
     calledRef.current = true;
 
     const verifyPayment = async () => {
@@ -54,7 +52,6 @@ useEffect(() => {
             setPaymentStatus("error",err);
         }
     };
-
     verifyPayment();
 }, [sessionId]);
 
@@ -79,7 +76,7 @@ useEffect(() => {
         <div className="text-center mt-20">
             <h1 className={`${colorClass} text-2xl font-semibold`}>{message}</h1>
             <p className="mt-2 text-sm text-gray-600">Session ID: {sessionId}</p>
-            <Link to={"/dashboard/my-parcels"}>
+            <Link to={"/dashboard/my-orders"}>
                 <button className='btn btn-primary mt-6'>Go to Dashboard</button>
             </Link>
         </div>

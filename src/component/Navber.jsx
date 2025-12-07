@@ -32,24 +32,18 @@ const Navbar = () => {
           Home
         </NavLink>
       </li>
-      <li
-        onMouseEnter={() => setShowDropdown(true)}
-        onMouseLeave={() => setShowDropdown(false)}
-        className="relative"
-      >
-        <span className="cursor-pointer text-gray-700 font-extrabold hover:text-teal-600 px-2 py-1 transition-all">
-          Products
-        </span>
-        {showDropdown && (
-          <ul className="absolute top-full left-0 bg-white shadow-lg rounded mt-2 w-48">
-            <li className="px-4 py-2 hover:bg-teal-100">
-              <NavLink to="/allproducts">All Products</NavLink>
-            </li>
-            <li className="px-4 py-2 hover:bg-teal-100">
-              <NavLink to="/project-details">Project Details</NavLink>
-            </li>
-          </ul>
-        )}
+      {/* products */}
+      <li>
+        <NavLink
+          to="/products"
+          className={({ isActive }) =>
+            isActive
+              ? "text-teal-600 font-extrabold border-b-2 border-teal-600 px-2 py-1 transition-all"
+              : "text-gray-700 font-extrabold hover:text-teal-600 px-2 py-1 transition-all"
+          }
+        >
+          All Products
+        </NavLink>
       </li>
       <li>
         <NavLink

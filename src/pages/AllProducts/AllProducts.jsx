@@ -2,6 +2,7 @@ import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import React from 'react';
 import { motion } from 'framer-motion';
+import { Link } from 'react-router'; // <- import Link
 
 const AllProducts = () => {
     const { data: products = [] } = useQuery({
@@ -52,11 +53,18 @@ const AllProducts = () => {
 
                         {/* DESCRIPTION */}
                         {product.product_description && (
-                            <p className="text-gray-500 space-x-2 text-sm">
-                                Available product  
-                               ## {product.available_quantity}...
+                            <p className="text-gray-500 space-x-2 text-sm mb-4">
+                                Available product: {product.available_quantity}...
                             </p>
                         )}
+
+                        {/* DETAILS BUTTON */}
+                        <Link
+                            to={`/details/${product._id}`}
+                            className="btn btn-primary mt-auto w-full text-center"
+                        >
+                            View Details
+                        </Link>
                     </motion.div>
                 ))}
             </div>
