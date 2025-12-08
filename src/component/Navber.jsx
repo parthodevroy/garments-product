@@ -109,18 +109,7 @@ const Navbar = () => {
       {/* User Links */}
       {user && (
         <>
-          <li>
-            <NavLink
-              to="/parcel"
-              className={({ isActive }) =>
-                isActive
-                  ? "text-teal-600 font-extrabold border-b-2 border-teal-600 px-2 py-1 transition-all"
-                  : "text-gray-700 font-extrabold hover:text-teal-600 px-2 py-1 transition-all"
-              }
-            >
-              Send Parcel
-            </NavLink>
-          </li>
+         
           <li>
             <NavLink
               to="/dashboard"
@@ -147,34 +136,27 @@ const Navbar = () => {
               </NavLink>
             </li>
           )}
-          {role === "admin" && (
-            <>
-              <li>
-                <NavLink
-                  to="/dashboard/user-management"
-                  className={({ isActive }) =>
-                    isActive
-                      ? "text-teal-600 font-extrabold border-b-2 border-teal-600 px-2 py-1 transition-all"
-                      : "text-gray-700 font-extrabold hover:text-teal-600 px-2 py-1 transition-all"
-                  }
-                >
-                  User Management
-                </NavLink>
-              </li>
-              <li>
-                <NavLink
-                  to="/dashboard/assign-rider"
-                  className={({ isActive }) =>
-                    isActive
-                      ? "text-teal-600 font-extrabold border-b-2 border-teal-600 px-2 py-1 transition-all"
-                      : "text-gray-700 font-extrabold hover:text-teal-600 px-2 py-1 transition-all"
-                  }
-                >
-                  Assign Rider
-                </NavLink>
-              </li>
-            </>
-          )}
+          {/* manager products created */}
+          {
+            role ==="Manager" && (
+              <>
+               <li>
+            <NavLink
+              to="/productcreated"
+              className={({ isActive }) =>
+                isActive
+                  ? "text-teal-600 font-extrabold border-b-2 border-teal-600 px-2 py-1 transition-all"
+                  : "text-gray-700 font-extrabold hover:text-teal-600 px-2 py-1 transition-all"
+              }
+            >
+              Created Product
+            </NavLink>
+          </li>
+              
+              </>
+            )
+          }
+         
         </>
       )}
     </>

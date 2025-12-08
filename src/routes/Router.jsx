@@ -1,36 +1,32 @@
 import { createBrowserRouter } from "react-router";
 import Root from "../mainlayout/Root";
-import Covarage from "../pages/covarage/Covarage";
 import Homepage from "../pages/home/Homepage";
 import MainLayOut from "../mainlayout/MainLayOut";
 import Login from "../auth/Login";
 import Register from "../auth/Register";
 import PrivateRoutes from "./PrivateRoutes";
-import SendParcel from "../pages/SendPersel/SendParcel";
 
 // import MyDashboard from "../pages/dashboard/Mydashboard/MyDashboard";
 import Payment from "../pages/dashboard/Payment/Payment";
 import PaymentSuccess from "../pages/PaymentSuccess/PaymentSuccess";
-import PaymentCancel from "../pages/PaymentCanchel/PaymentCancel";
-import PaymentHistory from "../pages/dashboard/PaymentHistory/PaymentHistory";
-import Rider from "../pages/Rider/Rider";
-import Approval from "../pages/dashboard/RiderApproval/Approval";
-import UserManagement from "../pages/dashboard/UserManagement/UserManagement";
-import AdminPrivateRoute from "./AdminPrivateRoute";
-import AssignRider from "../pages/dashboard/AssignRider/AssignRider";
-import AssignDelivery from "../pages/dashboard/AssignDelivarys/AssignDelivery";
-import CompletedDelivery from "../pages/dashboard/CompletedDelivery/CompletedDelivery";
 
 import DashBoard from "../mainlayout/DashBoard";
-import MyParcels from "../pages/dashboard/Mydashboard/MyParcels";
 import DashboardHome from "../pages/dashboard/DashboardHome/DashboardHome";
 
 import ProductTraking from "../pages/porductTraking/productTraking";
 import AllProducts from "../pages/AllProducts/AllProducts";
 import DetailsProducts from "../pages/AllProducts/DetailsProducts";
-import Booking from "../pages/Booking/Booking";
-import MyOrders from "../pages/dashboard/MyOrder/MyOrder";
-import ManageOrder from "../pages/dashboard/manageOrder/ManageOrder";
+import ManagerCreatedProduct from "../pages/ManagerCreatedProduct/ManagerCreatedProduct";
+import Bookings from "../pages/Bookings/Booking";
+import ProductCreated from "../pages/ProductCreated/ProductCreated";
+import PaymentCancel from "../pages/PaymentCancel/PaymentCancel";
+import PaymentHistory from "../pages/dashboard/PaymentHistory/PaymentHistory";
+import ManagerOrder from "../pages/dashboard/managerOrder/ManagerOrder";
+import BuyerOrder from "../pages/BuyerOrder/BuyerOrder";
+import BuyerOrderDetailsTimeline from "../pages/BuyerOrderDetailsTimeline/BuyerOrderDetailsTimeline";
+import TrackOrderForm from "../pages/BuyerOrderDetailsTimeline/TrackOrderForm";
+import UserManagement from "../pages/dashboard/UserManagement/UserManagement";
+import AllproductAdmin from "../pages/dashboard/AdminDashboard/AllproductAdmin";
 
 
 export const router = createBrowserRouter([
@@ -42,23 +38,14 @@ export const router = createBrowserRouter([
         index: true,
         element: <Homepage />
       },
-      {
-        path: "/covarage",
-        loader: () => fetch("/warehouses.json").then(res => res.json()),
-        element: <Covarage />
-      },
+      
       
       
       {
         path: "/booking",
-        
-        element:<Booking/>
+        Component:Bookings
       },
-      {
-        path:"/rider",
-         loader: () => fetch("/warehouses.json").then(res => res.json()),
-        element:<PrivateRoutes><Rider></Rider></PrivateRoutes>
-      },
+      
       {
         path:'/traking-log/:trackingId',
         Component:ProductTraking
@@ -69,6 +56,9 @@ export const router = createBrowserRouter([
       },
        { path: '/details/:id',
          element: <DetailsProducts />
+         },
+       { path: '/productcreated',
+         element: <ProductCreated/>
          },
       
     ]
@@ -103,8 +93,20 @@ export const router = createBrowserRouter([
 
       },
       {
-        path: "my-orders",
-        Component:MyOrders
+        path: "manager-created-product",
+        Component:ManagerCreatedProduct
+      },
+      {
+        path: "Buyer-orders",
+        Component:BuyerOrder
+      },
+      {
+        path: "buyer-order-details/:id",
+        Component:BuyerOrderDetailsTimeline
+      },
+      {
+        path: "buyer-order-track/:id",
+        Component:TrackOrderForm
       },
       {
         path: "payment/:orderId",
@@ -116,20 +118,22 @@ export const router = createBrowserRouter([
       },
       {
         path: "payment-cancel",
-        Component: PaymentCancel
+        Component:PaymentCancel
       },
       {
         path: "payment-history",
         Component: PaymentHistory
       },
-      {
-        path: "completed-delivery",
-        element:<CompletedDelivery></CompletedDelivery>
-      },
+     
       // rider related routes only rider can see this page
-      {
+       {
         path:"manage-order",
-        element:<ManageOrder/>
+        element:<ManagerOrder/>
+
+      },
+       {
+        path:"all-products-admin",
+        element:<AllproductAdmin/>
 
       },
       // {
@@ -139,23 +143,23 @@ export const router = createBrowserRouter([
       // },
 
       // admin related page only admin can access
-      {
-        path:"rider-approval",
-        element:<AdminPrivateRoute>
-          <Approval></Approval>
-          </AdminPrivateRoute>
-      },
-      {
-        path:"assign-rider",
-        element:<AdminPrivateRoute>
-          <AssignRider></AssignRider>
-          </AdminPrivateRoute>
-      },
+      // {
+      //   path:"rider-approval",
+      //   element:<AdminPrivateRoute>
+      //     <Approval></Approval>
+      //     </AdminPrivateRoute>
+      // },
+      // {
+      //   path:"assign-rider",
+      //   element:<AdminPrivateRoute>
+      //     <AssignRider></AssignRider>
+      //     </AdminPrivateRoute>
+      // },
       {
         path:"user-management",
-       element:<AdminPrivateRoute>
+       element:
         <UserManagement></UserManagement>
-        </AdminPrivateRoute>
+       
     
       }
     ]

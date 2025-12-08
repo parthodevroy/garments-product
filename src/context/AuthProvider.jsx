@@ -22,6 +22,7 @@ const AuthProvider = ({children}) => {
         setLoading(true)
         return signInWithPopup(auth,googleProvider)
     }
+console.log(user);
 
     // log out
     const signout = () => {

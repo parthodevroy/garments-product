@@ -4,6 +4,7 @@ import React from 'react';
 import { useParams } from 'react-router';
 import useAxios from '../../../hooks/useAxios';
 import useAuth from '../../../hooks/useAuth';
+;
 
 const Payment = () => {
     const { orderId } = useParams();

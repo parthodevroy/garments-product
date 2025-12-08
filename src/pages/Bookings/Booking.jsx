@@ -6,7 +6,7 @@ import useAxios from "../../hooks/useAxios";
 import useAuth from "../../hooks/useAuth";
 import { toast } from "react-toastify";
 
-const Booking = () => {
+const Bookings = () => {
   const { user } = useAuth();
   const axiosSecure = useAxios();
   const navigate = useNavigate();
@@ -58,17 +58,19 @@ const Booking = () => {
           unitPrice: product.price_usd,
           totalPrice: data.orderPrice,
           customerEmail: user?.email,
+          manageremail:product.createdBy
         };
 
         axiosSecure.post("/order", orderData).then((res) => {
           if (res.data.insertedId) {
             toast.success("Order placed successfully!");
-            navigate("/dashboard/my-orders");
+            navigate("/dashboard/buyer-orders");
           }
         });
       }
     });
   };
+console.log(product);
 
   return (
     <div className="max-w-md mx-auto p-6 bg-white shadow-md mt-10 rounded-lg">
@@ -135,4 +137,4 @@ const Booking = () => {
   );
 };
 
-export default Booking;
+export default Bookings;

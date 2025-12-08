@@ -13,30 +13,6 @@ const PaymentSuccess = () => {
     const axiosSecure = useAxios(); 
     const [paymentStatus, setPaymentStatus] = useState("verifying"); 
 
-// useEffect(() => {
-//     if (!sessionId) return;
-
-//     let called = false; 
-
-//     const verifyPayment = async () => {
-//         if (called) return;  
-//         called = true;
-
-//         try {
-//             const res = await axiosSecure.post("/payment/verify", { sessionId });
-
-//             if (res.data.verified) {
-//                 setPaymentStatus("success");
-//             } else {
-//                 setPaymentStatus("failed");
-//             }
-//         } catch (err) {
-//             setPaymentStatus("error",err);
-//         }
-//     };
-
-//     verifyPayment();
-// }, [sessionId]); 
 
 const calledRef = useRef(false);
 useEffect(() => {
@@ -76,7 +52,7 @@ useEffect(() => {
         <div className="text-center mt-20">
             <h1 className={`${colorClass} text-2xl font-semibold`}>{message}</h1>
             <p className="mt-2 text-sm text-gray-600">Session ID: {sessionId}</p>
-            <Link to={"/dashboard/my-orders"}>
+            <Link to={"/dashboard/buyer-orders"}>
                 <button className='btn btn-primary mt-6'>Go to Dashboard</button>
             </Link>
         </div>
