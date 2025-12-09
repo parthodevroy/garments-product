@@ -6,6 +6,7 @@ import { toast } from 'react-toastify';
 import { useNavigate } from 'react-router';
 import axios from 'axios';
 import useAuth from '../../hooks/useAuth';
+import useUserStatus from '../../hooks/useUserStatus';
 
 const ProductCreated = () => {
 
@@ -14,6 +15,7 @@ const ProductCreated = () => {
   const axiosSecure = useAxios();
   const navigate = useNavigate();
   const {user}=useAuth()
+  const {isSuspended}=useUserStatus()
 
   // --- Image Preview Handler ---
   const handleImagePreview = (e) => {
@@ -24,6 +26,14 @@ const ProductCreated = () => {
 
   // --- Submit Product Form ---
   const onSubmit = async (data) => {
+    if (isSuspended) {
+        Swal.fire({
+          icon: "error",
+          title: "Suspended",
+          text: "You cannot created an product because you are suspended.cheek your profile for suspended reason"
+        });
+        return;
+      }
     try {
 
       // STEP 1: Upload all images to imgbb

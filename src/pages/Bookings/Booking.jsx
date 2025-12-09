@@ -50,7 +50,7 @@ const Bookings = () => {
     Swal.fire({
       icon: "error",
       title: "Suspended",
-      text: "You cannot place an order while suspended."
+      text: "You cannot place an order while suspended.cheek your profile for suspended reason"
     });
     return;
   }

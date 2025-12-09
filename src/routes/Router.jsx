@@ -30,6 +30,9 @@ import AllproductAdmin from "../pages/dashboard/AdminDashboard/AllproductAdmin";
 import CompletedOrder from "../pages/dashboard/managerOrder/CompletedOrder/CompletedOrder";
 import Setting from "../pages/dashboard/Setting/Setting";
 import ManagerDashboard from "../pages/dashboard/ManagerDashboard/ManagerDashboard";
+import AboutUs from "../pages/AboutUs/AboutUs";
+import ContactUs from "../pages/ContactUs/ContactUs";
+import AllOrder from "../pages/dashboard/AdminDashboard/AllOrder";
 
 
 export const router = createBrowserRouter([
@@ -41,7 +44,14 @@ export const router = createBrowserRouter([
         index: true,
         element: <Homepage />
       },
-      
+       {
+        path: "about-us",
+        Component:AboutUs
+      },
+      {
+        path: "contact-us",
+        Component:ContactUs
+      },
       
       
       {
@@ -99,6 +109,7 @@ export const router = createBrowserRouter([
         path: "setting",
         Component:Setting
       },
+     
       {
         path: "manager-dashboard-home",
         Component:ManagerDashboard
@@ -150,6 +161,11 @@ export const router = createBrowserRouter([
        {
         path:"all-products-admin",
         element:<AllproductAdmin/>
+
+      },
+       {
+        path:"all-orders",
+        element:<AllOrder/>
 
       },
       // {

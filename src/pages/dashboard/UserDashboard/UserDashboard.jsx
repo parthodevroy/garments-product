@@ -1,8 +1,8 @@
-import React from 'react';
-import useAxios from '../../../hooks/useAxios';
-import { useQuery } from '@tanstack/react-query';
-import useAuth from '../../../hooks/useAuth';
-import { data } from 'react-router';
+import React from "react";
+import useAxios from "../../../hooks/useAxios";
+import { useQuery } from "@tanstack/react-query";
+import { PieChart, Pie, Cell, Tooltip, Legend } from "recharts";
+import useAuth from "../../../hooks/useAuth";
 
 const UserDashboard = () => {
   const { user } = useAuth();
@@ -10,25 +10,32 @@ const UserDashboard = () => {
 
   // Fetch user's parcels
   const { data: parcels = [] } = useQuery({
-    queryKey: ['user-orders', user.email],
+    queryKey: ["user-orders", user?.email],
     queryFn: async () => {
       const res = await axiosSecure.get(`/orders?email=${user.email}`);
       return res.data;
-    }
+    },
+    enabled: !!user?.email,
   });
-  console.log(parcels);
-  
 
-  // Calculate stats
-  const deliveredCount = parcels.filter(p => p.deliveryStatus === 'accepted').length;
-  const pendingCount = parcels.filter(p => p.deliveryStatus !== 'accepted').length;
+  // Prepare data for PieChart
+  const deliveredCount = parcels.filter(p => p.orderStatus === "accepted").length;
+  const pendingCount = parcels.filter(p => p.orderStatus !== "accepted").length;
+
+  const pieData = [
+    { name: "Delivered", value: deliveredCount },
+    { name: "Pending", value: pendingCount },
+  ];
+
+  const COLORS = ["#00C49F", "#FF8042"];
 
   return (
     <div>
-      <h1 className="text-2xl font-bold mb-6">Your Parcel Status Now</h1>
+      <h1 className="text-2xl text-center font-bold mb-6">Your Parcel Status</h1>
 
-      {/* Stats */}
-      <div className="stats shadow mb-6">
+     <div className="flex max-w-6xl mx-auto">
+       {/* Stats */}
+      <div className="stats h-24 shadow mb-6">
         <div className="stat">
           <div className="stat-title">Delivered</div>
           <div className="stat-value">{deliveredCount}</div>
@@ -39,37 +46,27 @@ const UserDashboard = () => {
         </div>
       </div>
 
-      {/* Parcel Table */}
-     <div className="overflow-x-auto">
-  <table className="table">
-    {/* head */}
-    <thead>
-      <tr>
-       
-        <th>Name</th>
-        <th>Cost</th>
-        <th>status</th>
-        <th>parcel send</th>
-
-      </tr>
-    </thead>
-    <tbody>
-      {parcels.map(data=>
-       <tr key={data._id}>
-       
-        <td>{data.parcelName}</td>
-        <td>{data.cost}</td>
-        <td>{data.deliveryStatus}</td>
-        <td>{data.createdAt}</td>
-        
-      </tr>
-      
-      )}
-     
-    
-    </tbody>
-  </table>
-</div>
+      {/* PieChart */}
+      <div className="flex justify-center">
+        <PieChart width={400} height={400}>
+          <Pie
+            data={pieData}
+            dataKey="value"
+            cx="50%"
+            cy="50%"
+            outerRadius={120}
+            fill="#8884d8"
+            label={(entry) => `${entry.name}: ${entry.value}`}
+          >
+            {pieData.map((entry, index) => (
+              <Cell key={entry.name} fill={COLORS[index % COLORS.length]} />
+            ))}
+          </Pie>
+          <Tooltip />
+          <Legend verticalAlign="bottom" align="center" />
+        </PieChart>
+      </div>
+     </div>
     </div>
   );
 };

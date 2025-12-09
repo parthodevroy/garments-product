@@ -17,7 +17,7 @@ const SocialLogin = () => {
           email: result.user.email,
           displayName: result.user.displayName,
           photoURL: result.user.photoURL,
-          role: "buyer", 
+          role: "Buyer", 
          
         };
 

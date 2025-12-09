@@ -169,7 +169,7 @@ const UserManagement = () => {
     const newStatus = user.status === "approved" ? "pending" : "approved";
 
     Swal.fire({
-      title: newStatus === "approved" ? "Approve User?" : "Make Pending?",
+      title: newStatus === "approved" ? "Approve User?" : "Pending?",
       text: `This user will be set to "${newStatus}".`,
       icon: "warning",
       showCancelButton: true,
@@ -196,53 +196,86 @@ const UserManagement = () => {
 
 
   // --- Suspend user ---
- const handleSuspendUser = (user) => {
-  if (user.status !== "suspended") {
-    // --- Suspend user with reason ---
+  const handleSuspendUser = (user) => {
+    if (user.status !== "suspended") {
+      // --- Suspend user with reason ---
+      Swal.fire({
+        title: `Suspend ${user.displayName}?`,
+        input: 'text',
+        inputLabel: 'Reason for suspension',
+        inputPlaceholder: 'Enter reason...',
+        showCancelButton: true,
+        confirmButtonText: 'Suspend',
+        cancelButtonText: 'Cancel',
+        inputValidator: (value) => {
+          if (!value) return 'You must provide a reason!';
+        }
+      }).then((result) => {
+        if (result.isConfirmed) {
+          axiosSecure.patch(`/user/${user._id}`, { status: "suspended", suspendReason: result.value })
+            .then(res => {
+              if (res.data.modifiedCount) {
+                refetch();
+                Swal.fire("Suspended!", `${user.displayName} is now suspended.`, "success");
+              }
+            });
+        }
+      });
+    } else {
+      // --- Unsuspend user without reason ---
+      Swal.fire({
+        title: `Remove suspension for ${user.displayName}?`,
+        text: "User will return to previous status.",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonText: 'Yes, remove suspension',
+        cancelButtonText: 'Cancel',
+      }).then((result) => {
+        if (result.isConfirmed) {
+          axiosSecure.patch(`/user/${user._id}`, { status: "approved", suspendReason: "" })
+            .then(res => {
+              if (res.data.modifiedCount) {
+                refetch();
+                Swal.fire("Success!", `${user.displayName} is no longer suspended.`, "success");
+              }
+            });
+        }
+      });
+    }
+  };
+  const handleRoleChange = (user) => {
     Swal.fire({
-      title: `Suspend ${user.displayName}?`,
-      input: 'text',
-      inputLabel: 'Reason for suspension',
-      inputPlaceholder: 'Enter reason...',
+      title: `Change Role for ${user.displayName}`,
+      input: "select",
+      inputOptions: {
+        admin: "Admin",
+        manager: "Manager",
+        buyer: "Buyer"
+      },
+      inputPlaceholder: "Select new role",
       showCancelButton: true,
-      confirmButtonText: 'Suspend',
-      cancelButtonText: 'Cancel',
+      confirmButtonText: "Update Role",
+      cancelButtonText: "Cancel",
       inputValidator: (value) => {
-        if (!value) return 'You must provide a reason!';
+        if (!value) return "Please select a role!";
       }
     }).then((result) => {
       if (result.isConfirmed) {
-        axiosSecure.patch(`/user/${user._id}`, { status: "suspended", suspendReason: result.value })
+        axiosSecure.patch(`/user-role/${user._id}`, { role: result.value })
           .then(res => {
             if (res.data.modifiedCount) {
               refetch();
-              Swal.fire("Suspended!", `${user.displayName} is now suspended.`, "success");
+              Swal.fire(
+                "Updated!",
+                `${user.displayName} is now ${result.value}.`,
+                "success"
+              );
             }
           });
       }
     });
-  } else {
-    // --- Unsuspend user without reason ---
-    Swal.fire({
-      title: `Remove suspension for ${user.displayName}?`,
-      text: "User will return to previous status.",
-      icon: "warning",
-      showCancelButton: true,
-      confirmButtonText: 'Yes, remove suspension',
-      cancelButtonText: 'Cancel',
-    }).then((result) => {
-      if (result.isConfirmed) {
-        axiosSecure.patch(`/user/${user._id}`, { status: "approved", suspendReason: "" })
-          .then(res => {
-            if (res.data.modifiedCount) {
-              refetch();
-              Swal.fire("Success!", `${user.displayName} is no longer suspended.`, "success");
-            }
-          });
-      }
-    });
-  }
-};
+  };
+
 
 
   return (
@@ -288,8 +321,16 @@ const UserManagement = () => {
                     className="btn bg-blue-500 text-white"
                     title="Toggle Approve"
                   >
-                    {user.status === "approved" ? "Make Pending" : "Approve"}
+                    {user.status === "approved" ? "Pending" : "Approve"}
                   </button>
+                  {/* role update */}
+                  <button
+                    onClick={() => handleRoleChange(user)}
+                    className="btn bg-purple-600 text-white"
+                  >
+                    Change Role
+                  </button>
+
 
                   {/* Suspend Button */}
                   {user.status !== "suspended" ? (
@@ -300,8 +341,8 @@ const UserManagement = () => {
                     >
                       <FiShieldOff />
                     </button>
-                  ):(
-                     <button
+                  ) : (
+                    <button
                       onClick={() => handleSuspendUser(user)}
                       className="btn bg-red-500 text-white"
                       title=""
@@ -310,7 +351,7 @@ const UserManagement = () => {
                     </button>
 
                   )
-                }
+                  }
                 </td>
 
               </tr>

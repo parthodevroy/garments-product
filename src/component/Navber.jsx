@@ -93,7 +93,7 @@ const Navbar = () => {
 
       <li>
         <NavLink
-          to="/contact"
+          to="/contact-us"
           className={({ isActive }) =>
             isActive
               ? "text-teal-600 font-bold border-b-2 border-teal-600 px-2 py-1"
@@ -106,7 +106,7 @@ const Navbar = () => {
 
       <li>
         <NavLink
-          to="/about"
+          to="/about-us"
           className={({ isActive }) =>
             isActive
               ? "text-teal-600 font-bold border-b-2 border-teal-600 px-2 py-1"
@@ -162,7 +162,7 @@ const Navbar = () => {
   // UI Rendering
   // ---------------------
   return (
-    <nav className="bg-white w-full px-4 py-4 flex justify-between items-center sticky top-0 z-50">
+    <nav className="bg-white w-full h-30 px-4 py-4 flex justify-between items-center sticky top-0 z-50">
       <NavLink to="/" className="text-2xl font-bold text-teal-600">
         <Logo />
       </NavLink>

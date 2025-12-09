@@ -162,18 +162,18 @@ const DashBoard = () => {
 
                   </li>
                 </Link>
-                {/* <Link to={"/dashboard/rider-approval"}>
+                <Link to={"/dashboard/all-orders"}>
                   <li>
 
-                    <button className="is-drawer-close:tooltip is-drawer-close:tooltip-right" data-tip="manager approval">
+                    <button className="is-drawer-close:tooltip is-drawer-close:tooltip-right" data-tip="All-Orders">
 
 
                       <RiSecurePaymentFill />
-                      <span className="is-drawer-close:hidden">Manager approval</span>
+                      <span className="is-drawer-close:hidden">All Orders</span>
                     </button>
 
                   </li>
-                </Link> */}
+                </Link>
               </>
             }
 
