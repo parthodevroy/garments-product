@@ -27,6 +27,9 @@ import BuyerOrderDetailsTimeline from "../pages/BuyerOrderDetailsTimeline/BuyerO
 import TrackOrderForm from "../pages/BuyerOrderDetailsTimeline/TrackOrderForm";
 import UserManagement from "../pages/dashboard/UserManagement/UserManagement";
 import AllproductAdmin from "../pages/dashboard/AdminDashboard/AllproductAdmin";
+import CompletedOrder from "../pages/dashboard/managerOrder/CompletedOrder/CompletedOrder";
+import Setting from "../pages/dashboard/Setting/Setting";
+import ManagerDashboard from "../pages/dashboard/ManagerDashboard/ManagerDashboard";
 
 
 export const router = createBrowserRouter([
@@ -82,15 +85,23 @@ export const router = createBrowserRouter([
   {
     path: "/dashboard",
     element: (
-      <PrivateRoutes>
+     
         <DashBoard></DashBoard>
-      </PrivateRoutes>
+     
     ),
     children: [
       {
         index:true,
         element:<DashboardHome></DashboardHome>
 
+      },
+      {
+        path: "setting",
+        Component:Setting
+      },
+      {
+        path: "manager-dashboard-home",
+        Component:ManagerDashboard
       },
       {
         path: "manager-created-product",
@@ -129,6 +140,11 @@ export const router = createBrowserRouter([
        {
         path:"manage-order",
         element:<ManagerOrder/>
+
+      },
+       {
+        path:"completed-order",
+        element:<CompletedOrder/>
 
       },
        {

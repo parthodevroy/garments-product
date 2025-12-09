@@ -10,9 +10,9 @@ const UserDashboard = () => {
 
   // Fetch user's parcels
   const { data: parcels = [] } = useQuery({
-    queryKey: ['user-parcels', user.email],
+    queryKey: ['user-orders', user.email],
     queryFn: async () => {
-      const res = await axiosSecure.get(`/parcels?email=${user.email}`);
+      const res = await axiosSecure.get(`/orders?email=${user.email}`);
       return res.data;
     }
   });
@@ -20,8 +20,8 @@ const UserDashboard = () => {
   
 
   // Calculate stats
-  const deliveredCount = parcels.filter(p => p.deliveryStatus === 'parcel_deliverd').length;
-  const pendingCount = parcels.filter(p => p.deliveryStatus !== 'parcel_deliverd').length;
+  const deliveredCount = parcels.filter(p => p.deliveryStatus === 'accepted').length;
+  const pendingCount = parcels.filter(p => p.deliveryStatus !== 'accepted').length;
 
   return (
     <div>

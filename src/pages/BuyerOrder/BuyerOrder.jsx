@@ -81,14 +81,16 @@ const BuyerOrder = () => {
               <td>${o.totalPrice}</td>
 
               <td>
-                {o.paymentStatus === "paid" ? (
-                  <span className="text-green-600 font-bold">Paid</span>
-                ) : (
-                  <Link to={`/dashboard/payment/${o._id}`}>
-                    <button className="btn btn-primary btn-sm">Pay</button>
-                  </Link>
-                )}
-              </td>
+  {o.paymentStatus === "paid" ? (
+    <span className="text-green-600 font-bold">Paid</span>
+  ) : o.payment_method === "PayFast" ? (
+    <Link to={`/dashboard/payment/${o._id}`}>
+      <button className="btn btn-primary btn-sm">Pay</button>
+    </Link>
+  ) : (
+    <span className="text-blue-600 font-bold">Cash on Delivery</span>
+  )}
+</td>
 
               <td>
                 <Link to={`/order-log/${o.orderId}`} className="text-blue-600 underline">

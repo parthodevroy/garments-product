@@ -5,11 +5,14 @@ import Swal from "sweetalert2";
 import useAxios from "../../hooks/useAxios";
 import useAuth from "../../hooks/useAuth";
 import { toast } from "react-toastify";
+import useUserStatus from "../../hooks/useUserStatus";
 
 const Bookings = () => {
   const { user } = useAuth();
   const axiosSecure = useAxios();
   const navigate = useNavigate();
+  const { isSuspended, } = useUserStatus();
+
 
   const { state } = useLocation();
   const product = state?.product;  
@@ -39,9 +42,20 @@ const Bookings = () => {
     }
     return true;
   };
+ 
+  
 
   const onSubmit = (data) => {
+   if (isSuspended) {
+    Swal.fire({
+      icon: "error",
+      title: "Suspended",
+      text: "You cannot place an order while suspended."
+    });
+    return;
+  }
     if (!validateOrder(data)) return;
+    
 
     Swal.fire({
       title: "Confirm Order?",
@@ -58,7 +72,9 @@ const Bookings = () => {
           unitPrice: product.price_usd,
           totalPrice: data.orderPrice,
           customerEmail: user?.email,
-          manageremail:product.createdBy
+          manageremail:product.createdBy,
+          payment_method:product.payment_method
+
         };
 
         axiosSecure.post("/order", orderData).then((res) => {

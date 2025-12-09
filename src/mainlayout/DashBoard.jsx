@@ -103,11 +103,11 @@ const DashBoard = () => {
 
                <Link to={"/dashboard/manager-created-product"}>
                   <li>
-                    <button className="is-drawer-close:tooltip is-drawer-close:tooltip-right" data-tip="My-Products">
+                    <button className="is-drawer-close:tooltip is-drawer-close:tooltip-right" data-tip="Manage-Products">
 
 
                       <FaProductHunt />
-                      <span className="is-drawer-close:hidden">My Product</span>
+                      <span className="is-drawer-close:hidden">Manage Product</span>
                     </button>
                   </li>
                 </Link>
@@ -120,11 +120,7 @@ const DashBoard = () => {
                     </button>
                   </li>
                 </Link>
-               
-
-
-
-                <Link to={"/dashboard/completed-delivery"}>
+               <Link to={"/dashboard/completed-order"}>
                   <li>
 
                     <button className="is-drawer-close:tooltip is-drawer-close:tooltip-right" data-tip="Completed-Ordered">
@@ -166,7 +162,7 @@ const DashBoard = () => {
 
                   </li>
                 </Link>
-                <Link to={"/dashboard/rider-approval"}>
+                {/* <Link to={"/dashboard/rider-approval"}>
                   <li>
 
                     <button className="is-drawer-close:tooltip is-drawer-close:tooltip-right" data-tip="manager approval">
@@ -177,7 +173,7 @@ const DashBoard = () => {
                     </button>
 
                   </li>
-                </Link>
+                </Link> */}
               </>
             }
 
@@ -185,6 +181,7 @@ const DashBoard = () => {
 
 
             {/* List item */}
+           <Link to={"/dashboard/setting"}>
             <li>
               <button className="is-drawer-close:tooltip is-drawer-close:tooltip-right" data-tip="Settings">
                 {/* Settings icon */}
@@ -192,6 +189,7 @@ const DashBoard = () => {
                 <span className="is-drawer-close:hidden">Settings</span>
               </button>
             </li>
+           </Link>
           </ul>
         </div>
       </div>

@@ -1,7 +1,8 @@
 import axios from 'axios';
 import React, { useEffect } from 'react';
-import useAuth from './useAuth';
+
 import { useNavigate } from 'react-router';
+import useAuth from './useAuth';
 
 const axiosSecure=axios.create({
     baseURL:"http://localhost:3000"
@@ -25,15 +26,15 @@ const useAxios = () => {
     return response;
   }, (error)=> {
     console.log(error);
-//    const statusCod = error.response?.status;
+   const statusCod = error.response?.status;
 
-//     if (statusCod===401 || statusCod===403) {
-//         signout()
-//         .then(()=>{
-//             navigate("/login")
+    // if (statusCod===401 || statusCod===403) {
+    //     signout()
+    //     .then(()=>{
+    //         navigate("/login")
 
-//         })
-//         }
+    //     })
+    //     }
 
     
     

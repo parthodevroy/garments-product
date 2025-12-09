@@ -52,6 +52,7 @@ const ProductCreated = () => {
   price_usd: parseFloat(data.price),
   available_quantity: parseInt(data.quantity),
   minimum_order: parseInt(data.moq),
+  payment_method:data.paymentOption,
 
   product_image: uploadedImageUrls?.[0] || "",
   demo_video: data.demoVideo,

@@ -12,9 +12,14 @@ const useRole = () => {
             const res=await axiosSecure.get(`/user/${user.email}/role`)
             return res.data?.role || "buyer";
 
+
         }
+      
+        
     })
     return {role,adminloading}
+    
+    
 };
 
 export default useRole;

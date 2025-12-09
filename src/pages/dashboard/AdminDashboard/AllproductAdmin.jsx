@@ -3,6 +3,7 @@ import axios from 'axios';
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router';
+import Swal from 'sweetalert2';
 
 const AllproductAdmin = () => {
     const queryClient = useQueryClient();
@@ -51,7 +52,13 @@ const AllproductAdmin = () => {
         e.preventDefault();
         try {
             await axios.put(`http://localhost:3000/products/${editingProduct._id}`, formData);
-            alert("Product updated successfully!");
+            Swal.fire({
+                position: "top-end",
+                icon: "success",
+                title: `your status has been ${status}`,
+                showConfirmButton: false,
+                timer: 2000
+            });
             setEditingProduct(null);
             queryClient.invalidateQueries(["products"]); // Refresh product list
         } catch (err) {

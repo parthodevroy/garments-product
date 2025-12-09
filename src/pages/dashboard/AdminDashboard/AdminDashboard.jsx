@@ -11,7 +11,7 @@ const AdminDashboard = () => {
     const { data: stats = [] } = useQuery({
         queryKey: ["delivery-status-stats"],
         queryFn: async () => {
-            const res = await axiosSecure.get("/parcels/delivery-status/status");
+            const res = await axiosSecure.get("/orders/delivery-status/status");
             return res.data;
         }
     });
@@ -41,7 +41,7 @@ const AdminDashboard = () => {
 
     return (
         <div>
-            <h1 className="text-2xl font-bold mb-6">Admin Dashboard</h1>
+            <h1 className="text-2xl font-bold mb-6"> Order Status</h1>
 
            {/* status show */}
             <div className="stats max-w-full shadow mb-10">

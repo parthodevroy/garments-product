@@ -1,7 +1,8 @@
 
 import React, { useEffect, useRef, useState } from 'react';
 import { Link, useSearchParams } from 'react-router'; 
-import useAxios from '../../hooks/useAxios';
+
+import axios from 'axios';
 
 
 
@@ -10,11 +11,26 @@ const PaymentSuccess = () => {
     const [searchParams] = useSearchParams();
     const sessionId = searchParams.get("session_id");
 
-    const axiosSecure = useAxios(); 
+    
     const [paymentStatus, setPaymentStatus] = useState("verifying"); 
 
 
 const calledRef = useRef(false);
+// useEffect(() => {
+//     if (!sessionId) return;
+//     if (calledRef.current) return;
+//     calledRef.current = true;
+
+//     const verifyPayment = async () => {
+//         try {
+//             const res = await axiosSecure.post("/payment/verify", { sessionId });
+//             setPaymentStatus(res.data.verified ? "success" : "failed");
+//         } catch (err) {
+//             setPaymentStatus("error",err);
+//         }
+//     };
+//     verifyPayment();
+// }, [sessionId]);
 useEffect(() => {
     if (!sessionId) return;
     if (calledRef.current) return;
@@ -22,14 +38,18 @@ useEffect(() => {
 
     const verifyPayment = async () => {
         try {
-            const res = await axiosSecure.post("/payment/verify", { sessionId });
+            console.log("Verifying Payment, sessionId:", sessionId);  // ✅ এখানে দেখবে sessionId
+            const res = await axios.post("http://localhost:3000/payment/verify", { sessionId });
+            console.log("Payment verify response:", res.data);  // ✅ এখানে দেখবে API থেকে কি response এসেছে
             setPaymentStatus(res.data.verified ? "success" : "failed");
         } catch (err) {
-            setPaymentStatus("error",err);
+            console.error("Payment verify error:", err); // ✅ কোনো error এসেছে কি না
+            setPaymentStatus("error");
         }
     };
     verifyPayment();
 }, [sessionId]);
+
 
    
     if (paymentStatus === "verifying") {

@@ -4,6 +4,7 @@ import React from 'react';
 import { useParams } from 'react-router';
 import useAxios from '../../../hooks/useAxios';
 import useAuth from '../../../hooks/useAuth';
+
 ;
 
 const Payment = () => {
@@ -28,7 +29,7 @@ const Payment = () => {
 
     const handelPayment = async () => {
         const userInfo = {
-            totalPrice:parcel.totalPrice, // your actual field
+            totalPrice:parcel.totalPrice, 
             productName: parcel.productName,
             orderId: parcel._id,
             buyerEmail: user?.email,

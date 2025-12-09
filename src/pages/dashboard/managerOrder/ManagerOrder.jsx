@@ -31,23 +31,20 @@ const ManagerOrder = () => {
   };
 
   const handleTrackingUpdate = (orderId, step) => {
-    axiosSecure
-      .patch(`/orders/${orderId}/tracking`, { step })
-      .then(() => {
-        toast.success(`Tracking updated: ${step}`);
-        setOrders(prev =>
-          prev.map(order =>
-            order._id === orderId
-              ? {
-                ...order,
-                trackingLog: [...(order.trackingLog || []), { step, date: new Date() }]
-              }
-              : order
-          )
-        );
-      })
-      .catch(err => console.error(err));
-  };
+  axiosSecure
+    .patch(`/orders/${orderId}/tracking`, { step })
+    .then(res => {
+      toast.success(`Tracking updated: ${step}`);
+      // Update frontend state with latest order from server
+      setOrders(prev =>
+        prev.map(order =>
+          order._id === orderId ? res.data : order
+        )
+      );
+    })
+    .catch(err => console.error(err));
+};
+
 
 
 

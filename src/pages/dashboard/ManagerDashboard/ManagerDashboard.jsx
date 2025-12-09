@@ -4,7 +4,7 @@ import { useQuery } from '@tanstack/react-query';
 import { Legend, Pie, PieChart, Tooltip, Cell } from 'recharts';
 import useAuth from '../../../hooks/useAuth';
 
-const RiderDashboard = () => {
+const ManagerDashboard = () => {
     
   const axiosSecure = useAxios();
 const { user } = useAuth();
@@ -12,7 +12,7 @@ const { user } = useAuth();
 const { data: deliverd = [] } = useQuery({
   queryKey: ["delivery-status-stats", user.email],
   queryFn: async () => {
-    const res = await axiosSecure.get(`/rider/delivery-per-day?email=${user.email}`);
+    const res = await axiosSecure.get(`/manager/delivery-per-day?email=${user.email}`);
     return res.data;
   }
 });
@@ -78,4 +78,4 @@ console.log(deliverd);
   );
 };
 
-export default RiderDashboard;
+export default ManagerDashboard;
