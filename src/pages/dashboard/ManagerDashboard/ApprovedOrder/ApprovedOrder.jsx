@@ -4,6 +4,8 @@ import { toast } from "react-toastify";
 import useAuth from "../../../../hooks/useAuth";
 import useAxios from "../../../../hooks/useAxios";
 import { Link } from "react-router";
+import useUserStatus from "../../../../hooks/useUserStatus";
+import Swal from "sweetalert2";
 
 const ApprovedOrder = () => {
   const { user } = useAuth();
@@ -11,6 +13,7 @@ const ApprovedOrder = () => {
   const [orders, setOrders] = useState([]);
   const [selectedOrder, setSelectedOrder] = useState(null);
   const [trackingStep, setTrackingStep] = useState("");
+  const {isSuspended}=useUserStatus()
 
   const fetchOrders = () => {
     axiosSecure
@@ -24,6 +27,14 @@ const ApprovedOrder = () => {
   }, [user]);
 
   const handleAddTracking = (orderId) => {
+     if (isSuspended) {
+            Swal.fire({
+              icon: "error",
+              title: "Suspended",
+              text: "You cannot created an product because you are suspended.cheek your profile for suspended reason"
+            });
+            return;
+          }
     if (!trackingStep) return toast.error("Select a step");
     axiosSecure
       .patch(`/orders/${orderId}/tracking`, { step: trackingStep })

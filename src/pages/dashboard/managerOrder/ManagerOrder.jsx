@@ -124,15 +124,12 @@ import React, { useEffect, useState } from "react";
 import useAxios from "../../../hooks/useAxios";
 import useAuth from "../../../hooks/useAuth";
 import { toast } from "react-toastify";
-import useUserStatus from "../../../hooks/useUserStatus";
-import Swal from "sweetalert2";
 
 const ManagerOrder = () => {
   const { user } = useAuth();
   const axiosSecure = useAxios();
   const [orders, setOrders] = useState([]);
   const [selectedOrder, setSelectedOrder] = useState(null);
-  const {isSuspended}=useUserStatus()
 
 
   // Fetch pending orders for this manager
@@ -149,14 +146,7 @@ const ManagerOrder = () => {
 
   // Accept / Reject order
   const handleStatusChange = (orderId, status) => {
-     if (isSuspended) {
-            Swal.fire({
-              icon: "error",
-              title: "Suspended",
-              text: "You cannot created an product because you are suspended.cheek your profile for suspended reason"
-            });
-            return;
-          }
+    
     axiosSecure
       .patch(`/orders/${orderId}/status`, { status })
       .then(() => {

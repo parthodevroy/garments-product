@@ -3,11 +3,16 @@ import { Link, Outlet } from 'react-router';
 import { RiSecurePaymentFill } from "react-icons/ri";
 import { FaProductHunt, FaUser } from 'react-icons/fa6';
 import useRole from '../hooks/useRole';
-import { SiRider } from "react-icons/si";
+import { SiManageiq, SiRider } from "react-icons/si";
 import LoadingPage from '../component/LoadingPage/LoadingPage';
 import Logo from '../component/Logo';
-
-
+import { MdDashboardCustomize, MdOutlineCreateNewFolder, MdPendingActions, MdProductionQuantityLimits } from 'react-icons/md';
+import { FaHistory, FaUsers } from 'react-icons/fa';
+import { ImProfile } from "react-icons/im";
+import { GrDeliver } from "react-icons/gr";
+import { GiClothes } from "react-icons/gi";
+import { IoMdCloudDone } from "react-icons/io";
+import { MdApproval } from "react-icons/md";
 
 const DashBoard = () => {
   const { role, isLoading } = useRole()
@@ -45,54 +50,35 @@ const DashBoard = () => {
             {/* List item */}
 
             <Link to={"/"}><li className='w-16'>
-              <Logo/>
+              <Logo />
 
             </li></Link>
             <li>
               <Link to={"/dashboard"} className="is-drawer-close:tooltip is-drawer-close:tooltip-right" data-tip="Your Dashbaord">
                 {/* Home icon */}
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" strokeLinejoin="round" strokeLinecap="round" strokeWidth="2" fill="none" stroke="currentColor" className="my-1.5 inline-block size-4"><path d="M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8"></path><path d="M3 10a2 2 0 0 1 .709-1.528l7-5.999a2 2 0 0 1 2.582 0l7 5.999A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path></svg>
+                <MdDashboardCustomize />
                 <span className="is-drawer-close:hidden">Your Dashboard</span>
+
               </Link>
             </li>
 
 
-            {/* my parcels */}
-            {/* <Link to={"/dashboard/Buyer-products"}>
-            <li>
-              <button className="is-drawer-close:tooltip is-drawer-close:tooltip-right" data-tip="My-Products">
-               
-
-                <FaProductHunt />
-                <span className="is-drawer-close:hidden">My Product</span>
-              </button>
-            </li>
-            </Link> */}
 
             {/* only rider see this page */}
             {
               role === "buyer" && <>
 
-               <Link to={"/dashboard/buyer-orders"}>
+                <Link to={"/dashboard/buyer-orders"}>
                   <li>
 
                     <button className="is-drawer-close:tooltip is-drawer-close:tooltip-right" data-tip="All-Ordered">
-                     
-                      <RiSecurePaymentFill />
+
+                      <MdProductionQuantityLimits />
                       <span className="is-drawer-close:hidden">All Ordered</span>
                     </button>
                   </li>
                 </Link>
-               {/* <Link to={"/dashboard/track-order"}>
-                  <li>
 
-                    <button className="is-drawer-close:tooltip is-drawer-close:tooltip-right" data-tip="Track-Ordered">
-                     
-                      <RiSecurePaymentFill />
-                      <span className="is-drawer-close:hidden">Track Ordered</span>
-                    </button>
-                  </li>
-                </Link> */}
 
                 <Link to={"/dashboard/payment-history"}>
                   <li>
@@ -100,43 +86,42 @@ const DashBoard = () => {
                     <button className="is-drawer-close:tooltip is-drawer-close:tooltip-right" data-tip="Payment History">
                       {/* Settings icon */}
 
-                      <RiSecurePaymentFill />
+                      <FaHistory></FaHistory>
                       <span className="is-drawer-close:hidden">Payment History</span>
                     </button>
                   </li>
                 </Link>
                 <Link to={"/dashboard/setting"}>
-            <li>
-              <button className="is-drawer-close:tooltip is-drawer-close:tooltip-right" data-tip="My-Profile">
-                {/* Settings icon */}
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" strokeLinejoin="round" strokeLinecap="round" strokeWidth="2" fill="none" stroke="currentColor" className="my-1.5 inline-block size-4"><path d="M20 7h-9"></path><path d="M14 17H5"></path><circle cx="17" cy="17" r="3"></circle><circle cx="7" cy="7" r="3"></circle></svg>
-                <span className="is-drawer-close:hidden">My Profile</span>
-              </button>
-            </li>
-           </Link>
-               
+                  <li>
+                    <button className="is-drawer-close:tooltip is-drawer-close:tooltip-right" data-tip="My-Profile">
+                      {/* Settings icon */}
+                      <ImProfile />
+                      <span className="is-drawer-close:hidden">My Profile</span>
+                    </button>
+                  </li>
+                </Link>
+
               </>
             }
             {
               role === "Manager" && <>
-              
 
-               <Link to={"/productcreated"}>
+
+                <Link to={"/productcreated"}>
                   <li>
                     <button className="is-drawer-close:tooltip is-drawer-close:tooltip-right" data-tip="Created-Products">
 
-
-                      <FaProductHunt />
+                      <MdOutlineCreateNewFolder/>
                       <span className="is-drawer-close:hidden">Created Product</span>
                     </button>
                   </li>
                 </Link>
-               <Link to={"/dashboard/manager-created-product"}>
+                <Link to={"/dashboard/manager-created-product"}>
                   <li>
                     <button className="is-drawer-close:tooltip is-drawer-close:tooltip-right" data-tip="Manage-Products">
 
 
-                      <FaProductHunt />
+                      <SiManageiq />
                       <span className="is-drawer-close:hidden">Manage Product</span>
                     </button>
                   </li>
@@ -145,22 +130,22 @@ const DashBoard = () => {
                   <li>
 
                     <button className="is-drawer-close:tooltip is-drawer-close:tooltip-right" data-tip="Pending Order">
-                      <FaUser />
+                     <MdPendingActions />
                       <span className="is-drawer-close:hidden">Pending Order</span>
                     </button>
                   </li>
                 </Link>
-               <Link to={"/dashboard/completed-order"}>
+                <Link to={"/dashboard/completed-order"}>
                   <li>
 
                     <button className="is-drawer-close:tooltip is-drawer-close:tooltip-right" data-tip="Completed-Ordered">
-                      <FaUser />
+                     <IoMdCloudDone />
                       <span className="is-drawer-close:hidden">Completed Ordered</span>
                     </button>
 
                   </li>
                 </Link>
-               {/* <Link to={"/dashboard/pending-order"}>
+                {/* <Link to={"/dashboard/pending-order"}>
                   <li>
 
                     <button className="is-drawer-close:tooltip is-drawer-close:tooltip-right" data-tip="Pending-Ordered">
@@ -170,21 +155,21 @@ const DashBoard = () => {
 
                   </li>
                 </Link> */}
-               <Link to={"/dashboard/approved-order"}>
+                <Link to={"/dashboard/approved-order"}>
                   <li>
 
                     <button className="is-drawer-close:tooltip is-drawer-close:tooltip-right" data-tip="Approved-Ordered">
-                      <FaUser />
+                     <MdApproval/>
                       <span className="is-drawer-close:hidden">Approved Ordered</span>
                     </button>
 
                   </li>
                 </Link>
-               <Link to={"/dashboard/manager-profile"}>
+                <Link to={"/dashboard/manager-profile"}>
                   <li>
 
                     <button className="is-drawer-close:tooltip is-drawer-close:tooltip-right" data-tip="my-profile">
-                      <FaUser />
+                     <ImProfile />
                       <span className="is-drawer-close:hidden">My-profile</span>
                     </button>
 
@@ -204,7 +189,7 @@ const DashBoard = () => {
                     <button className="is-drawer-close:tooltip is-drawer-close:tooltip-right" data-tip="User Management">
 
 
-                      <FaUser />
+                      <FaUsers />
                       <span className="is-drawer-close:hidden">User Management</span>
                     </button>
 
@@ -216,7 +201,7 @@ const DashBoard = () => {
                     <button className="is-drawer-close:tooltip is-drawer-close:tooltip-right" data-tip="All Products">
 
 
-                      <SiRider />
+                      <GiClothes />
                       <span className="is-drawer-close:hidden">All Products</span>
                     </button>
 
@@ -228,7 +213,7 @@ const DashBoard = () => {
                     <button className="is-drawer-close:tooltip is-drawer-close:tooltip-right" data-tip="All-Orders">
 
 
-                      <RiSecurePaymentFill />
+                      <GrDeliver />
                       <span className="is-drawer-close:hidden">All Orders</span>
                     </button>
 
@@ -241,7 +226,7 @@ const DashBoard = () => {
 
 
             {/* List item */}
-           
+
           </ul>
         </div>
       </div>
