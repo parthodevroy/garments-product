@@ -33,6 +33,11 @@ import ManagerDashboard from "../pages/dashboard/ManagerDashboard/ManagerDashboa
 import AboutUs from "../pages/AboutUs/AboutUs";
 import ContactUs from "../pages/ContactUs/ContactUs";
 import AllOrder from "../pages/dashboard/AdminDashboard/AllOrder";
+import PendingOrder from "../pages/dashboard/ManagerDashboard/PendingOrder/PendingOrder";
+import ManagerProfile from "../pages/dashboard/managerOrder/ManagerProfile/ManagerProfile";
+import ApprovedOrder from "../pages/dashboard/ManagerDashboard/ApprovedOrder/ApprovedOrder";
+import TrackOrder from "../pages/dashboard/BuyerOrderProducts/TrackOrder/TrackOrder";
+import BuyerOrderDetails from "../pages/BuyerOrder/BuyerOrderDetails";
 
 
 export const router = createBrowserRouter([
@@ -131,6 +136,14 @@ export const router = createBrowserRouter([
         Component:TrackOrderForm
       },
       {
+        path: "track-order/:orderId",
+        element:<TrackOrder></TrackOrder>
+      },
+      {
+        path: "buyer-orders/:orderId",
+        element:<PrivateRoutes><BuyerOrderDetails></BuyerOrderDetails></PrivateRoutes>
+      },
+      {
         path: "payment/:orderId",
         Component: Payment
       },
@@ -156,6 +169,21 @@ export const router = createBrowserRouter([
        {
         path:"completed-order",
         element:<CompletedOrder/>
+
+      },
+       {
+        path:"pending-order",
+        element:<PendingOrder></PendingOrder>
+
+      },
+       {
+        path:"approved-order",
+        element:<ApprovedOrder></ApprovedOrder>
+
+      },
+       {
+        path:"manager-profile",
+        element:<PrivateRoutes><ManagerProfile></ManagerProfile></PrivateRoutes>
 
       },
        {

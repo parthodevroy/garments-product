@@ -145,153 +145,97 @@
 // };
 
 // export default UserManagement;
-import React, { useState } from 'react';
-import useAxios from '../../../hooks/useAxios';
-import { useQuery } from '@tanstack/react-query';
-import Swal from 'sweetalert2';
-import { FiShield, FiShieldOff } from "react-icons/fi";
-import { FaUserShield } from 'react-icons/fa6';
+// src/pages/admin/UserManagement.jsx
+import React, { useState, useEffect } from "react";
+import useAxios from "../../../hooks/useAxios";
+import { useQuery } from "@tanstack/react-query";
+import Swal from "sweetalert2";
 
 const UserManagement = () => {
-  const [searchUser, setSearchUser] = useState('');
+  const [searchUser, setSearchUser] = useState("");
   const axiosSecure = useAxios();
 
-  const { data: users = [], refetch } = useQuery({
+  const { data: users = [], refetch, isLoading } = useQuery({
     queryKey: ["users", searchUser],
     queryFn: async () => {
-      const res = await axiosSecure.get(`/user?searchUser=${searchUser}`);
+      const res = await axiosSecure.get(`/user?serceUser=${searchUser}`);
       return res.data;
-    }
+    },
   });
 
-  // --- Approve user ---
-  const handleToggleApprove = (user) => {
-    const newStatus = user.status === "approved" ? "pending" : "approved";
+  const [showModal, setShowModal] = useState(false);
+  const [selectedUser, setSelectedUser] = useState(null);
 
-    Swal.fire({
-      title: newStatus === "approved" ? "Approve User?" : "Pending?",
-      text: `This user will be set to "${newStatus}".`,
-      icon: "warning",
-      showCancelButton: true,
-      confirmButtonText: "Yes, continue"
-    }).then((result) => {
-      if (result.isConfirmed) {
-        axiosSecure.patch(`/user/${user._id}`, {
-          status: newStatus,
-          suspendReason: ""
-        })
-          .then(res => {
-            if (res.data.modifiedCount) {
-              refetch();
-              Swal.fire(
-                "Success!",
-                `${user.displayName} is now ${newStatus}.`,
-                "success"
-              );
-            }
-          });
-      }
-    });
+  // Modal state
+  const [status, setStatus] = useState("pending");
+  const [suspendReason, setSuspendReason] = useState("");
+  const [saving, setSaving] = useState(false);
+
+  useEffect(() => {
+    if (selectedUser) {
+      setStatus(selectedUser.status || "pending");
+      setSuspendReason(selectedUser.suspendReason || "");
+    } else {
+      setStatus("pending");
+      setSuspendReason("");
+    }
+  }, [selectedUser]);
+
+  const openUpdateModal = (user) => {
+    setSelectedUser(user);
+    setShowModal(true);
   };
 
+  const closeModal = () => {
+    setShowModal(false);
+    setSelectedUser(null);
+  };
 
-  // --- Suspend user ---
-  const handleSuspendUser = (user) => {
-    if (user.status !== "suspended") {
-      // --- Suspend user with reason ---
-      Swal.fire({
-        title: `Suspend ${user.displayName}?`,
-        input: 'text',
-        inputLabel: 'Reason for suspension',
-        inputPlaceholder: 'Enter reason...',
-        showCancelButton: true,
-        confirmButtonText: 'Suspend',
-        cancelButtonText: 'Cancel',
-        inputValidator: (value) => {
-          if (!value) return 'You must provide a reason!';
-        }
-      }).then((result) => {
-        if (result.isConfirmed) {
-          axiosSecure.patch(`/user/${user._id}`, { status: "suspended", suspendReason: result.value })
-            .then(res => {
-              if (res.data.modifiedCount) {
-                refetch();
-                Swal.fire("Suspended!", `${user.displayName} is now suspended.`, "success");
-              }
-            });
-        }
-      });
-    } else {
-      // --- Unsuspend user without reason ---
-      Swal.fire({
-        title: `Remove suspension for ${user.displayName}?`,
-        text: "User will return to previous status.",
-        icon: "warning",
-        showCancelButton: true,
-        confirmButtonText: 'Yes, remove suspension',
-        cancelButtonText: 'Cancel',
-      }).then((result) => {
-        if (result.isConfirmed) {
-          axiosSecure.patch(`/user/${user._id}`, { status: "approved", suspendReason: "" })
-            .then(res => {
-              if (res.data.modifiedCount) {
-                refetch();
-                Swal.fire("Success!", `${user.displayName} is no longer suspended.`, "success");
-              }
-            });
-        }
-      });
+  const handleSave = async () => {
+    if (!selectedUser) return;
+
+    if (status === "suspended" && !suspendReason.trim()) {
+      return Swal.fire("Error", "Suspend reason is required", "error");
+    }
+
+    const payload = {
+      status,
+      suspendReason: status === "suspended" ? suspendReason.trim() : ""
+    };
+
+    try {
+      setSaving(true);
+      const res = await axiosSecure.patch(`/user/${selectedUser._id}`, payload);
+      if (res.data.modified) {
+        Swal.fire("Success", "User updated successfully", "success");
+        refetch();
+        closeModal();
+      } else {
+        Swal.fire("Info", "No changes were applied", "info");
+      }
+    } catch (err) {
+      console.error(err);
+      Swal.fire("Error", "Update failed", "error");
+    } finally {
+      setSaving(false);
     }
   };
-  const handleRoleChange = (user) => {
-    Swal.fire({
-      title: `Change Role for ${user.displayName}`,
-      input: "select",
-      inputOptions: {
-        admin: "Admin",
-        manager: "Manager",
-        buyer: "Buyer"
-      },
-      inputPlaceholder: "Select new role",
-      showCancelButton: true,
-      confirmButtonText: "Update Role",
-      cancelButtonText: "Cancel",
-      inputValidator: (value) => {
-        if (!value) return "Please select a role!";
-      }
-    }).then((result) => {
-      if (result.isConfirmed) {
-        axiosSecure.patch(`/user-role/${user._id}`, { role: result.value })
-          .then(res => {
-            if (res.data.modifiedCount) {
-              refetch();
-              Swal.fire(
-                "Updated!",
-                `${user.displayName} is now ${result.value}.`,
-                "success"
-              );
-            }
-          });
-      }
-    });
-  };
-
-
 
   return (
     <div className="p-6">
       <h1 className="text-2xl font-bold mb-4">User Management ({users.length})</h1>
 
       {/* Search */}
-      <label className="input mb-4 flex items-center">
+      <div className="mb-4">
         <input
           type="search"
           placeholder="Search by name or email"
-          className="input grow"
+          className="input w-full max-w-md"
           onChange={(e) => setSearchUser(e.target.value)}
         />
-      </label>
+      </div>
 
+      {/* User Table */}
       <div className="overflow-x-auto">
         <table className="table w-full">
           <thead>
@@ -306,59 +250,87 @@ const UserManagement = () => {
             </tr>
           </thead>
           <tbody>
-            {users.map((user, index) => (
-              <tr key={user._id}>
-                <th>{index + 1}</th>
-                <td>{user.displayName}</td>
-                <td>{user.email}</td>
-                <td>{user.role}</td>
-                <td>{user.status}</td>
-                <td>{user.suspendReason || "-"}</td>
-                <td className="flex gap-2">
-                  {/* Approve / Pending Toggle Button */}
+            {users.map((u, idx) => (
+              <tr key={u._id}>
+                <th>{idx + 1}</th>
+                <td>{u.displayName}</td>
+                <td>{u.email}</td>
+                <td>{u.role}</td>
+                <td className="capitalize">{u.status}</td>
+                <td>{u.suspendReason || "-"}</td>
+                <td>
                   <button
-                    onClick={() => handleToggleApprove(user)}
-                    className="btn bg-blue-500 text-white"
-                    title="Toggle Approve"
+                    className="btn btn-sm btn-primary"
+                    onClick={() => openUpdateModal(u)}
                   >
-                    {user.status === "approved" ? "Pending" : "Approve"}
+                    Update
                   </button>
-                  {/* role update */}
-                  <button
-                    onClick={() => handleRoleChange(user)}
-                    className="btn bg-purple-600 text-white"
-                  >
-                    Change Role
-                  </button>
-
-
-                  {/* Suspend Button */}
-                  {user.status !== "suspended" ? (
-                    <button
-                      onClick={() => handleSuspendUser(user)}
-                      className="btn bg-red-500 text-white"
-                      title="Suspend"
-                    >
-                      <FiShieldOff />
-                    </button>
-                  ) : (
-                    <button
-                      onClick={() => handleSuspendUser(user)}
-                      className="btn bg-red-500 text-white"
-                      title=""
-                    >
-                      <FiShield />
-                    </button>
-
-                  )
-                  }
                 </td>
-
               </tr>
             ))}
           </tbody>
         </table>
       </div>
+
+      {/* Modal */}
+      {showModal && selectedUser && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40">
+          <div className="bg-white w-full max-w-lg rounded-lg p-6 shadow-lg">
+            <div className="flex justify-between items-center mb-4">
+              <h2 className="text-lg font-semibold">Update: {selectedUser.displayName}</h2>
+              <button onClick={closeModal} className="text-gray-500 hover:text-gray-700">&times;</button>
+            </div>
+
+            <div className="space-y-4">
+              {/* Status */}
+              <div>
+                <label className="block text-sm font-medium mb-1">Status</label>
+                <select
+                  value={status}
+                  onChange={(e) => setStatus(e.target.value)}
+                  className="input w-full"
+                >
+                  <option value="pending">Pending</option>
+                  <option value="approved">Approved</option>
+                  <option value="suspended">Suspended</option>
+                </select>
+              </div>
+
+              {/* Suspend reason */}
+              {status === "suspended" && (
+                <div>
+                  <label className="block text-sm font-medium mb-1">Suspend Reason</label>
+                  <textarea
+                    className="input w-full"
+                    rows={3}
+                    value={suspendReason}
+                    onChange={(e) => setSuspendReason(e.target.value)}
+                    placeholder="Enter suspend reason..."
+                  />
+                </div>
+              )}
+
+              {/* Buttons */}
+              <div className="flex justify-end gap-2 mt-4">
+                <button
+                  className="btn btn-ghost"
+                  onClick={closeModal}
+                  disabled={saving}
+                >
+                  Cancel
+                </button>
+                <button
+                  className="btn btn-primary"
+                  onClick={handleSave}
+                  disabled={saving}
+                >
+                  {saving ? "Saving..." : "Save Changes"}
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

@@ -66,6 +66,7 @@ const ProductCreated = () => {
 
   product_image: uploadedImageUrls?.[0] || "",
   demo_video: data.demoVideo,
+  show_on_home: data.showOnHome ? "yes" : "no",
 
   color_options: data.colorOptions || [],
   fabric_composition: data.fabricComposition || "",
@@ -163,10 +164,6 @@ const ProductCreated = () => {
           </select>
         </div>
 
-        <div className="flex items-center gap-3 mb-3">
-          <input type="checkbox" {...register("showOnHome")} />
-          <label>Show on Home Page</label>
-        </div>
 
         <div className="mb-3">
           <label>Upload Images</label>
@@ -178,6 +175,8 @@ const ProductCreated = () => {
             onChange={handleImagePreview}
           />
         </div>
+        
+       
 
         {previewImages.length > 0 && (
           <div className="grid grid-cols-3 gap-3 mt-3">
@@ -186,6 +185,10 @@ const ProductCreated = () => {
             ))}
           </div>
         )}
+         <div className="flex items-center gap-3 mb-3">
+          <input type="checkbox" {...register("showOnHome")} />
+          <label>Show on Home Page</label>
+        </div>
 
         <button className="btn btn-primary mt-4">Create Product</button>
 

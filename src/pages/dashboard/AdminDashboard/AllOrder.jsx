@@ -2,17 +2,20 @@ import React, { useEffect, useState } from "react";
 import useAxios from "../../../hooks/useAxios";
 import useAuth from "../../../hooks/useAuth";
 import { toast } from "react-toastify";
+import { Link } from "react-router"; // view page link
 
 const AllOrder = () => {
   const { user } = useAuth();
   const axiosSecure = useAxios();
   const [orders, setOrders] = useState([]);
+  const [filterStatus, setFilterStatus] = useState(""); // For filter
+  const [searchQuery, setSearchQuery] = useState(""); // Optional search
 
   const fetchOrders = () => {
     axiosSecure
       .get(`/orders`)
-      .then(res => setOrders(res.data))
-      .catch(err => console.error(err));
+      .then((res) => setOrders(res.data))
+      .catch((err) => console.error(err));
   };
 
   useEffect(() => {
@@ -26,99 +29,111 @@ const AllOrder = () => {
         toast.success(`Order ${status}`);
         fetchOrders();
       })
-      .catch(err => console.error(err));
+      .catch((err) => console.error(err));
   };
 
-  const handleTrackingUpdate = (orderId, step) => {
-    axiosSecure
-      .patch(`/orders/${orderId}/tracking`, { step })
-      .then(res => {
-        toast.success(`Tracking updated: ${step}`);
-        setOrders(prev =>
-          prev.map(order =>
-            order._id === orderId ? res.data : order
-          )
-        );
-      })
-      .catch(err => console.error(err));
-  };
+  // Filtered orders
+  const filteredOrders = orders
+    .filter((o) => (filterStatus ? o.orderStatus === filterStatus : true))
+    .filter((o) =>
+      searchQuery
+        ? o.customerEmail.toLowerCase().includes(searchQuery.toLowerCase()) ||
+          o.productName.toLowerCase().includes(searchQuery.toLowerCase())
+        : true
+    );
 
   return (
     <div className="p-6">
       <h2 className="text-2xl font-bold mb-4">All Orders</h2>
 
-      {orders.length === 0 ? (
-        <p>No orders yet.</p>
-      ) : (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
-          {orders.map(order => (
-            <div
-              key={order._id}
-              className="border p-4 rounded-xl shadow bg-white"
-            >
-              <p><strong>Product:</strong> {order.productName}</p>
-              <p><strong>Buyer:</strong> {order.customerEmail}</p>
-              <p><strong>Manager:</strong> {order.manageremail}</p>
-              <p><strong>Quantity:</strong> {order.quantity}</p>
-              <p><strong>Total:</strong> ${order.totalPrice}</p>
-              <p><strong>Status:</strong> {order.orderStatus}</p>
+      {/* Filter & Search */}
+      <div className="flex flex-wrap gap-3 mb-4">
+        <select
+          className="input input-bordered"
+          value={filterStatus}
+          onChange={(e) => setFilterStatus(e.target.value)}
+        >
+          <option value="">All Status</option>
+          <option value="pending">Pending</option>
+          <option value="accepted">Accepted</option>
+          <option value="rejected">Rejected</option>
+         
+        </select>
 
-              {["pending", "paid", "order_paid"].includes(order.orderStatus) && (
-                <div className="mt-3 flex gap-2">
-                  <button
-                    onClick={() => handleStatusChange(order._id, "accepted")}
-                    className="btn btn-success btn-sm"
-                  >
-                    Accept
-                  </button>
-                  <button
-                    onClick={() => handleStatusChange(order._id, "rejected")}
-                    className="btn btn-error btn-sm"
-                  >
-                    Reject
-                  </button>
-                </div>
-              )}
+        <input
+          type="text"
+          placeholder="Search by user or product"
+          value={searchQuery}
+          onChange={(e) => setSearchQuery(e.target.value)}
+          className="input input-bordered"
+        />
+      </div>
 
-              {order.orderStatus === "accepted" && (
-                <div className="mt-3 flex flex-wrap gap-2">
-                  {["Cutting Completed", "Sewing Started", "Delivered"].map(
-                    step => {
-                      const isCompleted = order.trackingLog?.some(
-                        t => t.step === step
-                      );
-                      if (isCompleted) return null;
+      {/* Orders Table */}
+      <div className="overflow-x-auto bg-white shadow-md rounded-lg">
+        <table className="table-auto w-full text-left">
+          <thead className="bg-gray-200">
+            <tr>
+              <th className="px-4 py-2">Order ID</th>
+              <th className="px-4 py-2">User</th>
+              <th className="px-4 py-2">Product</th>
+              <th className="px-4 py-2">Quantity</th>
+              <th className="px-4 py-2">Status</th>
+              <th className="px-4 py-2">Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            {filteredOrders.length === 0 ? (
+              <tr>
+                <td colSpan={6} className="px-4 py-2 text-center">
+                  No orders found.
+                </td>
+              </tr>
+            ) : (
+              filteredOrders.map((order) => (
+                <tr key={order._id} className="border-b">
+                  <td className="px-4 py-2">{order._id.slice(-6)}</td>
+                  <td className="px-4 py-2">{order.customerEmail}</td>
+                  <td className="px-4 py-2">{order.productName}</td>
+                  <td className="px-4 py-2">{order.quantity}</td>
+                  <td className="px-4 py-2">{order.orderStatus}</td>
+                  <td className="px-4 py-2 flex gap-2">
+                    {/* View button */}
+                    <Link
+                      to={`/dashboard/buyer-order-details/${order._id}`}
+                      className="btn btn-sm btn-info"
+                    >
+                      View
+                    </Link>
 
-                      return (
+                    {/* Optional: quick status update */}
+                    {["pending", "paid", "order_paid"].includes(order.orderStatus) && (
+                      <>
                         <button
-                          key={step}
-                          onClick={() => handleTrackingUpdate(order._id, step)}
-                          className="btn btn-info btn-sm"
+                          onClick={() =>
+                            handleStatusChange(order._id, "accepted")
+                          }
+                          className="btn btn-success btn-sm"
                         >
-                          {step}
+                          Accept
                         </button>
-                      );
-                    }
-                  )}
-                </div>
-              )}
-
-              {order.trackingLog?.length > 0 && (
-                <div className="mt-3">
-                  <strong>Tracking:</strong>
-                  <ul className="list-disc ml-5">
-                    {order.trackingLog.map((t, i) => (
-                      <li key={i}>
-                        {t.step} - {new Date(t.date).toLocaleString()}
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              )}
-            </div>
-          ))}
-        </div>
-      )}
+                        <button
+                          onClick={() =>
+                            handleStatusChange(order._id, "rejected")
+                          }
+                          className="btn btn-error btn-sm"
+                        >
+                          Reject
+                        </button>
+                      </>
+                    )}
+                  </td>
+                </tr>
+              ))
+            )}
+          </tbody>
+        </table>
+      </div>
     </div>
   );
 };

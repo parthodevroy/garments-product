@@ -18,35 +18,55 @@ const CompletedOrder = () => {
   }, [user?.email]);
 
   if (!orders) return <LoadingPage />;
-  console.log(orders);
-  
 
   return (
     <div className="p-6">
-      <h2 className="text-2xl font-bold mb-4">Completed Orders</h2>
+      <h2 className="text-2xl font-bold mb-4 text-center">Completed Orders</h2>
+
       {orders.length === 0 ? (
-        <p>No completed orders yet.</p>
+        <p className="text-center text-gray-500">No completed orders yet.</p>
       ) : (
-        <div className="space-y-4">
-          {orders.map(order => (
-            <div key={order._id} className="border p-4 rounded shadow">
-              <p><strong>Product:</strong> {order.productName}</p>
-              <p><strong>Buyer:</strong> {order.customerEmail}</p>
-              <p><strong>Quantity:</strong> {order.quantity}</p>
-              <p><strong>Total:</strong> ${order.totalPrice}</p>
-              <p><strong>Status:</strong> {order.orderStatus}</p>
-              {order.trackingLog?.length > 0 && (
-                <div className="mt-2">
-                  <strong>Tracking:</strong>
-                  <ul className="list-disc ml-5">
-                    {order.trackingLog.map((t, i) => (
-                      <li key={i}>{t.step} - {new Date(t.date).toLocaleString()}</li>
-                    ))}
-                  </ul>
-                </div>
-              )}
-            </div>
-          ))}
+        <div className="overflow-x-auto bg-white shadow rounded-lg">
+          <table className="table w-full">
+            <thead className="bg-gray-100 text-gray-700">
+              <tr>
+                <th>Order ID</th>
+                <th>Product</th>
+                <th>Buyer</th>
+                <th>Quantity</th>
+                <th>Total</th>
+                <th>Status</th>
+                <th>Tracking</th>
+              </tr>
+            </thead>
+            <tbody>
+              {orders.map(order => (
+                <tr key={order._id} className="border-b">
+                  <td className="font-mono text-sm">{order._id}</td>
+                  <td>{order.productName}</td>
+                  <td>{order.customerEmail}</td>
+                  <td>{order.quantity}</td>
+                  <td>${order.totalPrice}</td>
+                  <td className="text-green-600 font-semibold">{order.orderStatus}</td>
+                  <td>
+                    {order.trackingLog?.length > 0 ? (
+                      <ul className="list-disc ml-4 text-sm max-h-48 overflow-y-auto">
+                        {order.trackingLog.map((t, i) => (
+                          <li key={i}>
+                            <span className="font-medium">{t.step}</span> - {new Date(t.date).toLocaleString()}
+                            {t.location && ` — ${t.location}`}
+                            {t.note && ` — ${t.note}`}
+                          </li>
+                        ))}
+                      </ul>
+                    ) : (
+                      <span className="text-gray-500">No tracking info</span>
+                    )}
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
         </div>
       )}
     </div>

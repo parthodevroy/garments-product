@@ -3,13 +3,13 @@ import useAxios from "../../../hooks/useAxios";
 import { useQuery } from "@tanstack/react-query";
 import { PieChart, Pie, Cell, Tooltip, Legend } from "recharts";
 import useAuth from "../../../hooks/useAuth";
+import { FaCheckCircle, FaClock } from "react-icons/fa";
 
 const UserDashboard = () => {
   const { user } = useAuth();
   const axiosSecure = useAxios();
 
-  // Fetch user's parcels
-  const { data: parcels = [] } = useQuery({
+  const { data: parcels = [], isLoading } = useQuery({
     queryKey: ["user-orders", user?.email],
     queryFn: async () => {
       const res = await axiosSecure.get(`/orders?email=${user.email}`);
@@ -18,7 +18,9 @@ const UserDashboard = () => {
     enabled: !!user?.email,
   });
 
-  // Prepare data for PieChart
+  if (isLoading) return <p className="text-center mt-10">Loading...</p>;
+
+  // Stats calculation
   const deliveredCount = parcels.filter(p => p.orderStatus === "accepted").length;
   const pendingCount = parcels.filter(p => p.orderStatus !== "accepted").length;
 
@@ -30,43 +32,48 @@ const UserDashboard = () => {
   const COLORS = ["#00C49F", "#FF8042"];
 
   return (
-    <div>
-      <h1 className="text-2xl text-center font-bold mb-6">Your Parcel Status</h1>
+    <div className="max-w-6xl mx-auto p-6">
+      <h1 className="text-3xl font-bold text-center mb-8">Your Parcel Overview</h1>
 
-     <div className="flex max-w-6xl mx-auto">
-       {/* Stats */}
-      <div className="stats h-24 shadow mb-6">
-        <div className="stat">
-          <div className="stat-title">Delivered</div>
-          <div className="stat-value">{deliveredCount}</div>
+      <div className="flex flex-col md:flex-row gap-6">
+        {/* Stats Cards */}
+        <div className="flex flex-1 gap-6 flex-wrap justify-center">
+          <div className="stat-card bg-white shadow-lg rounded-lg p-6 flex items-center gap-4 w-64 hover:shadow-xl transition-shadow">
+            <FaCheckCircle className="text-green-500 w-8 h-8" />
+            <div>
+              <p className="text-gray-500 font-semibold">Delivered</p>
+              <p className="text-2xl font-bold">{deliveredCount}</p>
+            </div>
+          </div>
+          <div className="stat-card bg-white shadow-lg rounded-lg p-6 flex items-center gap-4 w-64 hover:shadow-xl transition-shadow">
+            <FaClock className="text-orange-500 w-8 h-8" />
+            <div>
+              <p className="text-gray-500 font-semibold">Pending</p>
+              <p className="text-2xl font-bold">{pendingCount}</p>
+            </div>
+          </div>
         </div>
-        <div className="stat">
-          <div className="stat-title">Pending</div>
-          <div className="stat-value">{pendingCount}</div>
+
+        {/* Pie Chart */}
+        <div className="flex justify-center flex-1 bg-white p-4 rounded-lg shadow-lg">
+          <PieChart width={420} height={300}>
+            <Pie
+              data={pieData}
+              dataKey="value"
+              cx="50%"
+              cy="50%"
+              outerRadius={100}
+              label={({ name, value }) => `${name}: ${value}`}
+            >
+              {pieData.map((entry, index) => (
+                <Cell key={entry.name} fill={COLORS[index % COLORS.length]} />
+              ))}
+            </Pie>
+            <Tooltip />
+            <Legend verticalAlign="bottom" align="center" />
+          </PieChart>
         </div>
       </div>
-
-      {/* PieChart */}
-      <div className="flex justify-center">
-        <PieChart width={400} height={400}>
-          <Pie
-            data={pieData}
-            dataKey="value"
-            cx="50%"
-            cy="50%"
-            outerRadius={120}
-            fill="#8884d8"
-            label={(entry) => `${entry.name}: ${entry.value}`}
-          >
-            {pieData.map((entry, index) => (
-              <Cell key={entry.name} fill={COLORS[index % COLORS.length]} />
-            ))}
-          </Pie>
-          <Tooltip />
-          <Legend verticalAlign="bottom" align="center" />
-        </PieChart>
-      </div>
-     </div>
     </div>
   );
 };
