@@ -24,7 +24,7 @@ const DetailsProducts = () => {
 
     return (
         <motion.div
-            className="max-w-3xl mx-auto p-6 bg-white rounded-lg shadow-lg mt-10"
+            className="max-w-3xl mx-auto p-6 card rounded-lg shadow-lg mt-10"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
@@ -48,7 +48,7 @@ const DetailsProducts = () => {
             <Link
                 to="/booking"
                 state={{ product }} // pass product object
-                className="inline-block mt-4 px-6 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition"
+                className="inline-block text-center mt-4 px-6 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition"
             >
                 Book Now
             </Link>

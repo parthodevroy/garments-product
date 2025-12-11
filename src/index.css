@@ -1,2 +1,94 @@
 @import "tailwindcss";
-@plugin "daisyui";
+@plugin "daisyui" {
+  themes: light --default, dark --prefersdark;
+}
+
+
+@custom-variant dark (&:where([data-theme=dark], [data-theme=dark] *));
+
+ 
+:root {
+  --bg-body: #f9fafb;
+  --text-body: #0d1c3d;
+  --bg-gradient: linear-gradient(135deg, #f9fafb 0%, #f9fafb 50%, #f9fafb 100%);
+  --btn-gradient: linear-gradient(135deg, #7C7BE6 0%, #7C7BE6 100%);
+  --card-gradient: linear-gradient(145deg, #FFFFFF 0%, #FFFFFF 100%);
+  --background: linear-gradient(135deg, #FFFFFF 0%, #FFFFFF 50%, #FFFFFF 100%);
+  --glow-pink: linear-gradient(135deg, #d8b4fe 50% 50%, #d8b4fe 50%);  
+  --glow-nav: linear-gradient(135deg, #d8b4fe 50%, #d8b4fe 100%);  
+  --text-color: #000000; 
+}
+/* #A4C3D0 */
+[data-theme="dark"] {
+  --bg-body: #0f172a;
+  --text-body: #f1f5f9;
+  --bg-gradient: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #334155 100%);
+  --btn-gradient: linear-gradient(135deg, #06b6d4 0%, #3b82f6 100%);
+  --card-gradient: linear-gradient(145deg, #1e293b 0%, #0f172a 100%);
+  --background: linear-gradient(135deg, #1e293b 0%, #1e293b 50%, #1e293b 100%);
+  --glow-pink: linear-gradient(135deg, #0c141f 0%, #101721 100%);
+  --glow-nav: linear-gradient(135deg, #0c141f 0%, #101721 100%);
+  --text-color: #f9fafb; 
+
+}
+
+/*  Navbar background */
+.bg-hero {
+  background: var(--glow-pink);
+}
+.bg-navbar {
+  background: var(--glow-pink);
+}
+.bg-navbar2 {
+  background: var(--background);
+}
+
+/*  Text color class (fixed version) */
+.text {
+  color: var(--text-color);
+}
+
+/*  Base background and text */
+body {
+  background-color: var(--bg-body);
+  color: var(--text-body);
+  transition: background-color 0.4s ease, color 0.4s ease;
+}
+
+/*  Backgrounds */
+.bg{
+  background: var(--bg-gradient);
+}
+
+.card {
+  background: var(--card-gradient);
+  border-radius: 1rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  transition: background 0.4s ease, transform 0.3s ease;
+}
+
+.bg-card:hover {
+  transform: translateY(-3px);
+}
+
+/*  Buttons */
+.bg-btn {
+  background: var(--btn-gradient);
+  color: white;
+  border-radius: 0.75rem;
+  padding: 0.6rem 1.2rem;
+  font-weight: 600;
+  transition: all 0.3s ease-in-out;
+}
+
+.bg-btn:hover {
+  filter: brightness(1.1);
+  box-shadow: 0 0 15px rgba(6, 182, 212, 0.5);
+}
+
+/*  Hover Glow */
+.hover-glow:hover {
+  box-shadow: 0 0 20px rgba(14, 165, 233, 0.6);
+  transform: scale(1.03);
+  transition: all 0.3s ease-in-out;
+}

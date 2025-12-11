@@ -3,7 +3,7 @@ import Logo from './Logo';
 
 const Footer = () => {
     return (
-        <footer className="footer w-full border-2  footer-horizontal rounded-2xl  footer-center bg-black text-white  p-10">
+        <footer className="footer w-full border-2  footer-horizontal rounded-2xl  footer-center bg-gray-600 text-white  p-10">
             <h3><Logo/></h3>
   <nav className="grid grid-flow-col gap-4">
 

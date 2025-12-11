@@ -1,7 +1,7 @@
 import React from 'react';
-import logo from "../assets/logo-removebg-preview.png";
+import logo from "../assets/logo 2.png";
 
-const Logo = () => {
+const Logo2 = () => {
     return (
         <div className="">
             <img 
@@ -13,4 +13,4 @@ const Logo = () => {
     );
 };
 
-export default Logo;
+export default Logo2;

@@ -1,5 +1,5 @@
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { NavLink } from "react-router";
 import { FaSignOutAlt, FaUserCircle } from "react-icons/fa";
 import useAuth from "../hooks/useAuth";
@@ -13,6 +13,9 @@ const Navbar = () => {
 
   const [showMenu, setShowMenu] = useState(false);
   const { dbUser } = useUserStatus()
+  const [dark, setDark] = useState(false)
+
+const [scrolled, setScrolled] =useState (false);
 
 
 
@@ -21,8 +24,38 @@ const Navbar = () => {
     signout().catch((err) => console.log(err));
     setShowMenu(false);
   };
-  console.log(dbUser, user);
+  // console.log(dbUser, user);
 
+  // handel them
+  const handelthem = (checked) => {
+    const theme = checked ? "dark" : "light";
+    const html = document.querySelector("html");
+    html.setAttribute("data-theme", theme);
+    localStorage.setItem("theme", theme);
+    setDark(checked)
+  };
+
+
+  useEffect(() => {
+    const savedTheme = localStorage.getItem("theme") || "light";
+    const dark = savedTheme === "dark";
+    setDark(dark)
+    document.querySelector("html").setAttribute("data-theme", savedTheme);
+  }, []);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > 50) {  // 50px scroll হলে change হবে
+        setScrolled(true);
+      } else {
+        setScrolled(false);
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll);
+
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   const linkItems = (
     <>
@@ -64,7 +97,7 @@ const Navbar = () => {
           Service
         </NavLink>
       </li>
-
+      {/* 
       <li>
         <NavLink
           to="/coverage"
@@ -76,7 +109,7 @@ const Navbar = () => {
         >
           Coverage
         </NavLink>
-      </li>
+      </li> */}
 
       <li>
         <NavLink
@@ -132,16 +165,7 @@ const Navbar = () => {
             </NavLink>
           </li>
 
-          {role === "rider" && (
-            <li>
-              <NavLink
-                to="/dashboard/assign-delivery"
-                className="text-gray-700 font-bold hover:text-teal-600 px-2 py-1"
-              >
-                Assign Delivery
-              </NavLink>
-            </li>
-          )}
+
 
           {role === "Manager" && (
             <li>
@@ -158,12 +182,14 @@ const Navbar = () => {
     </>
   );
 
-  // ---------------------
-  // UI Rendering
-  // ---------------------
+
   return (
-    <nav className="bg-white w-full h-30 px-4 py-4 flex justify-between items-center sticky top-0 z-50">
-      <NavLink to="/" className="text-2xl font-bold text-teal-600">
+    <nav
+      className={`w-full pl-4 lg:pl-10 pr-3 lg:pr-10 h-30 px-4 py-4 flex justify-between items-center 
+        sticky top-0 z-50 transition-colors duration-300 ${scrolled ? "bg-navbar2" : "bg-hero"
+        }`}
+    >
+      <NavLink to="/" className=" font-bold text-teal-600">
         <Logo />
       </NavLink>
 
@@ -179,11 +205,11 @@ const Navbar = () => {
               className="w-10 h-10 rounded-full border-2 border-teal-500 overflow-hidden"
             >
               {user.
-                photoURL? (
-                  <img src={user.photoURL} alt="User" className="w-full h-full object-cover" />
-                ) : (
-                  <FaUserCircle className="w-full h-full text-gray-600" />
-                )}
+                photoURL ? (
+                <img src={user.photoURL} alt="User" className="w-full h-full object-cover" />
+              ) : (
+                <FaUserCircle className="w-full h-full text-gray-600" />
+              )}
 
 
             </button>
@@ -202,11 +228,19 @@ const Navbar = () => {
                 >
                   <FaSignOutAlt className="inline mr-2" /> Logout
                 </button>
+                <li className="pl-2">
+                  <input onChange={(e) => handelthem(e.target.checked)} checked={dark} type="checkbox" className="toggle " />
+                  <span className="pl-1 text-xs">Select Theme</span>
+                </li>
               </div>
             )}
           </div>
         ) : (
           <div className="flex gap-2">
+            <li className="pl-2">
+              <input onChange={(e) => handelthem(e.target.checked)} checked={dark} type="checkbox" className="toggle " />
+              <span className="pl-1">Select Theme</span>
+            </li>
             <NavLink to="/login" className="px-4 py-2 bg-teal-600 text-white rounded">
               Login
             </NavLink>

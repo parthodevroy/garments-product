@@ -1,40 +1,50 @@
-import React from 'react';
-import { Autoplay, Pagination } from 'swiper/modules';
-import { Swiper, SwiperSlide } from 'swiper/react';
-import 'swiper/css';
+import React from "react";
 
-
+const brands = ["Nike", "Adidas", "Puma", "Reebok", "Levi's", "H&M", "Fila", "Tommy Hilfiger"];
 
 const Brands = () => {
-    const brandlogos=[];
     return (
-        <div>
-            <Swiper
-             slidesPerView={3}
-        centeredSlides={true}
-        spaceBetween={30}
-        grabCursor={true}
-        autoplay={{
-          delay: 1500,
-          disableOnInteraction: false,
-        }}
-        modules={[Autoplay]}
-        loop={true}
-        pagination={{
-          clickable: true,
-        }}
-       
-        className="mySwiper"
-            
-            >
-                {brandlogos.map((logo,index)=>
-                <SwiperSlide key={index}> 
-                  <img src={logo} alt="brand logo" />
+        <div className=" bg pb-4">
+            {/* Heading */}
+            <h3 className="text-2xl font-bold text-center mb-2 text-gray-900">
+                Our Partnered Brands
+            </h3>
 
-                </SwiperSlide>
-                )}
-                
-            </Swiper>
+            {/* Ticker */}
+            <div className="overflow-hidden whitespace-nowrap">
+                <div className="animate-scroll inline-block">
+                    {brands.map((brand, index) => (
+                        <span
+                            key={index}
+                            className="mx-8 text-xl font-semibold text-gray-800 inline-block"
+                        >
+                            {brand}
+                        </span>
+                    ))}
+                    {/* Repeat brands for seamless loop */}
+                    {brands.map((brand, index) => (
+                        <span
+                            key={index + brands.length}
+                            className="mx-8 text-xl font-semibold text-gray-800 inline-block"
+                        >
+                            {brand}
+                        </span>
+                    ))}
+                </div>
+            </div>
+
+            {/* Scroll Animation */}
+            <style jsx>{`
+                @keyframes scroll {
+                    0% { transform: translateX(0%); }
+                    100% { transform: translateX(-50%); }
+                }
+                .animate-scroll {
+                    display: inline-block;
+                    white-space: nowrap;
+                    animation: scroll 20s linear infinite;
+                }
+            `}</style>
         </div>
     );
 };
