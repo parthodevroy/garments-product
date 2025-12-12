@@ -64,8 +64,8 @@ const [scrolled, setScrolled] =useState (false);
           to="/"
           className={({ isActive }) =>
             isActive
-              ? "text-teal-600 font-bold border-b-2 border-teal-600 px-2 py-1"
-              : "text-gray-700 font-bold hover:text-teal-600 px-2 py-1"
+              ? "text font-bold border-b-2 border-teal-600 px-2 py-1"
+              : "text font-bold hover:text-teal-600 px-2 py-1"
           }
         >
           Home
@@ -77,8 +77,8 @@ const [scrolled, setScrolled] =useState (false);
           to="/products"
           className={({ isActive }) =>
             isActive
-              ? "text-teal-600 font-bold border-b-2 border-teal-600 px-2 py-1"
-              : "text-gray-700 font-bold hover:text-teal-600 px-2 py-1"
+              ? "text font-bold border-b-2 border-teal-600 px-2 py-1"
+              : "text font-bold hover:text-teal-600 px-2 py-1"
           }
         >
           All Products
@@ -90,8 +90,8 @@ const [scrolled, setScrolled] =useState (false);
           to="/service"
           className={({ isActive }) =>
             isActive
-              ? "text-teal-600 font-bold border-b-2 border-teal-600 px-2 py-1"
-              : "text-gray-700 font-bold hover:text-teal-600 px-2 py-1"
+              ? "text font-bold border-b-2 border-teal-600 px-2 py-1"
+              : "text font-bold hover:text-teal-600 px-2 py-1"
           }
         >
           Service
@@ -116,8 +116,8 @@ const [scrolled, setScrolled] =useState (false);
           to="/support"
           className={({ isActive }) =>
             isActive
-              ? "text-teal-600 font-bold border-b-2 border-teal-600 px-2 py-1"
-              : "text-gray-700 font-bold hover:text-teal-600 px-2 py-1"
+              ? "text font-bold border-b-2 border-teal-600 px-2 py-1"
+              : "text font-bold hover:text-teal-600 px-2 py-1"
           }
         >
           Support
@@ -129,8 +129,8 @@ const [scrolled, setScrolled] =useState (false);
           to="/contact-us"
           className={({ isActive }) =>
             isActive
-              ? "text-teal-600 font-bold border-b-2 border-teal-600 px-2 py-1"
-              : "text-gray-700 font-bold hover:text-teal-600 px-2 py-1"
+              ? "text font-bold border-b-2 border-teal-600 px-2 py-1"
+              : "text font-bold hover:text-teal-600 px-2 py-1"
           }
         >
           Contact
@@ -142,8 +142,8 @@ const [scrolled, setScrolled] =useState (false);
           to="/about-us"
           className={({ isActive }) =>
             isActive
-              ? "text-teal-600 font-bold border-b-2 border-teal-600 px-2 py-1"
-              : "text-gray-700 font-bold hover:text-teal-600 px-2 py-1"
+              ? "text font-bold border-b-2 border-teal-600 px-2 py-1"
+              : "text font-bold hover:text-teal-600 px-2 py-1"
           }
         >
           About
@@ -157,8 +157,8 @@ const [scrolled, setScrolled] =useState (false);
               to="/dashboard"
               className={({ isActive }) =>
                 isActive
-                  ? "text-teal-600 font-bold border-b-2 border-teal-600 px-2 py-1"
-                  : "text-gray-700 font-bold hover:text-teal-600 px-2 py-1"
+                  ? "text font-bold border-b-2 border-teal-600 px-2 py-1"
+                  : "text font-bold hover:text-teal-600 px-2 py-1"
               }
             >
               Dashboard
@@ -171,7 +171,7 @@ const [scrolled, setScrolled] =useState (false);
             <li>
               <NavLink
                 to="/productcreated"
-                className="text-gray-700 font-bold hover:text-teal-600 px-2 py-1"
+                className="text font-bold hover:text-teal-600 px-2 py-1"
               >
                 Created Product
               </NavLink>
@@ -189,7 +189,7 @@ const [scrolled, setScrolled] =useState (false);
         sticky top-0 z-50 transition-colors duration-300 ${scrolled ? "bg-navbar2" : "bg-hero"
         }`}
     >
-      <NavLink to="/" className=" font-bold text-teal-600">
+      <NavLink to="/" className=" font-bold text">
         <Logo />
       </NavLink>
 
@@ -208,7 +208,7 @@ const [scrolled, setScrolled] =useState (false);
                 photoURL ? (
                 <img src={user.photoURL} alt="User" className="w-full h-full object-cover" />
               ) : (
-                <FaUserCircle className="w-full h-full text-gray-600" />
+                <FaUserCircle className="w-full h-full text" />
               )}
 
 
@@ -237,16 +237,18 @@ const [scrolled, setScrolled] =useState (false);
           </div>
         ) : (
           <div className="flex gap-2">
-            <li className="pl-2">
+            <li className="">
+
               <input onChange={(e) => handelthem(e.target.checked)} checked={dark} type="checkbox" className="toggle " />
-              <span className="pl-1">Select Theme</span>
+              {/* <span className="pl-1">Select Theme</span> */}
             </li>
-            <NavLink to="/login" className="px-4 py-2 bg-teal-600 text-white rounded">
+            <NavLink to="/login" className="px-4 py-2 bg-teal-600 text rounded">
               Login
             </NavLink>
-            <NavLink to="/register" className="px-4 py-2 bg-gray-200 text-gray-800 rounded">
+            <NavLink to="/register" className="px-4 py-2 bg-gray-200 text rounded">
               Register
             </NavLink>
+           
           </div>
         )}
       </div>

@@ -57,7 +57,7 @@ const ProjectOverview = () => {
       </section> */}
 
  
-      <section className="px-6 lg:px-24">
+      {/* <section className="px-6 lg:px-24">
         <h2 className="text-3xl font-bold text-center mb-10">Our Featured Deliveries</h2>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
           <motion.div
@@ -88,7 +88,7 @@ const ProjectOverview = () => {
             <div className="p-4 font-semibold">Parcel C</div>
           </motion.div>
         </div>
-      </section>
+      </section> */}
 
       {/* <section className=" px-6 lg:px-24 py-2 rounded-xl space-y-10">
         <h2 className="text-3xl font-bold text-center">Why Choose Us</h2>

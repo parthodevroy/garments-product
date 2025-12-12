@@ -129,7 +129,7 @@ const Hero = () => {
         initial={{ opacity: 0, y: -15 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 1 }}
-        className="absolute right-16 top-32 rotate-12 text-3xl font-handwriting text-gray-700"
+        className="absolute right-16 top-32 rotate-12 text-3xl font-handwriting text"
       >
         Amazing
       </motion.p>
@@ -139,7 +139,7 @@ const Hero = () => {
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 1 }}
-        className="text-5xl md:text-6xl font-bold text-gray-900 leading-snug"
+        className="text-5xl md:text-6xl font-bold text leading-snug"
       >
         Elegant — Fast — Customizable
       </motion.h1>

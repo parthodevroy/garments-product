@@ -126,14 +126,14 @@ const AllproductAdmin = () => {
 
 
     return (
-        <div className="p-6 bg-gray-100 min-h-screen">
-            <h2 className="text-3xl font-bold mb-6 text-center">All Products</h2>
+        <div className="p-6 dash min-h-screen">
+            <h2 className="text-3xl text font-bold mb-6 text-center">All Products</h2>
 
-            <div className="overflow-x-auto bg-white shadow-md rounded-lg">
+            <div className="overflow-x-auto dash-card shadow-md text rounded-lg">
                 <table className="table-auto w-full text-left">
-                    <thead className="bg-gray-200">
+                    <thead className="dash-card">
                         <tr>
-                            <th className="px-4 py-2">#</th>
+                        
                             <th className="px-4 py-2">Image</th>
                             <th className="px-4 py-2">Product Name</th>
                             <th className="px-4 py-2">Price USD</th>
@@ -144,12 +144,12 @@ const AllproductAdmin = () => {
                         </tr>
                     </thead>
                     <tbody>
-                        {products.map((product, idx) => (
+                        {products.map((product) => (
                             <tr
                                 key={product._id}
-                                className={`border-b ${product.show_on_home === "permit" ? "bg-green-50" : ""}`}
+                                className={`border-b border-white ${product.show_on_home === "permit" ? "dash-card" : ""}`}
                             >
-                                <td className="px-4 py-2">{idx + 1}</td>
+                                {/* <td className="px-4 py-2">{idx + 1}</td> */}
 
                                 {/* Image */}
                                 <td className="px-4 py-2">
@@ -165,7 +165,7 @@ const AllproductAdmin = () => {
                                 </td>
 
                                 <td className="px-4 py-2">{product.product_name}</td>
-                                <td className="px-4 py-2">${product.price_usd}</td>
+                                <td className="px-4 text-green-500 py-2">${product.price_usd}</td>
                                 <td className="px-4 py-2">{product.product_category}</td>
 
                                 {/* Created By */}
@@ -202,7 +202,7 @@ const AllproductAdmin = () => {
 
             {editingProduct && (
                 <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-                    <div className="bg-white p-6 rounded-xl w-full max-w-md shadow-lg">
+                    <div className="dash-card text p-6 rounded-xl w-full max-w-md shadow-lg">
                         <h3 className="text-2xl font-bold mb-4">Update Product</h3>
                         <form onSubmit={handleUpdate} className="flex flex-col gap-3">
                             <input

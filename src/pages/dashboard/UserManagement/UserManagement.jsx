@@ -222,25 +222,25 @@ const UserManagement = () => {
   };
 
   return (
-    <div className="p-6">
+    <div className="p-6 text">
       <h1 className="text-2xl font-bold mb-4">User Management ({users.length})</h1>
 
       {/* Search */}
-      <div className="mb-4">
+      <div className="">
         <input
           type="search"
           placeholder="Search by name or email"
-          className="input w-full max-w-md"
+          className="input dash text mb-4 w-full max-w-md"
           onChange={(e) => setSearchUser(e.target.value)}
         />
       </div>
 
       {/* User Table */}
       <div className="overflow-x-auto">
-        <table className="table w-full">
-          <thead>
-            <tr>
-              <th>#</th>
+        <table className="table dash-card  w-full">
+          <thead className="pb-2 ">
+            <tr className="">
+
               <th>Name</th>
               <th>Email</th>
               <th>Role</th>
@@ -249,15 +249,30 @@ const UserManagement = () => {
               <th>Action</th>
             </tr>
           </thead>
-          <tbody>
-            {users.map((u, idx) => (
-              <tr key={u._id}>
-                <th>{idx + 1}</th>
+          <tbody className="[&>tr>td]:border-b [&>tr>td]:border-white/50 [&>tr>th]:border-b [&>tr>th]:border-white/50 [&>tr]:my-2">
+
+            {users.map((u) => (
+              <tr key={u._id} className="dash-card">
+
                 <td>{u.displayName}</td>
-                <td>{u.email}</td>
+                <td className="">{u.email}</td>
                 <td>{u.role}</td>
-                <td className="capitalize">{u.status}</td>
-                <td>{u.suspendReason || "-"}</td>
+                <td>
+                  <span
+                    className={
+                      "px-2 py-1 rounded text-sm font-medium capitalize " +
+                      (u.status === "approved"
+                        ? " text-green-600 "
+                        : u.status === "suspended"
+                          ? " text-red-600 "
+                          : " text-yellow-600")
+                    }
+                  >
+                    {u.status}
+                  </span>
+                </td>
+
+                <td className="text-red-500">{u.suspendReason || "-"}</td>
                 <td>
                   <button
                     className="btn btn-sm btn-primary"
@@ -269,13 +284,14 @@ const UserManagement = () => {
               </tr>
             ))}
           </tbody>
+
         </table>
       </div>
 
       {/* Modal */}
       {showModal && selectedUser && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40">
-          <div className="bg-white w-full max-w-lg rounded-lg p-6 shadow-lg">
+          <div className=" dash-card w-full max-w-lg rounded-lg p-6 shadow-lg">
             <div className="flex justify-between items-center mb-4">
               <h2 className="text-lg font-semibold">Update: {selectedUser.displayName}</h2>
               <button onClick={closeModal} className="text-gray-500 hover:text-gray-700">&times;</button>
@@ -288,20 +304,20 @@ const UserManagement = () => {
                 <select
                   value={status}
                   onChange={(e) => setStatus(e.target.value)}
-                  className="input w-full"
+                  className="input dash w-full"
                 >
-                  <option value="pending">Pending</option>
-                  <option value="approved">Approved</option>
-                  <option value="suspended">Suspended</option>
+                  <option className="text-yellow-400" value="pending">Pending</option>
+                  <option className="text-green-500" value="approved">Approved</option>
+                  <option className="text-red-500" value="suspended">Suspended</option>
                 </select>
               </div>
 
               {/* Suspend reason */}
               {status === "suspended" && (
                 <div>
-                  <label className="block text-sm font-medium mb-1">Suspend Reason</label>
+                  <label className="block text-sm  font-medium mb-1">Suspend Reason</label>
                   <textarea
-                    className="input w-full"
+                    className="input dash text-white w-full"
                     rows={3}
                     value={suspendReason}
                     onChange={(e) => setSuspendReason(e.target.value)}

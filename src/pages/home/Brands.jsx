@@ -6,7 +6,7 @@ const Brands = () => {
     return (
         <div className=" bg pb-4">
             {/* Heading */}
-            <h3 className="text-2xl font-bold text-center mb-2 text-gray-900">
+            <h3 className="text-2xl font-bold text-center mb-4 text-gray-900">
                 Our Partnered Brands
             </h3>
 
@@ -16,7 +16,7 @@ const Brands = () => {
                     {brands.map((brand, index) => (
                         <span
                             key={index}
-                            className="mx-8 text-xl font-semibold text-gray-800 inline-block"
+                            className="mx-8 text-xl font-extrabold text-red-800 inline-block"
                         >
                             {brand}
                         </span>
@@ -25,7 +25,7 @@ const Brands = () => {
                     {brands.map((brand, index) => (
                         <span
                             key={index + brands.length}
-                            className="mx-8 text-xl font-semibold text-gray-800 inline-block"
+                            className="mx-8 text-xl font-extrabold text-red-800 inline-block"
                         >
                             {brand}
                         </span>

@@ -90,8 +90,8 @@ const PendingOrder = () => {
     }
 
     return (
-        <div className="p-6 bg-gray-50 min-h-screen">
-            <h2 className="text-2xl font-bold mb-6 text-center">Pending Orders</h2>
+        <div className="p-6 dash-card min-h-screen">
+            <h2 className="text-xl   font-bold mb-6  text-center">Pending Orders</h2>
 
             {/* Filters */}
             <div className="flex flex-col md:flex-row justify-between mb-6 gap-4">
@@ -115,9 +115,9 @@ const PendingOrder = () => {
             {filteredOrders.length === 0 ? (
                 <p className="text-center text-gray-500 py-10">No orders found.</p>
             ) : (
-                <div className="overflow-x-auto bg-white shadow-md rounded-lg">
-                    <table className="table-auto w-full border-collapse">
-                        <thead className="bg-gray-200 text-gray-700">
+                <div className="overflow-x-auto dash-card shadow-md rounded-lg">
+                    <table className="table-auto dash w-full border-collapse">
+                        <thead className="dash-card text-gray-700">
                             <tr>
                                 <th className="px-4 py-2 border-b">Order ID</th>
                                 <th className="px-4 py-2 border-b">User</th>
@@ -131,7 +131,7 @@ const PendingOrder = () => {
                             {filteredOrders.map((order) => {
                                 let statusColor = "bg-yellow-200 text-yellow-800"; // pending color
                                 return (
-                                    <tr key={order._id} className="hover:bg-gray-50 transition">
+                                    <tr key={order._id} className="dash-card transition">
                                         <td className="px-4 py-3 border-b font-mono">{order._id}</td>
                                         <td className="px-4 py-3 border-b">{order.customerEmail}</td>
                                         <td className="px-4 py-3 border-b">{order.productName}</td>

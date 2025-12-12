@@ -45,7 +45,7 @@ const AdminDashboard = () => {
       {/* Stats Cards */}
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 mb-10">
         {stats.map(stat => (
-          <div key={stat._id} className="bg-white shadow-lg rounded-xl p-5 flex flex-col items-center justify-center hover:shadow-xl transition duration-300">
+          <div key={stat._id} className="dash-card shadow-lg rounded-xl p-5 flex flex-col items-center justify-center hover:shadow-xl transition duration-300">
             <div className="text-gray-500 text-sm font-semibold mb-2">{stat._id}</div>
             <div className="text-3xl font-bold text-gray-800">{stat.count}</div>
           </div>

@@ -83,15 +83,15 @@ const ManagerCreatedProduct = () => {
       <input
         type="text"
         placeholder="Search product..."
-        className="input input-bordered w-full max-w-md mb-4"
+        className="input input-bordered text dash w-full max-w-md mb-4"
         value={searchText}
         onChange={(e) => setSearchText(e.target.value)}
       />
 
       {/* Table */}
-      <div className="overflow-x-auto border rounded-lg shadow">
+      <div className="overflow-x-auto rounded-lg shadow">
         <table className="table w-full">
-          <thead className="bg-gray-200">
+          <thead className="dash-card border-2 border-e-gray-800">
             <tr>
               <th>Image</th>
               <th>Name</th>
@@ -104,7 +104,7 @@ const ManagerCreatedProduct = () => {
 
           <tbody>
             {filtered.map((product) => (
-              <tr key={product._id} className="hover:bg-gray-50">
+              <tr key={product._id} className="dash-card text border-b-2">
                 <td>
                   <img
                     src={product.product_image}
@@ -148,18 +148,19 @@ const ManagerCreatedProduct = () => {
       </div>
 
       {/* EDIT MODAL */}
-     {editingProduct && (
+     {/* EDIT MODAL */}
+{editingProduct && (
   <div
-    className="fixed inset-0 bg-black bg-opacity-40 backdrop-blur-sm flex justify-center items-center p-4"
-    onClick={() => setEditingProduct(null)} // Close when clicking outside
+    className="fixed inset-0  bg-black/40 backdrop-blur-sm flex justify-center items-center p-4 z-50"
+    onClick={() => setEditingProduct(null)} // Click outside closes modal
   >
     <div
-      className="bg-white p-6 rounded-lg w-full max-w-lg shadow-xl relative"
-      onClick={(e) => e.stopPropagation()} // Prevent closing when clicking inside modal
+      className="bg-white/10 dash-card p-6 rounded-xl w-full max-w-lg shadow-2xl border border-white/20 relative"
+      onClick={(e) => e.stopPropagation()} // Prevent close when clicking inside
     >
       {/* Close Icon */}
       <button
-        className="absolute top-2 right-2 text-gray-600 hover:text-black text-xl"
+        className="absolute top-2 right-3 text-xl text-gray-300 hover:text-white"
         onClick={() => setEditingProduct(null)}
       >
         ✖
@@ -167,14 +168,16 @@ const ManagerCreatedProduct = () => {
 
       <h3 className="text-2xl font-bold mb-4">Edit Product</h3>
 
-      <form onSubmit={handleEditSubmit} className="flex flex-col gap-3">
+      <form onSubmit={handleEditSubmit} className="flex flex-col pt-4 gap-4">
+
         {/* Name */}
         <input
           type="text"
           name="product_name"
           value={editingProduct.product_name}
           onChange={handleEditChange}
-          className="input input-bordered"
+          className="input input-bordered dash-card text w-full"
+          placeholder="Product Name"
         />
 
         {/* CATEGORY */}
@@ -183,7 +186,8 @@ const ManagerCreatedProduct = () => {
           name="product_category"
           value={editingProduct.product_category}
           onChange={handleEditChange}
-          className="input input-bordered"
+          className="input input-bordered dash-card text w-full"
+          placeholder="Category"
         />
 
         {/* DESCRIPTION */}
@@ -191,7 +195,8 @@ const ManagerCreatedProduct = () => {
           name="product_description"
           value={editingProduct.product_description}
           onChange={handleEditChange}
-          className="input input-bordered h-24"
+          className="textarea textarea-bordered dash-card text w-full h-24"
+          placeholder="Product Description"
         />
 
         {/* PRICE */}
@@ -200,7 +205,8 @@ const ManagerCreatedProduct = () => {
           name="price_usd"
           value={editingProduct.price_usd}
           onChange={handleEditChange}
-          className="input input-bordered"
+          className="input input-bordered dash-card text w-full"
+          placeholder="Price (USD)"
         />
 
         {/* QTY */}
@@ -209,29 +215,30 @@ const ManagerCreatedProduct = () => {
           name="available_quantity"
           value={editingProduct.available_quantity}
           onChange={handleEditChange}
-          className="input input-bordered"
+          className="input input-bordered dash-card text w-full"
+          placeholder="Available Quantity"
         />
 
         {/* Payment Method */}
         <select
           name="payment_method"
-          className="select select-bordered"
           value={editingProduct.payment_method}
           onChange={handleEditChange}
+          className="select select-bordered dash-card text w-full"
         >
-          <option value="COD">Cash On Delivery</option>
-          <option value="Bank">PayFast</option>
+          <option value="COD" className="bg-gray-700 text-white">Cash On Delivery</option>
+          <option value="Bank" className="bg-gray-700 text-white">PayFast</option>
         </select>
 
-        {/* Show on Home */}
+        {/* Show On Home */}
         <select
           name="show_on_home"
-          className="select select-bordered"
           value={editingProduct.show_on_home}
           onChange={handleEditChange}
+          className="select select-bordered dash-card text w-full"
         >
-          <option value="permit">Show</option>
-          <option value="hide">Hide</option>
+          <option value="permit" className="bg-gray-700 text-white font-bold">Show</option>
+          <option value="hide" className="bg-gray-700 text-white font-bold">Hide</option>
         </select>
 
         {/* Image URL */}
@@ -241,16 +248,16 @@ const ManagerCreatedProduct = () => {
           value={editingProduct.product_image}
           onChange={handleEditChange}
           placeholder="Product Image URL"
-          className="input input-bordered"
+          className="input input-bordered dash-card text w-full"
         />
 
         {/* Buttons */}
-        <div className="flex gap-2 mt-2">
-          <button className="btn btn-primary w-full">Update</button>
+        <div className="flex gap-3 pb-15 mt-2">
+          <button className="btn btn-primary  w-55">Update</button>
 
           <button
             type="button"
-            className="btn btn-gray w-full"
+            className="btn btn-outline w-55"
             onClick={() => setEditingProduct(null)}
           >
             Cancel
@@ -260,6 +267,7 @@ const ManagerCreatedProduct = () => {
     </div>
   </div>
 )}
+
 
     </div>
   );

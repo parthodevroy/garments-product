@@ -24,7 +24,7 @@ const topDeals = [
 
 const OverVew = () => {
   return (
-    <div className="bg-gray-50 min-h-screen py-10">
+    <div className="bg-card min-h-screen py-10">
       
      
       
@@ -35,7 +35,7 @@ const OverVew = () => {
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
-          className="bg-white shadow-md rounded-xl p-4"
+          className="bg-card shadow-md rounded-xl p-4"
         >
           <h2 className="text-xl font-bold mb-4">🔥 Hot Selling</h2>
 
@@ -43,7 +43,7 @@ const OverVew = () => {
             <motion.div
               whileHover={{ scale: 1.03 }}
               key={item.id}
-              className="bg-gray-100 p-3 mb-3 rounded-lg"
+              className="bg-card p-3 mb-3 rounded-lg"
             >
               <img
                 src={item.image}
@@ -61,7 +61,7 @@ const OverVew = () => {
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7 }}
-          className="bg-white shadow-md rounded-xl p-4"
+          className="bg-card shadow-md rounded-xl p-4"
         >
           <h2 className="text-xl font-bold mb-4">🆕 New Arrivals</h2>
 
@@ -70,7 +70,7 @@ const OverVew = () => {
               <motion.div
                 whileHover={{ scale: 1.05 }}
                 key={item.id}
-                className="bg-gray-100 p-3 rounded-lg"
+                className="bg-card p-3 rounded-lg"
               >
                 <img
                   src={item.image}
@@ -88,7 +88,7 @@ const OverVew = () => {
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
-          className="bg-white shadow-md rounded-xl p-4"
+          className="bg-card shadow-md rounded-xl p-4"
         >
           <h2 className="text-xl font-bold mb-4">🎯 Top Deals</h2>
 
@@ -96,7 +96,7 @@ const OverVew = () => {
             <motion.div
               whileHover={{ scale: 1.05 }}
               key={item.id}
-              className="bg-gray-100 p-3 mb-3 rounded-lg"
+              className="bg-card p-3 mb-3 rounded-lg"
             >
               <img
                 src={item.image}

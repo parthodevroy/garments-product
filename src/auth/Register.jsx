@@ -109,7 +109,7 @@ console.log(data);
                         <p className="text-red-500">Photo is required</p>
                     )}
                     {/* user role */}
-                    <select defaultValue="Pick a language" className="select select-secondary" {...register("role",{required:true})}>
+                    <select defaultValue="Pick a language" className="select w-full select-secondary" {...register("role",{required:true})}>
                         <option disabled={true}>Pick a Role</option>
                         <option>Buyer</option>
                         <option>Manager</option>

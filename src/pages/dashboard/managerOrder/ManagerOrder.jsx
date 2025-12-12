@@ -160,10 +160,10 @@ const ManagerOrder = () => {
     <div className="p-6">
       <h2 className="text-2xl text-center font-bold mb-6">Pending Orders</h2>
 
-      <div className="overflow-x-auto bg-white shadow rounded-lg">
+      <div className="overflow-x-auto dash-card shadow rounded-lg">
         <table className="table w-full">
           <thead>
-            <tr className="bg-gray-100 text-gray-700">
+            <tr className="dash-card text-gray-700">
               <th>Product</th>
               <th>Buyer</th>
               <th>Qty</th>

@@ -53,9 +53,9 @@ const ApprovedOrder = () => {
     <div className="p-6">
       <h2 className="text-2xl font-bold text-center mb-6">Approved Orders</h2>
 
-      <table className="table w-full bg-white shadow rounded-lg">
+      <table className="table w-full dash-card shadow rounded-lg">
         <thead>
-          <tr className="bg-gray-100 text-gray-700">
+          <tr className="dash-card text-gray-700">
             <th>Order ID</th>
             <th>User</th>
             <th>Product</th>
@@ -74,7 +74,7 @@ const ApprovedOrder = () => {
               <td>{new Date(order.createdAt).toLocaleString()}</td>
               <td>
                 <button
-                  className="btn btn-info btn-sm mr-2"
+                  className="btn btn-info btn-sm mb-2 mr-2"
                   onClick={() => setSelectedOrder(order)}
                 >
                   Add Tracking

@@ -44,12 +44,12 @@ const AllOrder = () => {
 
   return (
     <div className="p-6">
-      <h2 className="text-2xl font-bold mb-4">All Orders</h2>
+      <h2 className="text-2xl text font-bold mb-4">All Orders</h2>
 
       {/* Filter & Search */}
       <div className="flex flex-wrap gap-3 mb-4">
         <select
-          className="input input-bordered"
+          className="input text dash input-bordered"
           value={filterStatus}
           onChange={(e) => setFilterStatus(e.target.value)}
         >
@@ -65,14 +65,14 @@ const AllOrder = () => {
           placeholder="Search by user or product"
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
-          className="input input-bordered"
+          className="input dash  text input-bordered"
         />
       </div>
 
       {/* Orders Table */}
-      <div className="overflow-x-auto bg-white shadow-md rounded-lg">
-        <table className="table-auto w-full text-left">
-          <thead className="bg-gray-200">
+      <div className="overflow-x-auto dash-card rounded-lg">
+        <table className="table-auto w-full text text-left">
+          <thead className="dash-card border-b border-b-white">
             <tr>
               <th className="px-4 py-2">Order ID</th>
               <th className="px-4 py-2">User</th>
@@ -91,7 +91,7 @@ const AllOrder = () => {
               </tr>
             ) : (
               filteredOrders.map((order) => (
-                <tr key={order._id} className="border-b">
+                <tr key={order._id} className=" border-b border-b-white">
                   <td className="px-4 py-2">{order._id.slice(-6)}</td>
                   <td className="px-4 py-2">{order.customerEmail}</td>
                   <td className="px-4 py-2">{order.productName}</td>

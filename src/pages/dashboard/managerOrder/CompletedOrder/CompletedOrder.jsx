@@ -26,9 +26,9 @@ const CompletedOrder = () => {
       {orders.length === 0 ? (
         <p className="text-center text-gray-500">No completed orders yet.</p>
       ) : (
-        <div className="overflow-x-auto bg-white shadow rounded-lg">
+        <div className="overflow-x-auto dash-card shadow rounded-lg">
           <table className="table w-full">
-            <thead className="bg-gray-100 text-gray-700">
+            <thead className="dash-card text-gray-700">
               <tr>
                 <th>Order ID</th>
                 <th>Product</th>

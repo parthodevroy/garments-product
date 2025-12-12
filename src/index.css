@@ -10,6 +10,8 @@
 :root {
   --bg-body: #f9fafb;
   --text-body: #0d1c3d;
+  --bg-dash: linear-gradient(135deg, #90B4C8 0%, #90B4C8 50%, #90B4C8 100%);
+  --bg-dash-card: linear-gradient(135deg, #BCC5D7BF  0%, #BCC5D7BF  50%, #BCC5D7BF  100%);
   --bg-gradient: linear-gradient(135deg, #f9fafb 0%, #f9fafb 50%, #f9fafb 100%);
   --btn-gradient: linear-gradient(135deg, #7C7BE6 0%, #7C7BE6 100%);
   --card-gradient: linear-gradient(145deg, #FFFFFF 0%, #FFFFFF 100%);
@@ -22,6 +24,8 @@
 [data-theme="dark"] {
   --bg-body: #0f172a;
   --text-body: #f1f5f9;
+  --bg-dash: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #334155 100%);
+  --bg-dash-card: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #334155 100%);
   --bg-gradient: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #334155 100%);
   --btn-gradient: linear-gradient(135deg, #06b6d4 0%, #3b82f6 100%);
   --card-gradient: linear-gradient(145deg, #1e293b 0%, #0f172a 100%);
@@ -38,6 +42,12 @@
 }
 .bg-navbar {
   background: var(--glow-pink);
+}
+.dash {
+  background: var(--bg-dash);
+}
+.dash-card {
+  background: var(--bg-dash-card);
 }
 .bg-navbar2 {
   background: var(--background);
