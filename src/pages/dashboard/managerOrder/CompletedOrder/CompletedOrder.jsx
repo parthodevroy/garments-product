@@ -21,34 +21,34 @@ const CompletedOrder = () => {
 
   return (
     <div className="p-6">
-      <h2 className="text-2xl font-bold mb-4 text-center">Completed Orders</h2>
+      <h2 className="text-2xl text font-bold mb-4 text-center">Completed Orders</h2>
 
       {orders.length === 0 ? (
-        <p className="text-center text-gray-500">No completed orders yet.</p>
+        <p className="text-center text">No completed orders yet.</p>
       ) : (
         <div className="overflow-x-auto dash-card shadow rounded-lg">
           <table className="table w-full">
-            <thead className="dash-card text-gray-700">
+            <thead className="dash-card text">
               <tr>
-                <th>Order ID</th>
-                <th>Product</th>
-                <th>Buyer</th>
-                <th>Quantity</th>
-                <th>Total</th>
-                <th>Status</th>
-                <th>Tracking</th>
+                <th className="border-b border-white">Order ID</th>
+                <th className="border-b border-white">Product</th>
+                <th className="border-b border-white">Buyer</th>
+                <th className="border-b border-white">Quantity</th>
+                <th className="border-b border-white">Total</th>
+                <th className="border-b border-white">Status</th>
+                <th className="border-b border-white">Tracking</th>
               </tr>
             </thead>
             <tbody>
               {orders.map(order => (
-                <tr key={order._id} className="border-b">
-                  <td className="font-mono text-sm">{order._id}</td>
-                  <td>{order.productName}</td>
-                  <td>{order.customerEmail}</td>
-                  <td>{order.quantity}</td>
-                  <td>${order.totalPrice}</td>
-                  <td className="text-green-600 font-semibold">{order.orderStatus}</td>
-                  <td>
+                <tr key={order._id} className="border-b text">
+                  <td className="font-mono border-b border-white text-sm">{order._id}</td>
+                  <td className="border-b border-white">{order.productName}</td>
+                  <td className="border-b border-white">{order.customerEmail}</td>
+                  <td className="border-b border-white">{order.quantity}</td>
+                  <td className="border-b border-white">${order.totalPrice}</td>
+                  <td className="text-green-600 border-b border-white font-semibold ">{order.orderStatus}</td>
+                  <td className="border-b border-white">
                     {order.trackingLog?.length > 0 ? (
                       <ul className="list-disc ml-4 text-sm max-h-48 overflow-y-auto">
                         {order.trackingLog.map((t, i) => (
@@ -60,7 +60,7 @@ const CompletedOrder = () => {
                         ))}
                       </ul>
                     ) : (
-                      <span className="text-gray-500">No tracking info</span>
+                      <span className="text">No tracking info</span>
                     )}
                   </td>
                 </tr>

@@ -34,11 +34,11 @@ const TrackOrder = () => {
 
             {/* Order summary */}
             <div className="p-4 border rounded mb-6 shadow">
-                <p><strong>Product:</strong> {order.productName}</p>
-                <p><strong>Total:</strong> ${order.totalPrice}</p>
-                <p><strong>Status:</strong> {order.orderStatus}</p>
-                <p><strong>Payment:</strong> {order.paymentStatus}</p>
-                <p><strong>Order ID:</strong> {order._id}</p>
+                <p className=""><strong>Product:</strong> {order.productName}</p>
+                <p className=""><strong>Total:</strong> ${order.totalPrice}</p>
+                <p className=""><strong>Status:</strong> {order.orderStatus}</p>
+                <p className=""><strong>Payment:</strong> {order.paymentStatus}</p>
+                <p className=""><strong>Order ID:</strong> {order._id}</p>
             </div>
 
             <h3 className="text-xl font-semibold mb-3">Tracking Timeline</h3>

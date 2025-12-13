@@ -11,7 +11,7 @@ const Bookings = () => {
   const { user } = useAuth();
   const axiosSecure = useAxios();
   const navigate = useNavigate();
-  const { isSuspended, } = useUserStatus();
+  const { isSuspended,dbUser } = useUserStatus();
 
 
   const { state } = useLocation();
@@ -21,6 +21,7 @@ const Bookings = () => {
 
   // auto calculate price
   const quantity = useWatch({ control, name: "quantity" });
+console.log(dbUser);
 
   useEffect(() => {
     if (quantity) {
@@ -53,6 +54,15 @@ const Bookings = () => {
       text: "You cannot place an order while suspended.cheek your profile for suspended reason"
     });
     return;
+  }
+  if (dbUser.status==="pending") {
+     Swal.fire({
+      icon: "error",
+      title: "Pending",
+      text: "You cannot place an order while pending.please waiting for admin approval"
+    });
+    return;
+    
   }
     if (!validateOrder(data)) return;
     

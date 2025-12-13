@@ -24,6 +24,7 @@ const ManagerProfile = () => {
     }
   }, [user]);
 
+
   const handleLogout = () => {
     signout()
       .then(() => toast.success("Logged out successfully"))
@@ -32,15 +33,15 @@ const ManagerProfile = () => {
 
   return (
     <div className="p-8">
-      <div className="max-w-3xl mx-auto bg-white rounded-xl shadow-xl p-8">
+      <div className="max-w-3xl mx-auto dash-card rounded-xl shadow-xl p-8">
 
         {/* Header */}
         <div className="flex items-center gap-6 border-b pb-6 mb-6">
           <FaUserCircle className="text-gray-700" size={80} />
           <div>
-            <h1 className="text-3xl font-bold">{user?.displayName || "Manager"}</h1>
-            <p className="text-gray-600">{user?.email}</p>
-            <p className="text-gray-500 text-sm mt-1">
+            <h1 className="text-3xl text font-bold">{user?.displayName || "Manager"}</h1>
+            <p className="text">{user?.email}</p>
+            <p className="text text-sm mt-1">
               Joined: {user?.metadata?.creationTime
                 ? new Date(user.metadata.creationTime).toLocaleDateString()
                 : "N/A"}
@@ -49,33 +50,33 @@ const ManagerProfile = () => {
         </div>
 
         {/* Stats Section */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        {/* <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
 
-          <div className="p-5 bg-blue-50 border rounded-xl shadow text-center">
+          <div className="p-5 dash border rounded-xl shadow text-center">
             <h2 className="text-xl font-semibold text-blue-800">Total Orders</h2>
-            <p className="text-4xl font-bold mt-2 text-blue-900">
-              {stats.totalOrders}
-            </p>
+           <p className="text-4xl font-bold mt-2 text-blue-900">
+  {stats.totalOrders}
+</p>
           </div>
 
-          <div className="p-5 bg-green-50 border rounded-xl shadow text-center">
+          <div className="p-5 dash border rounded-xl shadow text-center">
             <h2 className="text-xl font-semibold text-green-800">Delivered</h2>
             <p className="text-4xl font-bold mt-2 text-green-900">
               {stats.delivered}
             </p>
           </div>
 
-          <div className="p-5 bg-yellow-50 border rounded-xl shadow text-center">
+          <div className="p-5 dash border rounded-xl shadow text-center">
             <h2 className="text-xl font-semibold text-yellow-800">Pending</h2>
             <p className="text-4xl font-bold mt-2 text-yellow-900">
               {stats.pending}
             </p>
           </div>
 
-        </div>
+        </div> */}
 
         {/* Profile Details */}
-        <div className="mt-8 p-6 bg-gray-50 border rounded-xl shadow-sm">
+        <div className="mt-8 p-6 dash text border rounded-xl shadow-sm">
           <h3 className="text-xl font-semibold mb-3">Profile Details</h3>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
@@ -93,7 +94,7 @@ const ManagerProfile = () => {
             Edit Profile
           </button> */}
 
-          <button 
+          <button
             onClick={handleLogout}
             className="btn btn-error flex items-center gap-2"
           >

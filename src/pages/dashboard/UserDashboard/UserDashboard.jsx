@@ -4,25 +4,28 @@ import { useQuery } from "@tanstack/react-query";
 import { PieChart, Pie, Cell, Tooltip, Legend } from "recharts";
 import useAuth from "../../../hooks/useAuth";
 import { FaCheckCircle, FaClock } from "react-icons/fa";
+import LoadingPage from "../../../component/LoadingPage/LoadingPage";
 
 const UserDashboard = () => {
   const { user } = useAuth();
   const axiosSecure = useAxios();
 
-  const { data: parcels = [], isLoading } = useQuery({
-    queryKey: ["user-orders", user?.email],
-    queryFn: async () => {
-      const res = await axiosSecure.get(`/orders?email=${user.email}`);
-      return res.data;
-    },
-    enabled: !!user?.email,
-  });
+  const { data: orders = [], isLoading } = useQuery({
+  queryKey: ["user-orders", user?.email],
+  queryFn: async () => {
+    const res = await axiosSecure.get(`/orders/by-buyer/${user.email}`); // 🔥 note change
+    return res.data;
+  },
+  enabled: !!user?.email,
+});
+console.log(orders);
 
-  if (isLoading) return <p className="text-center mt-10">Loading...</p>;
+
+  if (isLoading) return <LoadingPage/>
 
   // Stats calculation
-  const deliveredCount = parcels.filter(p => p.orderStatus === "accepted").length;
-  const pendingCount = parcels.filter(p => p.orderStatus !== "accepted").length;
+  const deliveredCount = orders.filter(p => p.orderStatus === "accepted").length;
+  const pendingCount = orders.filter(p => p.orderStatus !== "accepted").length;
 
   const pieData = [
     { name: "Delivered", value: deliveredCount },
@@ -38,14 +41,14 @@ const UserDashboard = () => {
       <div className="flex flex-col md:flex-row gap-6">
         {/* Stats Cards */}
         <div className="flex flex-1 gap-6 flex-wrap justify-center">
-          <div className="stat-card bg-white shadow-lg rounded-lg p-6 flex items-center gap-4 w-64 hover:shadow-xl transition-shadow">
+          <div className="stat-card dash-card shadow-lg rounded-lg p-6 flex items-center gap-4 w-64 hover:shadow-xl transition-shadow">
             <FaCheckCircle className="text-green-500 w-8 h-8" />
             <div>
-              <p className="text-gray-500 font-semibold">Delivered</p>
+              <p className="text-green-500 font-semibold">Delivered</p>
               <p className="text-2xl font-bold">{deliveredCount}</p>
             </div>
           </div>
-          <div className="stat-card bg-white shadow-lg rounded-lg p-6 flex items-center gap-4 w-64 hover:shadow-xl transition-shadow">
+          <div className="stat-card  dash-card shadow-lg rounded-lg p-6 flex items-center gap-4 w-64 hover:shadow-xl transition-shadow">
             <FaClock className="text-orange-500 w-8 h-8" />
             <div>
               <p className="text-gray-500 font-semibold">Pending</p>
@@ -55,7 +58,7 @@ const UserDashboard = () => {
         </div>
 
         {/* Pie Chart */}
-        <div className="flex justify-center flex-1 bg-white p-4 rounded-lg shadow-lg">
+        <div className="flex justify-center flex-1  p-4 rounded-lg shadow-lg">
           <PieChart width={420} height={300}>
             <Pie
               data={pieData}

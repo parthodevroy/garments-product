@@ -23,7 +23,7 @@ const BuyerOrderDetailsTimeline = () => {
         <div className="p-6 max-w-2xl mx-auto">
             <h2 className="text-3xl font-bold mb-4">Order Details</h2>
 
-            <div className="p-4 border rounded mb-6">
+            <div className="p-4 border text rounded mb-6">
                 <p><strong>Product:</strong> {order.productName}</p>
                 <p><strong>Total:</strong> ${order.totalPrice}</p>
                 <p><strong>Status:</strong> {order.orderStatus}</p>
@@ -33,7 +33,7 @@ const BuyerOrderDetailsTimeline = () => {
             <h3 className="text-xl font-semibold mb-3">Tracking Timeline</h3>
 
             {sortedTrackingLog && sortedTrackingLog.length > 0 ? (
-                <div className="border-l-2 pl-4 space-y-4 mb-6">
+                <div className="border-l-2 text pl-4 space-y-4 mb-6">
                     {sortedTrackingLog.map((t, i) => (
                         <div key={i} className="relative">
                             <div
@@ -52,7 +52,7 @@ const BuyerOrderDetailsTimeline = () => {
 
             {/* Link to Buyer Orders page */}
             <div className="text-center mt-6">
-                <Link to="/dashboard" className="btn btn-primary">
+                <Link to="/dashboard/approved-order" className="btn btn-primary">
                     Back Dashboard
                 </Link>
             </div>

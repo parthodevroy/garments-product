@@ -241,12 +241,12 @@ const UserManagement = () => {
           <thead className="pb-2 ">
             <tr className="">
 
-              <th>Name</th>
-              <th>Email</th>
-              <th>Role</th>
-              <th>Status</th>
-              <th>Suspend Reason</th>
-              <th>Action</th>
+              <th className="border-b border-white">Name</th>
+              <th className="border-b border-white">Email</th>
+              <th className="border-b border-white">Role</th>
+              <th className="border-b border-white">Status</th>
+              <th className="border-b border-white">Suspend Reason</th>
+              <th className="border-b border-white">Action</th>
             </tr>
           </thead>
           <tbody className="[&>tr>td]:border-b [&>tr>td]:border-white/50 [&>tr>th]:border-b [&>tr>th]:border-white/50 [&>tr]:my-2">

@@ -63,25 +63,25 @@ const BuyerOrder = () => {
       <h2 className="text-2xl font-bold mb-4 text-center">My Orders</h2>
 
 
-      <table className="table w-full bg-white shadow rounded-lg">
-        <thead className="bg-gray-100 text-gray-700">
+      <table className="table w-full dash-card shadow rounded-lg">
+        <thead className="dash-card text">
           <tr>
-            <th>Order ID</th>
-            <th>Product</th>
-            <th>Quantity</th>
-            <th>Status</th>
-            <th>Payment</th>
-            <th>Actions</th>
+            <th className='border-b border-white'>Order ID</th>
+            <th className='border-b border-white'>Product</th>
+            <th className='border-b border-white'>Quantity</th>
+            <th className='border-b border-white'>Status</th>
+            <th className='border-b border-white'>Payment</th>
+            <th className='border-b border-white'>Actions</th>
           </tr>
         </thead>
         <tbody>
           {orders.map((o) => (
-            <tr key={o._id} className="border-b">
-              <td className="font-mono text-sm">{o.orderId || o._id}</td>
-              <td>{o.productName}</td>
-              <td>{o.quantity}</td>
-              <td className="capitalize font-semibold text-yellow-700">{o.orderStatus}</td>
-              <td>
+            <tr key={o._id} className="border-b text">
+              <td className="font-mono border-b border-white text-sm">{o.orderId || o._id}</td>
+              <td className='border-b border-white'>{o.productName}</td>
+              <td className='border-b border-white'>{o.quantity}</td>
+              <td  className="capitalize border-b border-white font-semibold text-yellow-700">{o.orderStatus}</td>
+              <td className='border-b border-white'>
                 {o.paymentStatus === "paid" ? (
                   <span className="text-green-600 font-bold">Paid</span>
                 ) : o.payment_method === "PayFast" ? (
@@ -92,7 +92,7 @@ const BuyerOrder = () => {
                   <span className="text-blue-600 font-bold">Cash on Delivery</span>
                 )}
               </td>
-              <td className="flex gap-2">
+              <td className="flex border-b border-white gap-2">
                 {/* VIEW BUTTON
                 <Link to={`/dashboard/buyer-order-details/${o._id}`}>
                   <button className="btn btn-sm"><MdPageview /></button>
@@ -105,7 +105,7 @@ const BuyerOrder = () => {
                 {/* DELETE BUTTON */}
                 <button
                   onClick={() => handleDelete(o._id, o.orderStatus)}
-                  className="btn btn-sm btn-error"
+                  className="btn border-b border-white btn-sm btn-error"
                 >
                   <FaRegTrashAlt />
                 </button>

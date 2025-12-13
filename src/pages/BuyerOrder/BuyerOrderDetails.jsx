@@ -24,7 +24,7 @@ const BuyerOrderDetails = () => {
       <h1 className="text-3xl font-bold mb-6">Order Details</h1>
 
       {/* Order Basic Info */}
-      <div className="bg-white shadow-md rounded-lg p-6 mb-8 grid grid-cols-1 md:grid-cols-2 gap-4">
+      <div className="dash-card text shadow-md rounded-lg p-6 mb-8 grid grid-cols-1 md:grid-cols-2 gap-4">
         <p><strong>Order ID:</strong> {order._id}</p>
         <p><strong>Tracking ID:</strong> {order.trackingId}</p>
         <p><strong>Product Name:</strong> {order.productName}</p>

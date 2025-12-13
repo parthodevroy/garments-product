@@ -93,33 +93,33 @@ const ManagerCreatedProduct = () => {
         <table className="table w-full">
           <thead className="dash-card border-2 border-e-gray-800">
             <tr>
-              <th>Image</th>
-              <th>Name</th>
-              <th>Category</th>
-              <th>Price USD</th>
-              <th>Qty</th>
-              <th>Actions</th>
+              <th className="border-b border-white">Image</th>
+              <th className="border-b border-white">Name</th>
+              <th className="border-b border-white">Category</th>
+              <th className="border-b border-white">Price USD</th>
+              <th className="border-b border-white">Qty</th>
+              <th className="border-b border-white">Actions</th>
             </tr>
           </thead>
 
           <tbody>
             {filtered.map((product) => (
               <tr key={product._id} className="dash-card text border-b-2">
-                <td>
+                <td className="border-b border-white">
                   <img
                     src={product.product_image}
                     className="w-16 h-16 rounded object-cover"
                     alt=""
                   />
                 </td>
-                <td className="font-bold">{product.product_name}</td>
-                <td>{product.product_category}</td>
-                <td className="text-green-600 font-semibold">
+                <td className="font-bold border-b border-white">{product.product_name}</td>
+                <td className="border-b border-white">{product.product_category}</td>
+                <td className="text-green-600 border-b border-white font-semibold">
                   ${product.price_usd}
                 </td>
-                <td>{product.available_quantity}</td>
+                <td className="border-b border-white">{product.available_quantity}</td>
 
-                <td className="space-x-2">
+                <td className="space-x-2 border-b border-white">
                   <button
                     className="btn btn-sm btn-info"
                     onClick={() => setEditingProduct(product)}

@@ -21,6 +21,7 @@ const PaymentHistory = () => {
     const [selectedPayment, setSelectedPayment] = useState(null);
     // console.log(selectedPayment);
     
+console.log(payments);
 
     if (isLoading) return <LoadingPage />;
 
@@ -28,34 +29,34 @@ const PaymentHistory = () => {
         <div className="max-w-6xl mx-auto p-6">
             <h1 className="text-3xl font-bold mb-6 text-center">Payment History</h1>
 
-            <div className="overflow-x-auto bg-white shadow rounded-lg">
-                <table className="table-auto w-full border-collapse">
-                    <thead className="bg-gray-100 text-gray-700">
+            <div className="overflow-x-auto dash-card">
+                <table className="table-auto w-full">
+                    <thead className="dash-card text">
                         <tr>
-                            <th className="px-4 py-2 border-b">#</th>
-                            <th className="px-4 py-2 border-b">Parcel Name</th>
-                            <th className="px-4 py-2 border-b">Cost</th>
-                            <th className="px-4 py-2 border-b">Transaction ID</th>
-                            <th className="px-4 py-2 border-b">Payment Date</th>
-                            <th className="px-4 py-2 border-b">Action</th>
+                            <th className="px-4 py-2 border-b border-white">#</th>
+                            <th className="px-4 py-2 border-b border-white">Parcel Name</th>
+                            <th className="px-4 py-2 border-b border-white">Cost</th>
+                            <th className="px-4 py-2 border-b border-white">Transaction ID</th>
+                            <th className="px-4 py-2 border-b border-white">Payment Date</th>
+                            <th className="px-4 py-2 border-b border-white">Action</th>
                         </tr>
                     </thead>
                     <tbody>
                         {payments.length === 0 ? (
                             <tr>
-                                <td colSpan="6" className="text-center py-6 text-gray-500">
+                                <td colSpan="6" className="text-center py-6 text">
                                     No payments found.
                                 </td>
                             </tr>
                         ) : (
                             payments.map((payment, index) => (
-                                <tr key={payment._id} className="hover:bg-gray-50 transition">
-                                    <td className="px-4 py-3 border-b text-center">{index + 1}</td>
-                                    <td className="px-4 py-3 border-b">{payment.parcelName}</td>
-                                    <td className="px-4 py-3 border-b font-semibold text-green-600">${payment.amount}</td>
-                                    <td className="px-4 py-3 border-b font-mono">{payment.transactionId}</td>
-                                    <td className="px-4 py-3 border-b">{new Date(payment.paidAt).toLocaleString()}</td>
-                                    <td className="px-4 py-3 border-b text-center">
+                                <tr key={payment._id} className="hover:bg-gray-50  text transition">
+                                    <td className="px-4 py-3 border-b border-white text-center">{index + 1}</td>
+                                    <td className="px-4 py-3 border-b border-white">{payment.productName}</td>
+                                    <td className="px-4 py-3 border-b border-white font-semibold text-green-600">${payment.amount}</td>
+                                    <td className="px-4 py-3 border-b border-white font-mono">{payment.transactionId}</td>
+                                    <td className="px-4 py-3 border-b border-white">{new Date(payment.paidAt).toLocaleString()}</td>
+                                    <td className="px-4 py-3 border-b border-white text-center">
                                         <button
                                             onClick={() => setSelectedPayment(payment)}
                                             className="btn btn-sm btn-primary flex items-center gap-1 hover:bg-blue-600 transition"

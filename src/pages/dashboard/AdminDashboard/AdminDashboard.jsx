@@ -43,7 +43,7 @@ const AdminDashboard = () => {
       <h1 className="text-3xl font-bold mb-6 text-gray-800">Admin Dashboard</h1>
 
       {/* Stats Cards */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 mb-10">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3  lg:grid-cols-4 gap-6 mb-10">
         {stats.map(stat => (
           <div key={stat._id} className="dash-card shadow-lg rounded-xl p-5 flex flex-col items-center justify-center hover:shadow-xl transition duration-300">
             <div className="text-gray-500 text-sm font-semibold mb-2">{stat._id}</div>

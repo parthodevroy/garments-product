@@ -15,7 +15,7 @@ const ProductCreated = () => {
   const axiosSecure = useAxios();
   const navigate = useNavigate();
   const {user}=useAuth()
-  const {isSuspended}=useUserStatus()
+  const {isSuspended,dbUser}=useUserStatus()
 
   // --- Image Preview Handler ---
   const handleImagePreview = (e) => {
@@ -34,6 +34,16 @@ const ProductCreated = () => {
         });
         return;
       }
+
+      if (dbUser.status==="pending") {
+           Swal.fire({
+            icon: "error",
+            title: "Pending",
+            text: "You cannot Created an Product while pending.please waiting for admin approval"
+          });
+          return;
+          
+        }
     try {
 
       // STEP 1: Upload all images to imgbb
@@ -107,7 +117,7 @@ const ProductCreated = () => {
   };
 
   return (
-    <div className="max-w-5xl mx-auto bg-white p-6 rounded-md">
+    <div className="max-w-5xl mx-auto bg p-6 text rounded-md">
 
       <h2 className="text-2xl font-bold">Add New Product</h2>
       <p>Create your product and publish</p>

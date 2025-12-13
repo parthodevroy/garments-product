@@ -146,7 +146,7 @@ const ManagerOrder = () => {
 
   // Accept / Reject order
   const handleStatusChange = (orderId, status) => {
-    
+
     axiosSecure
       .patch(`/orders/${orderId}/status`, { status })
       .then(() => {
@@ -155,6 +155,7 @@ const ManagerOrder = () => {
       })
       .catch((err) => console.error(err));
   };
+console.log(orders);
 
   return (
     <div className="p-6">
@@ -163,70 +164,73 @@ const ManagerOrder = () => {
       <div className="overflow-x-auto dash-card shadow rounded-lg">
         <table className="table w-full">
           <thead>
-            <tr className="dash-card text-gray-700">
-              <th>Product</th>
-              <th>Buyer</th>
-              <th>Qty</th>
-              <th>Total</th>
-              <th>Status</th>
-              <th>Actions</th>
-              <th>View</th>
+            <tr className="dash-card text">
+              <th className="border-b border-white">Product</th>
+              <th className="border-b border-white">Buyer</th>
+              <th className="border-b border-white">Qty</th>
+              <th className="border-b border-white">Total</th>
+              <th className="border-b border-white">Status</th>
+              <th className="border-b border-white">Actions</th>
+              <th className="border-b border-white">View</th>
             </tr>
           </thead>
 
           <tbody>
-            {orders.length === 0 ? (
+            {orders.length ===0 ?  (
               <tr>
-                <td colSpan="7" className="text-center py-4 text-gray-500">
+                <td colSpan="7" className="text-center py-4 text">
                   No pending orders found.
                 </td>
               </tr>
             ) : (
-              orders.map((order) => (
-                <tr key={order._id} className="border-b">
-                  <td>{order.productName}</td>
-                  <td>{order.customerEmail}</td>
-                  <td>{order.quantity}</td>
-                  <td>${order.totalPrice}</td>
-                  <td className="font-semibold">{order.orderStatus}</td>
+              orders
+                .filter(order => order.orderStatus === "pending")
+                .map((order) => (
 
-                  {/* Status Buttons */}
-                  <td>
-                    {order.orderStatus === "pending" ? (
-                      <div className="flex gap-2">
-                        <button
-                          onClick={() => handleStatusChange(order._id, "accepted")}
-                          className="btn btn-success btn-sm"
-                        >
-                          Accept
-                        </button>
-                        <button
-                          onClick={() => handleStatusChange(order._id, "rejected")}
-                          className="btn btn-error btn-sm"
-                        >
-                          Reject
-                        </button>
-                      </div>
-                    ) : order.orderStatus === "accepted" ? (
-                      <span className="text-green-600 font-semibold">Accepted</span>
-                    ) : order.orderStatus === "rejected" ? (
-                      <span className="text-red-600 font-semibold">Rejected</span>
-                    ) : (
-                      <span className="text-gray-600 font-semibold">{order.orderStatus}</span>
-                    )}
-                  </td>
+                  <tr key={order._id} className="border-b text">
+                    <td className="border-b border-white">{order.productName}</td>
+                    <td className="border-b border-white">{order.customerEmail}</td>
+                    <td className="border-b border-white">{order.quantity}</td>
+                    <td className="border-b border-white">${order.totalPrice}</td>
+                    <td className="font-semibold border-b border-white">{order.orderStatus}</td>
 
-                  {/* View Button */}
-                  <td>
-                    <button
-                      className="btn btn-info btn-sm"
-                      onClick={() => setSelectedOrder(order)}
-                    >
-                      View
-                    </button>
-                  </td>
-                </tr>
-              ))
+                    {/* Status Buttons */}
+                    <td className="border-b border-white">
+                      {order.orderStatus === "pending" ? (
+                        <div className="flex gap-2">
+                          <button
+                            onClick={() => handleStatusChange(order._id, "accepted")}
+                            className="btn btn-success btn-sm"
+                          >
+                            Accept
+                          </button>
+                          <button
+                            onClick={() => handleStatusChange(order._id, "rejected")}
+                            className="btn btn-error btn-sm"
+                          >
+                            Reject
+                          </button>
+                        </div>
+                      ) : order.orderStatus === "accepted" ? (
+                        <span className="text-green-600 font-semibold">Accepted</span>
+                      ) : order.orderStatus === "rejected" ? (
+                        <span className="text-red-600 font-semibold">Rejected</span>
+                      ) : (
+                        <span className="text-gray-600 font-semibold">{order.orderStatus}</span>
+                      )}
+                    </td>
+
+                    {/* View Button */}
+                    <td className="border-b border-white">
+                      <button
+                        className="btn btn-info btn-sm"
+                        onClick={() => setSelectedOrder(order)}
+                      >
+                        View
+                      </button>
+                    </td>
+                  </tr>
+                ))
             )}
           </tbody>
         </table>

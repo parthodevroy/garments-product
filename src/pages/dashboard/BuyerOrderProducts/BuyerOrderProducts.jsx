@@ -26,11 +26,11 @@ console.log(orders);
       ) : (
         <div className="space-y-4">
           {orders.map(order => (
-            <div key={order._id} className="border p-4 rounded shadow">
-              <p><strong>Product:</strong> {order.productName}</p>
-              <p><strong>Quantity:</strong> {order.quantity}</p>
-              <p><strong>Total Paid:</strong> ${order.totalPrice}</p>
-              <p><strong>Status:</strong> {order.orderStatus}</p>
+            <div key={order._id} className="border-b border-white p-4 rounded shadow">
+              <p className="border-b border-white"><strong>Product:</strong> {order.productName}</p>
+              <p className="border-b border-white"><strong>Quantity:</strong> {order.quantity}</p>
+              <p className="border-b border-white"><strong>Total Paid:</strong> ${order.totalPrice}</p>
+              <p className="border-b border-white"><strong>Status:</strong> {order.orderStatus}</p>
 
               {order.trackingLog?.length > 0 && (
                 <div className="mt-2">
