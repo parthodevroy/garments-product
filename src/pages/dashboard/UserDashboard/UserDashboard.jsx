@@ -13,7 +13,7 @@ const UserDashboard = () => {
   const { data: orders = [], isLoading } = useQuery({
   queryKey: ["user-orders", user?.email],
   queryFn: async () => {
-    const res = await axiosSecure.get(`/orders/by-buyer/${user.email}`); // 🔥 note change
+    const res = await axiosSecure.get(`/orders/by-buyer/${user.email}`); 
     return res.data;
   },
   enabled: !!user?.email,

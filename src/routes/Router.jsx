@@ -7,7 +7,6 @@ import Register from "../auth/Register";
 import PrivateRoutes from "./PrivateRoutes";
 
 // import MyDashboard from "../pages/dashboard/Mydashboard/MyDashboard";
-import Payment from "../pages/dashboard/Payment/Payment";
 import PaymentSuccess from "../pages/PaymentSuccess/PaymentSuccess";
 
 import DashBoard from "../mainlayout/DashBoard";
@@ -38,6 +37,8 @@ import ManagerProfile from "../pages/dashboard/managerOrder/ManagerProfile/Manag
 import ApprovedOrder from "../pages/dashboard/ManagerDashboard/ApprovedOrder/ApprovedOrder";
 import TrackOrder from "../pages/dashboard/BuyerOrderProducts/TrackOrder/TrackOrder";
 import BuyerOrderDetails from "../pages/BuyerOrder/BuyerOrderDetails";
+import ManagerPrivateRoutes from "./ManagerPrivateRoutes/ManagerPrivateRoutes";
+import AdminPrivateRoute from "./AdminPrivateRoute";
 
 
 export const router = createBrowserRouter([
@@ -73,10 +74,10 @@ export const router = createBrowserRouter([
         Component:AllProducts
       },
        { path: '/details/:id',
-         element: <DetailsProducts />
+         element:<PrivateRoutes> <DetailsProducts /></PrivateRoutes>
          },
        { path: '/productcreated',
-         element: <ProductCreated/>
+         element:<ManagerPrivateRoutes> <ProductCreated/></ManagerPrivateRoutes>
          },
       
     ]
@@ -101,52 +102,49 @@ export const router = createBrowserRouter([
     path: "/dashboard",
     element: (
      
-        <DashBoard></DashBoard>
+       <PrivateRoutes> <DashBoard></DashBoard></PrivateRoutes>
      
     ),
     children: [
       {
         index:true,
-        element:<DashboardHome></DashboardHome>
+        element:<PrivateRoutes><DashboardHome></DashboardHome></PrivateRoutes>
 
       },
       {
         path: "setting",
-        Component:Setting
+      element:<PrivateRoutes><Setting></Setting></PrivateRoutes>
       },
      
       {
         path: "manager-dashboard-home",
-        Component:ManagerDashboard
+        element:<ManagerPrivateRoutes><ManagerDashboard></ManagerDashboard></ManagerPrivateRoutes>
       },
       {
         path: "manager-created-product",
-        Component:ManagerCreatedProduct
+       element:<ManagerPrivateRoutes><ManagerCreatedProduct></ManagerCreatedProduct></ManagerPrivateRoutes>
       },
       {
         path: "Buyer-orders",
-        Component:BuyerOrder
+       element:<PrivateRoutes><BuyerOrder/></PrivateRoutes>
       },
       {
         path: "buyer-order-details/:id",
-        Component:BuyerOrderDetailsTimeline
+       element:<PrivateRoutes><BuyerOrderDetails></BuyerOrderDetails></PrivateRoutes>
       },
       {
         path: "buyer-order-track/:id",
-        Component:TrackOrderForm
+       element:<PrivateRoutes><TrackOrderForm></TrackOrderForm></PrivateRoutes>
       },
       {
         path: "track-order/:orderId",
-        element:<TrackOrder></TrackOrder>
+        element:<PrivateRoutes><TrackOrder></TrackOrder></PrivateRoutes>
       },
       {
         path: "buyer-orders/:orderId",
         element:<PrivateRoutes><BuyerOrderDetails></BuyerOrderDetails></PrivateRoutes>
       },
-      {
-        path: "payment/:orderId",
-        Component: Payment
-      },
+     
       {
         path: "payment-success",
         Component: PaymentSuccess
@@ -157,7 +155,7 @@ export const router = createBrowserRouter([
       },
       {
         path: "payment-history",
-        Component: PaymentHistory
+       element:<PrivateRoutes><PaymentHistory/></PrivateRoutes>
       },
      
       // rider related routes only rider can see this page
@@ -168,32 +166,32 @@ export const router = createBrowserRouter([
       },
        {
         path:"completed-order",
-        element:<CompletedOrder/>
+        element:<ManagerPrivateRoutes><CompletedOrder/></ManagerPrivateRoutes>
 
       },
        {
         path:"pending-order",
-        element:<PendingOrder></PendingOrder>
+        element:<ManagerPrivateRoutes><PendingOrder></PendingOrder></ManagerPrivateRoutes>
 
       },
        {
         path:"approved-order",
-        element:<ApprovedOrder></ApprovedOrder>
+        element:<ManagerPrivateRoutes><ApprovedOrder></ApprovedOrder></ManagerPrivateRoutes>
 
       },
        {
         path:"manager-profile",
-        element:<PrivateRoutes><ManagerProfile></ManagerProfile></PrivateRoutes>
+        element:<ManagerPrivateRoutes><ManagerProfile></ManagerProfile></ManagerPrivateRoutes>
 
       },
        {
         path:"all-products-admin",
-        element:<AllproductAdmin/>
+        element:<AdminPrivateRoute><AllproductAdmin/></AdminPrivateRoute>
 
       },
        {
         path:"all-orders",
-        element:<AllOrder/>
+        element:<AdminPrivateRoute><AllOrder/></AdminPrivateRoute>
 
       },
       // {
@@ -218,7 +216,7 @@ export const router = createBrowserRouter([
       {
         path:"user-management",
        element:
-        <UserManagement></UserManagement>
+        <AdminPrivateRoute><UserManagement></UserManagement></AdminPrivateRoute>
        
     
       }

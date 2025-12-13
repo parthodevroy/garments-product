@@ -80,17 +80,14 @@ const BuyerOrder = () => {
               <td className="font-mono border-b border-white text-sm">{o.orderId || o._id}</td>
               <td className='border-b border-white'>{o.productName}</td>
               <td className='border-b border-white'>{o.quantity}</td>
-              <td  className="capitalize border-b border-white font-semibold text-yellow-700">{o.orderStatus}</td>
+              <td className="capitalize border-b border-white font-semibold text-yellow-700">{o.orderStatus}</td>
               <td className='border-b border-white'>
-                {o.paymentStatus === "paid" ? (
-                  <span className="text-green-600 font-bold">Paid</span>
-                ) : o.payment_method === "PayFast" ? (
-                  <Link to={`/dashboard/payment/${o._id}`}>
-                    <button className="btn btn-primary btn-sm">Pay</button>
-                  </Link>
-                ) : (
+                {o.payment_method === "COD" ? (
                   <span className="text-blue-600 font-bold">Cash on Delivery</span>
+                ) : (
+                  <span className="text-green-600 font-bold">Paid</span>
                 )}
+
               </td>
               <td className="flex border-b border-white gap-2">
                 {/* VIEW BUTTON

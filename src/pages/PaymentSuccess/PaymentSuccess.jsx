@@ -16,21 +16,7 @@ const PaymentSuccess = () => {
 
 
 const calledRef = useRef(false);
-// useEffect(() => {
-//     if (!sessionId) return;
-//     if (calledRef.current) return;
-//     calledRef.current = true;
 
-//     const verifyPayment = async () => {
-//         try {
-//             const res = await axiosSecure.post("/payment/verify", { sessionId });
-//             setPaymentStatus(res.data.verified ? "success" : "failed");
-//         } catch (err) {
-//             setPaymentStatus("error",err);
-//         }
-//     };
-//     verifyPayment();
-// }, [sessionId]);
 useEffect(() => {
     if (!sessionId) return;
     if (calledRef.current) return;
@@ -38,12 +24,12 @@ useEffect(() => {
 
     const verifyPayment = async () => {
         try {
-            console.log("Verifying Payment, sessionId:", sessionId);  // ✅ এখানে দেখবে sessionId
+            console.log("Verifying Payment, sessionId:", sessionId);  
             const res = await axios.post("http://localhost:3000/payment/verify", { sessionId });
-            console.log("Payment verify response:", res.data);  // ✅ এখানে দেখবে API থেকে কি response এসেছে
+            console.log("Payment verify response:", res.data); 
             setPaymentStatus(res.data.verified ? "success" : "failed");
         } catch (err) {
-            console.error("Payment verify error:", err); // ✅ কোনো error এসেছে কি না
+            console.error("Payment verify error:", err); 
             setPaymentStatus("error");
         }
     };
@@ -72,6 +58,9 @@ useEffect(() => {
         <div className="text-center mt-20">
             <h1 className={`${colorClass} text-2xl font-semibold`}>{message}</h1>
             <p className="mt-2 text-sm text-gray-600">Session ID: {sessionId}</p>
+            {/* <Link to={"/booking"}>
+                <button className='btn btn-primary mt-6'>Go to Dashboard</button>
+            </Link> */}
             <Link to={"/dashboard/buyer-orders"}>
                 <button className='btn btn-primary mt-6'>Go to Dashboard</button>
             </Link>

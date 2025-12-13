@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
 import useAuth from "../hooks/useAuth";
 import { useForm } from "react-hook-form";
 import SocialLogin from "./social/SocialLogin";
 import { Link, useLocation, useNavigate } from "react-router";
+import Swal from "sweetalert2";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -10,19 +11,49 @@ const Login = () => {
   const from = location.state?.from?.pathname || "/";
 
   const { userlogin } = useAuth();
+  const [authError, setAuthError] = useState("");
+
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm();
 
-  const handellogin = (data) => {
-    userlogin(data.email, data.password)
-      .then(() => {
-        navigate(from, { replace: true });
-      })
-      .catch((err) => console.log(err));
-  };
+ const handellogin = async (data) => {
+  setAuthError("");
+
+  try {
+    await userlogin(data.email, data.password);
+
+   
+    Swal.fire({
+      icon: "success",
+      title: "Login Successful",
+      text: "Welcome back to GOPTS ",
+      timer: 1500,
+      showConfirmButton: false,
+    });
+
+    
+    setTimeout(() => {
+      navigate(from, { replace: true });
+    }, 1500);
+
+  } catch (error) {
+    console.error(error);
+
+    if (error.code === "auth/invalid-credential") {
+      setAuthError("Invalid email or password");
+    } else if (error.code === "auth/user-not-found") {
+      setAuthError("No account found with this email");
+    } else if (error.code === "auth/wrong-password") {
+      setAuthError("Incorrect password");
+    } else {
+      setAuthError("Login failed. Please try again");
+    }
+  }
+};
+
 
   return (
     <div className="w-full max-w-sm mx-auto card p-6 rounded-xl shadow-xl bg-white/80 backdrop-blur">
@@ -30,10 +61,20 @@ const Login = () => {
       <h3 className="text-3xl font-bold text-center text-gray-800">
         Welcome Back
       </h3>
-      <p className="text-center text-gray-600 mb-4">Please login to continue</p>
+      <p className="text-center text-gray-600 mb-4">
+        Please login to continue
+      </p>
+
+      {/* Firebase Error */}
+      {authError && (
+        <div className="bg-red-100 text-red-600 text-sm p-2 rounded mb-3 text-center">
+          {authError}
+        </div>
+      )}
 
       {/* Form */}
       <form onSubmit={handleSubmit(handellogin)} className="space-y-3">
+        {/* Email */}
         <div className="form-control">
           <label className="label font-semibold">Email</label>
           <input
@@ -43,10 +84,13 @@ const Login = () => {
             placeholder="Enter your email"
           />
           {errors.email && (
-            <p className="text-red-500 text-sm mt-1">Email is required</p>
+            <p className="text-red-500 text-sm mt-1">
+              Email is required
+            </p>
           )}
         </div>
 
+        {/* Password */}
         <div className="form-control">
           <label className="label font-semibold">Password</label>
           <input
@@ -61,13 +105,17 @@ const Login = () => {
           />
 
           {errors.password?.type === "required" && (
-            <p className="text-red-500 text-sm mt-1">Password is required</p>
+            <p className="text-red-500 text-sm mt-1">
+              Password is required
+            </p>
           )}
+
           {errors.password?.type === "minLength" && (
             <p className="text-red-500 text-sm mt-1">
               Password must be at least 6 characters
             </p>
           )}
+
           {errors.password?.type === "pattern" && (
             <p className="text-red-500 text-sm mt-1">
               Password must include uppercase, lowercase & number
@@ -75,15 +123,17 @@ const Login = () => {
           )}
         </div>
 
-        {/* Login button */}
-        <button className="btn btn-neutral w-full mt-2">Login</button>
+        {/* Login Button */}
+        <button className="btn btn-neutral w-full mt-2">
+          Login
+        </button>
 
         {/* Register Link */}
         <p className="text-center mt-2 text-sm">
           Create an Account at ZapShift
           <Link
             className="text-blue-600 font-semibold underline pl-1"
-            to={"/register"}
+            to="/register"
           >
             Register
           </Link>

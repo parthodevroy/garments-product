@@ -122,7 +122,7 @@ const AllproductAdmin = () => {
             Swal.fire("Error", "Failed to update show on home status", "error");
         }
     };
-    console.log(products);
+    // console.log(products);
 
 
     return (

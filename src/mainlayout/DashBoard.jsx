@@ -257,7 +257,6 @@ import { GiClothes } from "react-icons/gi";
 import { IoMdCloudDone, IoMdMenu } from "react-icons/io";
 import { MdApproval } from "react-icons/md";
 import { SiManageiq } from "react-icons/si";
-import Logo2 from "../component/Logo2";
 import Logo from "../component/Logo";
 
 export default function DashBoard() {
@@ -265,7 +264,11 @@ export default function DashBoard() {
 
   const [open, setOpen] = useState(false);
 
-  if (isLoading) return <LoadingPage />;
+  if (isLoading || !role) {
+    return <LoadingPage />;
+  }
+console.log(role);
+
 
   return (
     <div className="flex min-h-screen sticky text dash">
@@ -277,12 +280,12 @@ export default function DashBoard() {
          ${open ? "w-64" : "w-16"} text border-gray-800`}
       >
         {/* Logo */}
-       <Link to={"/"}>
-        <div className="flex items-center gap-3">
-          <Logo/>
-         
-        </div>
-       </Link>
+        <Link to={"/"}>
+          <div className="flex items-center gap-3">
+            <Logo />
+
+          </div>
+        </Link>
 
         {/* Menu Items */}
         <ul className="mt-4 space-y-3 px-2 text-sm">
@@ -365,7 +368,7 @@ export default function DashBoard() {
                 </Link>
               </li>
 
-               <li>
+              <li>
                 <Link
                   to="/dashboard/approved-order"
                   className="flex items-center gap-4 hover:bg-gray-700/40 p-2 rounded-lg"
@@ -386,7 +389,7 @@ export default function DashBoard() {
                 </Link>
               </li>
 
-             
+
               <li>
                 <Link
                   to="/dashboard/manager-profile"
@@ -400,7 +403,7 @@ export default function DashBoard() {
           )}
 
           {/* Admin Role */}
-          {role === "admin" && (
+          {role?.toLowerCase() === "admin" && (
             <>
               <li>
                 <Link
@@ -444,7 +447,7 @@ export default function DashBoard() {
           <IoMdMenu
             size={26}
             className="text-gray-300 cursor-pointer"
-            onClick={() => setOpen(!open)} 
+            onClick={() => setOpen(!open)}
           />
           <h1 className="ml-4 text-xl font-semibold text-red-600">
             {role}

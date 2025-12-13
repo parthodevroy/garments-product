@@ -7,6 +7,7 @@ import HeroSection from './HeroSection/HeroSection';
 import Hero from './HeroSection/Hero';
 import HomeProducts from './HomeProducts';
 import OverVew from './OverVewProject/OverVew';
+import ProjectSummaryUi from '../ProjectSumarry/ProjectSummaryUi';
 
 const reviwsload=fetch("/reviews.json")
     .then(res=>res.json())
@@ -17,6 +18,7 @@ const Homepage = () => {
         <div className='w-full overflow-hidden'>
              <Hero/>
              <HomeProducts/>
+             <ProjectSummaryUi/>
              <OverVew/>
                 <Brands/>
                <ProjectOverview/>

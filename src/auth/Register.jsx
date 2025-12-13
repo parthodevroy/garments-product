@@ -5,6 +5,7 @@ import SocialLogin from './social/SocialLogin';
 import { data, Link } from 'react-router';
 import axios from 'axios';
 import useAxios from '../hooks/useAxios';
+import Swal from 'sweetalert2';
 
 const Register = () => {
     const axiosSecure = useAxios();
@@ -13,58 +14,122 @@ const Register = () => {
     const [success, setSuccess] = useState("");
     const [error, setError] = useState("");
 
+
     const {
         register,
         handleSubmit,
         reset,
-        formState: { errors }
+        formState: { errors, isSubmitting }
     } = useForm();
 
+    // const handelRegister = async (data) => {
+    //     setSuccess("");
+    //     setError("");
+
+    //     try {
+    //         // step 1: firebase register
+    //         const result = await userRegister(data.email, data.password);
+
+    //         // step 2: upload image to imgbb
+    //         const formData = new FormData();
+    //         formData.append("image", data.photo[0]);
+
+    //         const image_api_url = `https://api.imgbb.com/1/upload?key=${import.meta.env.VITE_image_bb_key}`;
+
+    //         const uploadRes = await axios.post(image_api_url, formData);
+    //         const imageUrl = uploadRes.data.data.url;
+
+    //         // step 3: save user in database
+    //         const userData = {
+    //             email: data.email,
+    //             displayName: data.name,
+    //             photoURL: imageUrl,
+    //             role:data.role
+    //         };
+
+
+    //         const dbRes = await axiosSecure.post("/user", userData);
+
+
+    //         await updateUser({
+    //             displayName: data.name,
+    //             photoURL: imageUrl
+    //         });
+
+    //         if (dbRes.data.insertedId) {
+    //             setSuccess("User registered successfully!");
+    //             reset();
+    //         }
+
+    //     } catch (err) {
+    //         console.log("Error:", err);
+    //         setError("Registration failed! Please try again.");
+    //     }
+    // };
+
+
     const handelRegister = async (data) => {
-        setSuccess("");
         setError("");
+        let firebaseDone = false;
 
         try {
-            // step 1: firebase register
-            const result = await userRegister(data.email, data.password);
+            await userRegister(data.email, data.password);
+            firebaseDone = true;
 
-            // step 2: upload image to imgbb
             const formData = new FormData();
             formData.append("image", data.photo[0]);
 
-            const image_api_url = `https://api.imgbb.com/1/upload?key=${import.meta.env.VITE_image_bb_key}`;
+            const uploadRes = await axios.post(
+                `https://api.imgbb.com/1/upload?key=${import.meta.env.VITE_image_bb_key}`,
+                formData
+            );
 
-            const uploadRes = await axios.post(image_api_url, formData);
-            const imageUrl = uploadRes.data.data.url;
+            const imageUrl = uploadRes?.data?.data?.url;
+            if (!imageUrl) throw new Error("Image upload failed");
 
-            // step 3: save user in database
             const userData = {
                 email: data.email,
                 displayName: data.name,
                 photoURL: imageUrl,
-                role:data.role
+                role: data.role,
             };
 
-
             const dbRes = await axiosSecure.post("/user", userData);
-
+            if (!dbRes.data.insertedId) throw new Error("DB save failed");
 
             await updateUser({
                 displayName: data.name,
-                photoURL: imageUrl
+                photoURL: imageUrl,
             });
 
-            if (dbRes.data.insertedId) {
-                setSuccess("User registered successfully!");
+            Swal.fire({
+                icon: "success",
+                title: "Registration Successful 🎉",
+                confirmButtonText: "Login Now",
+            }).then(() => {
                 reset();
-            }
+                window.location.href = "/login";
+            });
 
         } catch (err) {
-            console.log("Error:", err);
-            setError("Registration failed! Please try again.");
+            console.error(err);
+
+            if (firebaseDone) {
+                Swal.fire({
+                    icon: "warning",
+                    title: "Account Created",
+                    text: "Account created successfully, but profile setup failed. Please update profile later.",
+                });
+            } else {
+                Swal.fire({
+                    icon: "error",
+                    title: "Registration Failed",
+                    text: "Network error or invalid data",
+                });
+            }
         }
     };
-console.log(data);
+
 
     return (
         <div className="card w-full mx-auto max-w-sm p-4 shadow-md">
@@ -109,11 +174,11 @@ console.log(data);
                         <p className="text-red-500">Photo is required</p>
                     )}
                     {/* user role */}
-                    <select defaultValue="Pick a language" className="select w-full select-secondary" {...register("role",{required:true})}>
+                    <select defaultValue="Pick a language" className="select w-full select-secondary" {...register("role", { required: true })}>
                         <option disabled={true}>Pick a Role</option>
                         <option>Buyer</option>
                         <option>Manager</option>
-                       
+
                     </select>
 
                     {/* Password */}
@@ -143,7 +208,20 @@ console.log(data);
                         </p>
                     )}
 
-                    <button className="btn btn-neutral mt-4 w-full">Register</button>
+                    <button
+                        type="submit"
+                        className="btn btn-neutral mt-4 w-full flex items-center justify-center"
+                        disabled={isSubmitting}
+                    >
+                        {isSubmitting ? (
+                            <>
+                                <span className="loading loading-spinner loading-sm"></span>
+                                <span className="ml-2">Registering...</span>
+                            </>
+                        ) : (
+                            "Register"
+                        )}
+                    </button>
 
                     {/* Success Message */}
                     {success && (

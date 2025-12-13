@@ -39,8 +39,11 @@ const DetailsProducts = () => {
             {/* Product Info */}
             <h1 className="text-3xl font-bold mb-2">{product.product_name}</h1>
             <p className="text-gray-600 mb-4">{product.product_description}</p>
+
+             <p className="text-gray-500 mb-2">Category: {product.product_category}</p>
             <p className="text-xl font-semibold mb-2">Price: ${product.price_usd}</p>
-            <p className="text-gray-500 mb-2">Category: {product.product_category}</p>
+            
+           
             <p className="text-gray-500 mb-4">Available Quantity: {product.available_quantity}</p>
             <p className="text-gray-500 mb-4">Minimum Order: {product.minimum_order}</p>
 
