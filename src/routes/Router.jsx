@@ -39,6 +39,7 @@ import TrackOrder from "../pages/dashboard/BuyerOrderProducts/TrackOrder/TrackOr
 import BuyerOrderDetails from "../pages/BuyerOrder/BuyerOrderDetails";
 import ManagerPrivateRoutes from "./ManagerPrivateRoutes/ManagerPrivateRoutes";
 import AdminPrivateRoute from "./AdminPrivateRoute";
+import OrderDetails from "../pages/dashboard/AdminDashboard/OrderDetails";
 
 
 export const router = createBrowserRouter([
@@ -194,25 +195,12 @@ export const router = createBrowserRouter([
         element:<AdminPrivateRoute><AllOrder/></AdminPrivateRoute>
 
       },
-      // {
-      //   path:"assign-delivery",
-      //   element:<AssignDelivery></AssignDelivery>
-
-      // },
-
-      // admin related page only admin can access
-      // {
-      //   path:"rider-approval",
-      //   element:<AdminPrivateRoute>
-      //     <Approval></Approval>
-      //     </AdminPrivateRoute>
-      // },
-      // {
-      //   path:"assign-rider",
-      //   element:<AdminPrivateRoute>
-      //     <AssignRider></AssignRider>
-      //     </AdminPrivateRoute>
-      // },
+      {
+         path:"orders/:orderId" ,
+         element:<AdminPrivateRoute><OrderDetails></OrderDetails></AdminPrivateRoute>
+      
+      },
+      
       {
         path:"user-management",
        element:

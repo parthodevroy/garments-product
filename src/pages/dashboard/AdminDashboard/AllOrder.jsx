@@ -38,7 +38,7 @@ const AllOrder = () => {
     .filter((o) =>
       searchQuery
         ? o.customerEmail.toLowerCase().includes(searchQuery.toLowerCase()) ||
-          o.productName.toLowerCase().includes(searchQuery.toLowerCase())
+        o.productName.toLowerCase().includes(searchQuery.toLowerCase())
         : true
     );
 
@@ -57,7 +57,7 @@ const AllOrder = () => {
           <option value="pending">Pending</option>
           <option value="accepted">Accepted</option>
           <option value="rejected">Rejected</option>
-         
+
         </select>
 
         <input
@@ -100,11 +100,12 @@ const AllOrder = () => {
                   <td className="px-4 py-2 flex gap-2">
                     {/* View button */}
                     <Link
-                      to={`/dashboard/buyer-order-details/${order._id}`}
+                      to={`/dashboard/orders/${order._id}`}
                       className="btn btn-sm btn-info"
                     >
                       View
                     </Link>
+
 
                     {/* Optional: quick status update */}
                     {["pending", "paid", "order_paid"].includes(order.orderStatus) && (
