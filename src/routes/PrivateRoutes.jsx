@@ -5,6 +5,8 @@ import LoadingPage from '../component/LoadingPage/LoadingPage';
 
 const PrivateRoutes = ({children}) => {
     const {user,loading}=useAuth()
+    console.log(loading,user,"hellow");
+    
      const location = useLocation();
     if (loading) {
         return (

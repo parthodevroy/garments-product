@@ -114,13 +114,13 @@ export const router = createBrowserRouter([
     element: (
       
      
-        <DashBoard></DashBoard>
+       <PrivateRoutes> <DashBoard></DashBoard></PrivateRoutes>
      
     ),
     children: [
       {
         index:true,
-        element:<DashboardHome></DashboardHome>
+        element:<PrivateRoutes><DashboardHome></DashboardHome></PrivateRoutes>
 
       },
       {

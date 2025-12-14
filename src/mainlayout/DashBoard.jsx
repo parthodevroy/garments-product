@@ -22,6 +22,7 @@ import Logo from "../component/Logo";
 
 export default function DashBoard() {
   const { role, isLoading } = useRole();
+console.log("helow");
 
   const [open, setOpen] = useState(false);
 
@@ -162,7 +163,7 @@ console.log(role);
           )}
 
           {/* Admin Role */}
-          {role?.toLowerCase() === "Admin" && (
+          {role === "Admin" && (
             <>
               <li>
                 <Link

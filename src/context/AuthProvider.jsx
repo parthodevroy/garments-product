@@ -33,15 +33,20 @@ console.log(user);
 // user set
       useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+      console.log(currentUser);
+      
       if (currentUser) {
         setUser(currentUser);
+        setLoading(false);
       } else {
         setUser(null);
       }
       setLoading(false);
     });
 
-    return () => unsubscribe(); 
+    return () =>{
+      return  unsubscribe();
+    } 
   }, []);
   
   const updateUser=(profile)=>{
@@ -54,16 +59,17 @@ console.log(user);
         user,
         loading,
         signout,
-        updateUser
+        updateUser,
+        setLoading
     
 
     }
     return (
-        <AuthContext value={userInfo}>
+        <AuthContext.Provider value={userInfo}>
 
             {children}
 
-        </AuthContext>
+        </AuthContext.Provider>
     );
 };
 

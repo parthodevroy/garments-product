@@ -10,7 +10,7 @@ import Swal from 'sweetalert2';
 const Register = () => {
     const axiosSecure = useAxios();
 
-    const { userRegister, updateUser } = useAuth();
+    const { userRegister, updateUser,setLoading } = useAuth();
     const [success, setSuccess] = useState("");
     const [error, setError] = useState("");
 
@@ -128,6 +128,9 @@ const Register = () => {
                 });
             }
         }
+        setLoading(false)
+        console.log("loading false");
+        
     };
 
 

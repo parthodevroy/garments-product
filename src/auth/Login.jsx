@@ -10,7 +10,7 @@ const Login = () => {
   const location = useLocation();
   const from = location.state?.from?.pathname || "/";
 
-  const { userlogin } = useAuth();
+  const { userlogin,setLoading } = useAuth();
   const [authError, setAuthError] = useState("");
 
   const {
@@ -52,6 +52,7 @@ const Login = () => {
       setAuthError("Login failed. Please try again");
     }
   }
+  setLoading(false)
 };
 
 
