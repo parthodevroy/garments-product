@@ -25,9 +25,7 @@ export default function DashBoard() {
 
   const [open, setOpen] = useState(false);
 
-  if (isLoading || !role) {
-    return <LoadingPage />;
-  }
+ if (isLoading || !role) return <LoadingPage />; 
 console.log(role);
 
 
@@ -40,7 +38,7 @@ console.log(role);
         className={`h-screen dash text transition-all duration-300
          ${open ? "w-64" : "w-16"} text border-gray-800`}
       >
-        {/* Logo */}
+      
         <Link to={"/"}>
           <div className="flex items-center gap-3">
             <Logo />
@@ -48,9 +46,9 @@ console.log(role);
           </div>
         </Link>
 
-        {/* Menu Items */}
+       
         <ul className="mt-4 space-y-3 px-2 text-sm">
-          {/* Dashboard */}
+        
           <li>
             <Link
               to="/dashboard"
@@ -61,7 +59,7 @@ console.log(role);
             </Link>
           </li>
 
-          {/* Buyer Role */}
+        
           {role === "Buyer" && (
             <>
               <li>

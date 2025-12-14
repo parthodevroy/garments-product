@@ -1,31 +1,30 @@
 import React from 'react';
-import useAxios from '../../../hooks/useAxios';
+
 import { useQuery } from '@tanstack/react-query';
-import { Legend, Pie, PieChart, Tooltip, Cell } from 'recharts';
-import useAuth from '../../../hooks/useAuth';
+import { PieChart, Pie, Cell, Legend, Tooltip } from 'recharts';
+import useAxios from '../../../hooks/useAxios';
+import LoadingPage from '../../../component/LoadingPage/LoadingPage';
 
-const ManagerDashboard = () => {
-    
+const ManagerDashboards= () => {
   const axiosSecure = useAxios();
-const { user } = useAuth();
 
-const { data: deliverd = [] } = useQuery({
-  queryKey: ["delivery-status-stats", user.email],
-  queryFn: async () => {
-    const res = await axiosSecure.get(`/manager/delivery-per-day?email=${user.email}`);
-    return res.data;
-  }
-});
+  const { data: stats = [], isLoading } = useQuery({
+    queryKey: ["delivery-status-stats"],
+    queryFn: async () => {
+      const res = await axiosSecure.get("/orders/delivery-status/status");
+      return res.data;
+    }
+  });
 
-console.log(deliverd);
+  if (isLoading) return <LoadingPage />;
 
-  // Pie chart data
-  const pieData = deliverd.map(item => ({
-    name: item._id.date, 
+  // PieChart data
+  const pieData = stats.map(item => ({
+    name: item._id,
     value: item.count
   }));
 
-  const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042'];
+  const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042', '#A28FFF', '#FF6699'];
   const RADIAN = Math.PI / 180;
 
   const renderCustomizedLabel = ({ cx, cy, midAngle, innerRadius, outerRadius, percent }) => {
@@ -34,28 +33,39 @@ console.log(deliverd);
     const y = cy + radius * Math.sin(-midAngle * RADIAN);
 
     return (
-      <text x={x} y={y} fill="white" textAnchor={x > cx ? 'start' : 'end'} dominantBaseline="central">
-        {(percent * 100).toFixed(0) + '%'}
+      <text
+        x={x}
+        y={y}
+        fill="white"
+        textAnchor={x > cx ? 'start' : 'end'}
+        dominantBaseline="central"
+        fontSize={12}
+        fontWeight="bold"
+      >
+        {(percent * 100).toFixed(0)}%
       </text>
     );
   };
 
   return (
-    <div>
-      <h1 className="text-2xl font-bold mb-6">Your Completed Order Dashboard</h1>
+    <div className="p-6 max-w-7xl mx-auto">
+      <h1 className="text-3xl font-bold mb-6 text-gray-800">Manager Dashboard</h1>
 
-      {/* Status show */}
-      <div className="stats max-w-full shadow mb-10">
-        {deliverd.map(stat => (
-          <div key={stat._id.date} className="stat place-items-center">
-            <div className="stat-title">{stat._id.date}</div>
-            <div className="stat-value">{stat.count}</div>
+      {/* Stats Cards */}
+      <div className="flex flex-wrap gap-6 mb-10 justify-center">
+        {stats.map(stat => (
+          <div
+            key={stat._id}
+            className="dash-card shadow-lg rounded-xl p-5 flex flex-col items-center justify-center hover:shadow-xl transition duration-300 min-w-[150px]"
+          >
+            <div className="text-gray-500 text-sm font-semibold mb-2">{stat._id}</div>
+            <div className="text-3xl font-bold text-gray-800">{stat.count}</div>
           </div>
         ))}
       </div>
 
       {/* PieChart */}
-      <div className="flex justify-center h-[500px]">
+      <div className="flex justify-center items-center">
         <PieChart width={400} height={400}>
           <Pie
             data={pieData}
@@ -70,7 +80,10 @@ console.log(deliverd);
               <Cell key={entry.name} fill={COLORS[index % COLORS.length]} />
             ))}
           </Pie>
-          <Tooltip/>
+          <Tooltip 
+            formatter={(value, name) => [`${value}`, `${name}`]} 
+            contentStyle={{ backgroundColor: '#f9f9f9', borderRadius: '8px', border: '1px solid #ddd' }}
+          />
           <Legend layout="horizontal" verticalAlign="bottom" align="center" />
         </PieChart>
       </div>
@@ -78,4 +91,4 @@ console.log(deliverd);
   );
 };
 
-export default ManagerDashboard;
+export default ManagerDashboards;

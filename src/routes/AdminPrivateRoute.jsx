@@ -2,6 +2,7 @@ import React from 'react';
 import { Navigate } from 'react-router';
 import useAuth from '../hooks/useAuth';
 import useRole from '../hooks/useRole';
+import LoadingPage from '../component/LoadingPage/LoadingPage';
 
 const AdminPrivateRoute = ({ children }) => {
   const { user, loading } = useAuth();
@@ -9,9 +10,7 @@ const AdminPrivateRoute = ({ children }) => {
 
   if (loading || Adminloading) {
     return (
-      <button className="btn btn-square">
-        <span className="loading loading-spinner"></span>
-      </button>
+    <LoadingPage></LoadingPage>
     );
   }
 

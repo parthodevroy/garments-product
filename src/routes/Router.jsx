@@ -114,13 +114,13 @@ export const router = createBrowserRouter([
     element: (
       
      
-       <PrivateRoutes> <DashBoard></DashBoard></PrivateRoutes>
+        <DashBoard></DashBoard>
      
     ),
     children: [
       {
         index:true,
-        element:<PrivateRoutes><DashboardHome></DashboardHome></PrivateRoutes>
+        element:<DashboardHome></DashboardHome>
 
       },
       {
@@ -130,7 +130,7 @@ export const router = createBrowserRouter([
      
       {
         path: "manager-dashboard-home",
-        element:<ManagerPrivateRoutes><ManagerDashboard></ManagerDashboard></ManagerPrivateRoutes>
+        element:<ManagerDashboard></ManagerDashboard>
       },
       {
         path: "manager-created-product",
@@ -138,11 +138,11 @@ export const router = createBrowserRouter([
       },
       {
         path: "Buyer-orders",
-       element:<PrivateRoutes><BuyerOrder/></PrivateRoutes>
+       element:<BuyerOrder/>
       },
       {
         path: "Buyer-order-details/:id",
-       element:<PrivateRoutes><BuyerOrderDetails></BuyerOrderDetails></PrivateRoutes>
+       element:<BuyerOrderDetails></BuyerOrderDetails>
       },
       {
         path: "Buyer-order-track/:id",

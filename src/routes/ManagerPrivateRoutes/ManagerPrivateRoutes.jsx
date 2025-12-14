@@ -2,6 +2,7 @@ import React from 'react';
 import { Navigate } from 'react-router';
 import useAuth from '../../hooks/useAuth';
 import useRole from '../../hooks/useRole';
+import LoadingPage from '../../component/LoadingPage/LoadingPage';
 
 
 const ManagerPrivateRoutes = ({ children }) => {
@@ -10,11 +11,11 @@ const ManagerPrivateRoutes = ({ children }) => {
 
   if (loading || Adminloading) {
     return (
-      <button className="btn btn-square">
-        <span className="loading loading-spinner"></span>
-      </button>
+    <LoadingPage></LoadingPage>
     );
   }
+  console.log(user);
+  
 
   // Not logged in
   if (!user) {
