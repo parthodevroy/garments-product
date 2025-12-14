@@ -1,29 +1,28 @@
-import React from 'react';
-import useRole from '../../../hooks/useRole';
-import AdminDashboard from '../AdminDashboard/AdminDashboard';
-import UserDashboard from '../UserDashboard/UserDashboard';
-import LoadingPage from '../../../component/LoadingPage/LoadingPage';
-import ManagerDashboard from '../ManagerDashboard/ManagerDashboard';
+import React from "react";
+import useRole from "../../../hooks/useRole";
+import ManagerDashboard from "../ManagerDashboard/ManagerDashboard";
+import AdminDashboards from "../AdminDashboard/AdminDashboards";
+import UserDashboards from "../UserDashboard/UserDashboards";
+import LoadingPage from "../../../component/LoadingPage/LoadingPage";
+
 
 const DashboardHome = () => {
-    const {role,adminloading}=useRole()
+  const { role, isLoading } = useRole();
 
-    if (adminloading) {
-      
-        return <LoadingPage></LoadingPage>
-        
-    }
-   if (role === "admin" || role === "Manager") {
-    return <AdminDashboard />;
-}
+  
+  if (isLoading || !role) {
+    return <LoadingPage/>;
+  }
 
-    // else if (role==="Manager") {
-    //     return <ManagerDashboard></ManagerDashboard>
-    // }
-    else{
- return <UserDashboard></UserDashboard>
-    }
-   
+  if (role === "admin") {
+    return <AdminDashboards></AdminDashboards>
+  }
+
+  if (role === "Manager") {
+    return <ManagerDashboard></ManagerDashboard>
+  }
+
+  return <UserDashboards></UserDashboards>
 };
 
 export default DashboardHome;

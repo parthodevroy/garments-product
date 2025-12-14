@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router';
 import useAuth from './useAuth';
 
 const axiosSecure=axios.create({
-    baseURL:"http://localhost:3000"
+    baseURL:"https://garments-management-server.vercel.app"
 })
 
 const useAxios = () => {
@@ -19,22 +19,13 @@ const useAxios = () => {
 
         return config
     })
-    // interceptor response if user give valid 
-    // token but want another data emidialty log out from  current page and send to login page 
+     
     const resInterceptor=axiosSecure.interceptors.response.use((response)=> {
     
     return response;
   }, (error)=> {
     console.log(error);
    const statusCod = error.response?.status;
-
-    // if (statusCod===401 || statusCod===403) {
-    //     signout()
-    //     .then(()=>{
-    //         navigate("/login")
-
-    //     })
-    //     }
 
     
     

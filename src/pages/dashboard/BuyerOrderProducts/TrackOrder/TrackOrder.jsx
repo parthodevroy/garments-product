@@ -10,7 +10,7 @@ const TrackOrder = () => {
 
     useEffect(() => {
         // Fetch order details including tracking log
-        axios.get(`http://localhost:3000/orders/${orderId}`)
+        axios.get(`https://garments-management-server.vercel.app/orders/${orderId}`)
             .then(res => {
                 console.log("Order data from API:", res.data); 
                 setOrder(res.data);
@@ -84,7 +84,7 @@ const TrackOrder = () => {
 
             {/* Back button */}
             <div className="text-center mt-6">
-                <Link to="/dashboard/buyer-orders" className="btn btn-primary">
+                <Link to="/dashboard/Buyer-orders" className="btn btn-primary">
                     Back to My Orders
                 </Link>
             </div>

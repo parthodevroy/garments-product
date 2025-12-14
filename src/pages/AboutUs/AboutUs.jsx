@@ -13,7 +13,7 @@ const AboutUs = () => {
       </p>
 
       <p className="text-lg text-gray-700 mb-4 leading-relaxed">
-        Our mission is to help garment managers and buyers stay organized, reduce errors, and monitor orders in real-time. 
+        Our mission is to help garment managers and Buyers stay organized, reduce errors, and monitor orders in real-time. 
         With <span className="font-semibold">GarmentTrack</span>, you get a clear overview of order statuses, product inventory, and delivery timelines.
       </p>
 

@@ -89,7 +89,7 @@ const ApprovedOrder = () => {
                     Add Tracking
                   </button>
 
-                  <Link to={`/dashboard/buyer-order-details/${order._id}`}>
+                  <Link to={`/dashboard/Buyer-order-details/${order._id}`}>
                     <button className="btn btn-secondary btn-sm">
                       View Tracking
                     </button>

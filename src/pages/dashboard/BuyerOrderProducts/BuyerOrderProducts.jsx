@@ -10,7 +10,7 @@ const BuyerOrderProducts = () => {
   useEffect(() => {
     if (user?.email) {
       axiosSecure
-        .get(`/orders/by-buyer/${user.email}`)
+        .get(`/orders/by-Buyer/${user.email}`)
         .then(res => setOrders(res.data))
         .catch(err => console.error(err));
     }

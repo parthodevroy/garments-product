@@ -6,9 +6,9 @@ import useRole from '../../hooks/useRole';
 
 const ManagerPrivateRoutes = ({ children }) => {
   const { user, loading } = useAuth();
-  const { role, adminloading } = useRole();
+  const { role, Adminloading } = useRole();
 
-  if (loading || adminloading) {
+  if (loading || Adminloading) {
     return (
       <button className="btn btn-square">
         <span className="loading loading-spinner"></span>
@@ -21,7 +21,7 @@ const ManagerPrivateRoutes = ({ children }) => {
     return <Navigate to="/login" />;
   }
 
-  // Not an admin
+  // Not an Admin
   if (role !== "Manager") {
     return <Navigate to="/" />;
   }

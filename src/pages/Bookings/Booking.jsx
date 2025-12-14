@@ -59,7 +59,7 @@
 //      Swal.fire({
 //       icon: "error",
 //       title: "Pending",
-//       text: "You cannot place an order while pending.please waiting for admin approval"
+//       text: "You cannot place an order while pending.please waiting for Admin approval"
 //     });
 //     return;
 
@@ -90,7 +90,7 @@
 //         axiosSecure.post("/order", orderData).then((res) => {
 //           if (res.data.insertedId) {
 //             toast.success("Order placed successfully!");
-//             navigate("/dashboard/buyer-orders");
+//             navigate("/dashboard/Buyer-orders");
 //           }
 //         });
 //       }
@@ -238,7 +238,7 @@ const Bookings = () => {
       const productId = await createOrder(data);
       if (productId) {
         toast.success("Order placed successfully!");
-        navigate("/dashboard/buyer-orders");
+        navigate("/dashboard/Buyer-orders");
       }
     } catch (err) {
       console.error(err);
@@ -255,7 +255,7 @@ const Bookings = () => {
         productName: product.product_name,
 
         productId:productId,
-        buyerEmail: user?.email,
+        BuyerEmail: user?.email,
         quantity: data.quantity,
       };
       const res = await axiosSecure.post("/create-checkout-session", paymentInfo);
@@ -285,7 +285,7 @@ const Bookings = () => {
       Swal.fire({
         icon: "error",
         title: "Pending",
-        text: "You cannot place an order while pending. Please wait for admin approval.",
+        text: "You cannot place an order while pending. Please wait for Admin approval.",
       });
       return;
     }

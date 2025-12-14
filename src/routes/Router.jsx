@@ -40,6 +40,8 @@ import BuyerOrderDetails from "../pages/BuyerOrder/BuyerOrderDetails";
 import ManagerPrivateRoutes from "./ManagerPrivateRoutes/ManagerPrivateRoutes";
 import AdminPrivateRoute from "./AdminPrivateRoute";
 import OrderDetails from "../pages/dashboard/AdminDashboard/OrderDetails";
+import { Services } from "../pages/Service/Service";
+import { Support } from "../pages/Support/Support";
 
 
 export const router = createBrowserRouter([
@@ -58,6 +60,14 @@ export const router = createBrowserRouter([
       {
         path: "contact-us",
         Component:ContactUs
+      },
+      {
+        path: "service",
+        Component:Services
+      },
+      {
+        path: "support",
+        Component:Support
       },
       
       
@@ -102,6 +112,7 @@ export const router = createBrowserRouter([
   {
     path: "/dashboard",
     element: (
+      
      
        <PrivateRoutes> <DashBoard></DashBoard></PrivateRoutes>
      
@@ -130,11 +141,11 @@ export const router = createBrowserRouter([
        element:<PrivateRoutes><BuyerOrder/></PrivateRoutes>
       },
       {
-        path: "buyer-order-details/:id",
+        path: "Buyer-order-details/:id",
        element:<PrivateRoutes><BuyerOrderDetails></BuyerOrderDetails></PrivateRoutes>
       },
       {
-        path: "buyer-order-track/:id",
+        path: "Buyer-order-track/:id",
        element:<PrivateRoutes><TrackOrderForm></TrackOrderForm></PrivateRoutes>
       },
       {
@@ -142,7 +153,7 @@ export const router = createBrowserRouter([
         element:<PrivateRoutes><TrackOrder></TrackOrder></PrivateRoutes>
       },
       {
-        path: "buyer-orders/:orderId",
+        path: "Buyer-orders/:orderId",
         element:<PrivateRoutes><BuyerOrderDetails></BuyerOrderDetails></PrivateRoutes>
       },
      
@@ -186,7 +197,7 @@ export const router = createBrowserRouter([
 
       },
        {
-        path:"all-products-admin",
+        path:"all-products-Admin",
         element:<AdminPrivateRoute><AllproductAdmin/></AdminPrivateRoute>
 
       },

@@ -9,7 +9,7 @@ const AllproductAdmin = () => {
     const { data: products = [] } = useQuery({
         queryKey: ["products"],
         queryFn: async () => {
-            const res = await axios.get(`http://localhost:3000/products`);
+            const res = await axios.get(`https://garments-management-server.vercel.app/products`);
             return res.data;
         },
     });
@@ -57,7 +57,7 @@ const AllproductAdmin = () => {
         e.preventDefault();
         try {
             await axios.put(
-                `http://localhost:3000/products/${editingProduct._id}`,
+                `https://garments-management-server.vercel.app/products/${editingProduct._id}`,
                 formData
             );
             Swal.fire({
@@ -86,7 +86,7 @@ const AllproductAdmin = () => {
 
         if (confirm.isConfirmed) {
             try {
-                await axios.delete(`http://localhost:3000/products/${product._id}`);
+                await axios.delete(`https://garments-management-server.vercel.app/products/${product._id}`);
                 Swal.fire("Deleted!", "Product has been deleted.", "success");
                 queryClient.invalidateQueries(["products"]);
             } catch (err) {
@@ -101,7 +101,7 @@ const AllproductAdmin = () => {
         const newValue = product.show_on_home === "permit" ? "no" : "permit";
         try {
             await axios.patch(
-                `http://localhost:3000/products/${product._id}/show-on-home`,
+                `https://garments-management-server.vercel.app/products/${product._id}/show-on-home`,
                 { value: newValue }
             );
 

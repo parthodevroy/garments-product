@@ -9,7 +9,7 @@ const ProductTraking = () => {
   const { data: logs = [] } = useQuery({
     queryKey: ["tracking", trackingId],
     queryFn: async () => {
-      const res = await axios.get(`http://localhost:3000/tracking/${trackingId}`);
+      const res = await axios.get(`https://garments-management-server.vercel.app/tracking/${trackingId}`);
       return res.data;
     },
   });

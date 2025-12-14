@@ -4,10 +4,10 @@ import { FaUserAlt, FaUsers, FaClipboardList, FaTruck, FaBox } from "react-icons
 
 // Sample orders
 const ordersSample = [
-  { id: 1, productName: "Red Dress", status: "Pending", image: "https://i.ibb.co/7dNB7DRn/clothes1.jpg" },
-  { id: 2, productName: "Blue Shirt", status: "Delivered", image: "https://i.ibb.co/7dNB7DRn/clothes2.jpg" },
-  { id: 3, productName: "Jeans", status: "Processing", image: "https://i.ibb.co/7dNB7DRn/clothes3.jpg" },
-  { id: 4, productName: "Jacket", status: "Delivered", image: "https://i.ibb.co/7dNB7DRn/clothes4.jpg" },
+  { id: 1, productName: "Red Dress", status: "Pending", image: "https://images.unsplash.com/photo-1595777457583-95e059d581b8?q=80&w=783&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" },
+  { id: 2, productName: "Blue Shirt", status: "Delivered", image: "https://images.unsplash.com/photo-1589310243389-96a5483213a8?q=80&w=687&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" },
+  { id: 3, productName: "Jeans", status: "Processing", image: "https://images.unsplash.com/photo-1582552938357-32b906df40cb?q=80&w=735&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" },
+  { id: 4, productName: "Jacket", status: "Delivered", image: "https://images.unsplash.com/photo-1557418669-db3f781a58c0?q=80&w=697&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" },
 ];
 
 // Sample stats
@@ -159,9 +159,7 @@ const ProjectSummaryUi = () => {
         </div>
       </motion.div>
 
-      <footer className="text-center py-10 text-gray-500">
-        © 2025 Garments Tracker. All rights reserved.
-      </footer>
+     
     </div>
   );
 };

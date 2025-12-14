@@ -21,7 +21,7 @@ const SocialLogin = () => {
 
         };
 
-        axios.post("http://localhost:3000/user", userData)
+        axios.post("https://garments-management-server.vercel.app/user", userData)
           .then(res => {
             console.log("User created via social login:", res.data);
             navigate(from, { replace: true });

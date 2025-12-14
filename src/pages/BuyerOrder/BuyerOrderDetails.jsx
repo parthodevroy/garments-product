@@ -9,7 +9,7 @@ const BuyerOrderDetails = () => {
 
   useEffect(() => {
     axios
-      .get(`http://localhost:3000/orders/${orderId}`)
+      .get(`https://garments-management-server.vercel.app/orders/${orderId}`)
       .then((res) => {
         setOrder(res.data);
         console.log(res.data);

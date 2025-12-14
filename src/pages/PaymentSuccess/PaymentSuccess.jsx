@@ -25,7 +25,7 @@ useEffect(() => {
     const verifyPayment = async () => {
         try {
             console.log("Verifying Payment, sessionId:", sessionId);  
-            const res = await axios.post("http://localhost:3000/payment/verify", { sessionId });
+            const res = await axios.post("https://garments-management-server.vercel.app/payment/verify", { sessionId });
             console.log("Payment verify response:", res.data); 
             setPaymentStatus(res.data.verified ? "success" : "failed");
         } catch (err) {
@@ -61,7 +61,7 @@ useEffect(() => {
             {/* <Link to={"/booking"}>
                 <button className='btn btn-primary mt-6'>Go to Dashboard</button>
             </Link> */}
-            <Link to={"/dashboard/buyer-orders"}>
+            <Link to={"/dashboard/Buyer-orders"}>
                 <button className='btn btn-primary mt-6'>Go to Dashboard</button>
             </Link>
         </div>

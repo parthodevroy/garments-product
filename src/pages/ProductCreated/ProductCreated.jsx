@@ -39,7 +39,7 @@ const ProductCreated = () => {
            Swal.fire({
             icon: "error",
             title: "Pending",
-            text: "You cannot Created an Product while pending.please waiting for admin approval"
+            text: "You cannot Created an Product while pending.please waiting for Admin approval"
           });
           return;
           

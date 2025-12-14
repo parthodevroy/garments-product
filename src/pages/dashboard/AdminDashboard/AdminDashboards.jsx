@@ -4,7 +4,7 @@ import { useQuery } from '@tanstack/react-query';
 import { PieChart, Pie, Cell, Legend, Tooltip } from 'recharts';
 import LoadingPage from '../../../component/LoadingPage/LoadingPage';
 
-const AdminDashboard = () => {
+const AdminDashboards= () => {
   const axiosSecure = useAxios();
 
   const { data: stats = [], isLoading } = useQuery({
@@ -90,4 +90,4 @@ const AdminDashboard = () => {
   );
 };
 
-export default AdminDashboard;
+export default AdminDashboards;

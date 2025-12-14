@@ -20,7 +20,7 @@ const ContactUs = () => {
 
     try {
       // Replace with your backend endpoint
-      await axios.post("http://localhost:3000/contact", formData);
+      await axios.post("https://garments-management-server.vercel.app/contact", formData);
       setSuccess("Your message has been sent successfully!");
       setFormData({ name: "", email: "", message: "" });
     } catch (error) {

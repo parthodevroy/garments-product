@@ -6,14 +6,14 @@ import useAuth from "../../../hooks/useAuth";
 import { FaCheckCircle, FaClock } from "react-icons/fa";
 import LoadingPage from "../../../component/LoadingPage/LoadingPage";
 
-const UserDashboard = () => {
+const UserDashboards = () => {
   const { user } = useAuth();
   const axiosSecure = useAxios();
 
   const { data: orders = [], isLoading } = useQuery({
   queryKey: ["user-orders", user?.email],
   queryFn: async () => {
-    const res = await axiosSecure.get(`/orders/by-buyer/${user.email}`); 
+    const res = await axiosSecure.get(`/orders/by-Buyer/${user.email}`); 
     return res.data;
   },
   enabled: !!user?.email,
@@ -81,4 +81,4 @@ console.log(orders);
   );
 };
 
-export default UserDashboard;
+export default UserDashboards;

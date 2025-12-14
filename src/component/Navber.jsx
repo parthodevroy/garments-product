@@ -166,7 +166,7 @@ const [scrolled, setScrolled] =useState (false);
           </li>
 
 
-
+{/* 
           {role === "Manager" && (
             <li>
               <NavLink
@@ -176,7 +176,7 @@ const [scrolled, setScrolled] =useState (false);
                 Created Product
               </NavLink>
             </li>
-          )}
+          )} */}
         </>
       )}
     </>

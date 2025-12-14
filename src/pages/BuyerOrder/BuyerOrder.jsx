@@ -16,7 +16,7 @@ const BuyerOrder = () => {
   const { data: orders = [], refetch, isLoading } = useQuery({
     queryKey: ["myOrders", user?.email],
     queryFn: async () => {
-      const res = await axiosSecure.get(`/orders/by-buyer/${user.email}`);
+      const res = await axiosSecure.get(`/orders/by-Buyer/${user.email}`);
       return res.data;
     }
   });
@@ -47,7 +47,7 @@ const BuyerOrder = () => {
       confirmButtonText: "Yes, delete it!"
     }).then((result) => {
       if (result.isConfirmed) {
-        axiosSecure.delete(`/orders/by-buyer/${id}`)
+        axiosSecure.delete(`/orders/by-Buyer/${id}`)
           .then(res => {
             if (res.data.deletedCount > 0) {
               Swal.fire("Deleted!", "Order has been deleted.", "success");
@@ -91,10 +91,10 @@ const BuyerOrder = () => {
               </td>
               <td className="flex border-b border-white gap-2">
                 {/* VIEW BUTTON
-                <Link to={`/dashboard/buyer-order-details/${o._id}`}>
+                <Link to={`/dashboard/Buyer-order-details/${o._id}`}>
                   <button className="btn btn-sm"><MdPageview /></button>
                 </Link> */}
-                <Link to={`/dashboard/buyer-orders/${o._id}`}>
+                <Link to={`/dashboard/Buyer-orders/${o._id}`}>
                   <button className="btn btn-primary btn-sm">View</button>
                 </Link>
 

@@ -25,7 +25,7 @@ const ProjectOverview = () => {
                whileTap={{ scale: 0.95 }}
                className="mt-8 px-10 py-4 bg-black text-white rounded-md text-lg font-semibold tracking-widest shadow-lg"
              >
-               EXPLORE NOW
+               BOOK PRODUCTS
              </motion.button>
              </Link>
         </div>

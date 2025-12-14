@@ -14,7 +14,7 @@ const ManagerCreatedProduct = () => {
   useEffect(() => {
     if (user?.email) {
       axios
-        .get(`http://localhost:3000/products/by-manager/${user.email}`)
+        .get(`https://garments-management-server.vercel.app/products/by-manager/${user.email}`)
         .then((res) => {
           setProducts(res.data);
           setLoading(false);
@@ -34,7 +34,7 @@ const ManagerCreatedProduct = () => {
     e.preventDefault();
 
     axios
-      .put(`http://localhost:3000/products/${editingProduct._id}`, editingProduct)
+      .put(`https://garments-management-server.vercel.app/products/${editingProduct._id}`, editingProduct)
       .then((res) => {
         if (res.data.modifiedCount) {
           Swal.fire("Updated!", "Product updated successfully.", "success");
@@ -60,7 +60,7 @@ const ManagerCreatedProduct = () => {
       confirmButtonText: "Yes, delete it!",
     }).then((result) => {
       if (result.isConfirmed) {
-        axios.delete(`http://localhost:3000/products/${id}`).then(() => {
+        axios.delete(`https://garments-management-server.vercel.app/products/${id}`).then(() => {
           Swal.fire("Deleted!", "Product removed!", "success");
           setProducts((prev) => prev.filter((p) => p._id !== id));
         });
