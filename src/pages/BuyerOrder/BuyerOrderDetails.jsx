@@ -2,22 +2,23 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router";
 import { FaCheckCircle } from "react-icons/fa";
 import axios from "axios";
+import LoadingPage from "../../component/LoadingPage/LoadingPage";
 
 const BuyerOrderDetails = () => {
-  const { orderId } = useParams();
+  const { Id } = useParams();
+ 
   const [order, setOrder] = useState(null);
 
   useEffect(() => {
-    axios
-      .get(`https://garments-management-server.vercel.app/orders/${orderId}`)
+    axios.get(`https://garments-management-server.vercel.app/orders/${Id}`)
       .then((res) => {
         setOrder(res.data);
         console.log(res.data);
       })
       .catch((err) => console.log(err));
-  }, [orderId]);
+  }, [Id]);
 
-  if (!order) return <p className="p-10 text-center">Loading...</p>;
+  if (!order) return <LoadingPage></LoadingPage>
 
   return (
     <div className="p-6">

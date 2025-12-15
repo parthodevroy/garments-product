@@ -10,7 +10,7 @@ const ProjectOverview = () => {
     <div className="space-y-8">
 
       
-      <section className="flex flex-col-reverse lg:flex-row items-center justify-between px-6 lg:px-24 py-16 bg-gradient-to-r from-teal-400 to-blue-500 text-white rounded-b-3xl">
+      <section className="flex flex-col-reverse lg:flex-row items-center justify-between px-6 lg:px-24 py-16 discount to-blue-500 text-white rounded-b-3xl">
         <div className="lg:w-1/2 space-y-6">
           <h1 className="text-4xl lg:text-6xl font-bold">
            Our Special Offer Going On This Week

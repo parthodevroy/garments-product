@@ -24,7 +24,7 @@ const DetailsProducts = () => {
 
     return (
         <motion.div
-            className="max-w-3xl mx-auto p-6 card rounded-lg shadow-lg mt-10"
+            className="max-w-3xl bg mx-auto p-6 card rounded-lg shadow-lg mt-10"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
@@ -38,14 +38,16 @@ const DetailsProducts = () => {
 
             {/* Product Info */}
             <h1 className="text-3xl font-bold mb-2">{product.product_name}</h1>
-            <p className="text-gray-600 mb-4">{product.product_description}</p>
+            <p className="text mb-4">{product.product_description}</p>
 
-             <p className="text-gray-500 mb-2">Category: {product.product_category}</p>
+             <p className="text mb-2">Category: {product.product_category}</p>
             <p className="text-xl font-semibold mb-2">Price: ${product.price_usd}</p>
             
            
-            <p className="text-gray-500 mb-4">Available Quantity: {product.available_quantity}</p>
-            <p className="text-gray-500 mb-4">Minimum Order: {product.minimum_order}</p>
+            <p className="text mb-4">Available Quantity: {product.available_quantity}</p>
+            <p className="text mb-4">Minimum Order: {product.minimum_order}</p>
+            <p className="text mb-4">Element: {product.fabric_composition}</p>
+            <p className="text mb-4">Payment System: {product.payment_method}</p>
 
             {/* Back Button */}
             <Link

@@ -2,14 +2,14 @@ import React, { useEffect, useState } from "react";
 import useAxios from "../../../hooks/useAxios";
 import useAuth from "../../../hooks/useAuth";
 import { toast } from "react-toastify";
-import { Link } from "react-router"; // view page link
+import { Link } from "react-router"; 
 
 const AllOrder = () => {
   const { user } = useAuth();
   const axiosSecure = useAxios();
   const [orders, setOrders] = useState([]);
-  const [filterStatus, setFilterStatus] = useState(""); // For filter
-  const [searchQuery, setSearchQuery] = useState(""); // Optional search
+  const [filterStatus, setFilterStatus] = useState("");
+  const [searchQuery, setSearchQuery] = useState("");
 
   const fetchOrders = () => {
     axiosSecure

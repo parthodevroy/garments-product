@@ -5,7 +5,7 @@ import { motion } from "framer-motion";
 
 const HeroSection = () => {
   return (
-    <section className="bg-white py-8 mt-[64px]">
+    <section className="bg py-8 mt-[64px]">
       <div className="max-w-6xl mx-auto flex flex-col lg:flex-row items-center gap-10 px-4">
 
         <div className="lg:w-1/2 w-full flex justify-center">
@@ -16,11 +16,11 @@ const HeroSection = () => {
           />
         </div>
 
-        <div className="lg:w-1/2 w-full flex flex-col gap-6">
-          <h1 className="text-4xl lg:text-5xl font-bold text-gray-900">
+        <div className=" lg:w-1/2 w-full flex flex-col gap-6">
+          <h1 className="text-4xl lg:text-5xl font-bold text">
             Fast & Premium Quality
           </h1>
-          <p className="text-gray-700 text-lg">
+          <p className="text text-lg">
             Order Your Products ...
           </p>
           <div className="flex gap-4">

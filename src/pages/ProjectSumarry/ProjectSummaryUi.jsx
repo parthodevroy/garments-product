@@ -20,11 +20,11 @@ const statsSample = {
 
 const ProjectSummaryUi = () => {
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg">
 
       {/* Hero Section */}
       <motion.div
-        className="relative bg-gradient-to-r from-blue-600 to-indigo-600 text-white py-20 px-6 text-center"
+        className="relative summary text py-20 px-6 text-center"
         initial={{ opacity: 0, y: -50 }}
         animate={{ opacity: 1, y: 0 }}
       >
@@ -33,7 +33,7 @@ const ProjectSummaryUi = () => {
 
         <div className="grid md:grid-cols-4 gap-6 max-w-5xl mx-auto mt-10">
           <motion.div
-            className="bg-white text-blue-700 rounded-xl shadow-lg p-6 flex flex-col items-center"
+            className="bg text-blue-700 rounded-xl shadow-lg p-6 flex flex-col items-center"
             whileHover={{ scale: 1.05 }}
           >
             <FaBox className="w-10 h-10 mb-2" />
@@ -41,7 +41,7 @@ const ProjectSummaryUi = () => {
             <p className="text-2xl font-bold">{statsSample.totalOrders}</p>
           </motion.div>
           <motion.div
-            className="bg-white text-green-600 rounded-xl shadow-lg p-6 flex flex-col items-center"
+            className="bg text-green-600 rounded-xl shadow-lg p-6 flex flex-col items-center"
             whileHover={{ scale: 1.05 }}
           >
             <FaTruck className="w-10 h-10 mb-2" />
@@ -49,7 +49,7 @@ const ProjectSummaryUi = () => {
             <p className="text-2xl font-bold">{statsSample.delivered}</p>
           </motion.div>
           <motion.div
-            className="bg-white text-yellow-500 rounded-xl shadow-lg p-6 flex flex-col items-center"
+            className="bg text-yellow-500 rounded-xl shadow-lg p-6 flex flex-col items-center"
             whileHover={{ scale: 1.05 }}
           >
             <FaBox className="w-10 h-10 mb-2" />
@@ -57,7 +57,7 @@ const ProjectSummaryUi = () => {
             <p className="text-2xl font-bold">{statsSample.pending}</p>
           </motion.div>
           <motion.div
-            className="bg-white text-orange-500 rounded-xl shadow-lg p-6 flex flex-col items-center"
+            className="bg text-orange-500 rounded-xl shadow-lg p-6 flex flex-col items-center"
             whileHover={{ scale: 1.05 }}
           >
             <FaClipboardList className="w-10 h-10 mb-2" />
@@ -95,7 +95,7 @@ const ProjectSummaryUi = () => {
           ].map((item) => (
             <motion.div
               key={item.role}
-              className="bg-white rounded-xl shadow-lg p-6 flex flex-col items-center text-center hover:shadow-2xl transition-shadow cursor-pointer"
+              className="bg rounded-xl shadow-lg p-6 flex flex-col items-center text-center hover:shadow-2xl transition-shadow cursor-pointer"
               whileHover={{ scale: 1.05 }}
             >
               {item.icon}
@@ -113,7 +113,7 @@ const ProjectSummaryUi = () => {
           {ordersSample.map((order) => (
             <motion.div
               key={order.id}
-              className="bg-white shadow-lg rounded-xl w-64 flex-shrink-0 cursor-pointer"
+              className="bg shadow-lg rounded-xl w-64 flex-shrink-0 cursor-pointer"
               whileHover={{ scale: 1.05 }}
             >
               <img
@@ -134,7 +134,7 @@ const ProjectSummaryUi = () => {
                 >
                   {order.status}
                 </p>
-                <div className="w-full bg-gray-200 rounded-full h-2 mt-2">
+                <div className="w-full bg rounded-full h-2 mt-2">
                   <div
                     className={`h-2 rounded-full ${
                       order.status === "Delivered"

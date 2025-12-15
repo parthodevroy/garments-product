@@ -1,125 +1,4 @@
-// import React, { useEffect, useState } from "react";
-// import useAxios from "../../../hooks/useAxios";
-// import useAuth from "../../../hooks/useAuth";
-// import { toast } from "react-toastify";
 
-// const ManagerOrder = () => {
-//   const { user } = useAuth();
-//   const axiosSecure = useAxios();
-//   const [orders, setOrders] = useState([]);
-
-//   const fetchOrders = () => {
-//     axiosSecure
-//       .get(`/orders/by-manager/${user.email}`)
-//       .then(res => setOrders(res.data))
-//       .catch(err => console.error(err));
-//   };
-
-//   useEffect(() => {
-//     if (user?.email) fetchOrders();
-//   }, [user]);
-
-
-//   const handleStatusChange = (orderId, status) => {
-//     axiosSecure
-//       .patch(`/orders/${orderId}/status`, { status })
-//       .then(() => {
-//         toast.success(`Order ${status}`);
-//         fetchOrders();
-//       })
-//       .catch(err => console.error(err));
-//   };
-
-//   const handleTrackingUpdate = (orderId, step) => {
-//   axiosSecure
-//     .patch(`/orders/${orderId}/tracking`, { step })
-//     .then(res => {
-//       toast.success(`Tracking updated: ${step}`);
-//       // Update frontend state with latest order from server
-//       setOrders(prev =>
-//         prev.map(order =>
-//           order._id === orderId ? res.data : order
-//         )
-//       );
-//     })
-//     .catch(err => console.error(err));
-// };
-
-
-
-
-//   return (
-//     <div className="p-6">
-//       <h2 className="text-2xl font-bold mb-4">Orders for My Products</h2>
-
-//       {orders.length === 0 ? (
-//         <p>No orders yet.</p>
-//       ) : (
-//         <div className="space-y-4">
-//           {orders.map(order => (
-//             <div key={order._id} className="border p-4 rounded shadow">
-//               <p><strong>Product:</strong> {order.productName}</p>
-//               <p><strong>Buyer:</strong> {order.customerEmail}</p>
-//               <p><strong>Quantity:</strong> {order.quantity}</p>
-//               <p><strong>Total:</strong> ${order.totalPrice}</p>
-//               <p><strong>Status:</strong> {order.orderStatus}</p>
-
-//               {["pending", "paid","order_paid"].includes(order.orderStatus) && (
-//                 <div className="mt-2 space-x-2">
-//                   <button
-//                     onClick={() => handleStatusChange(order._id, "accepted")}
-//                     className="btn btn-success btn-sm"
-//                   >
-//                     Accept
-//                   </button>
-//                   <button
-//                     onClick={() => handleStatusChange(order._id, "rejected")}
-//                     className="btn btn-error btn-sm"
-//                   >
-//                     Reject
-//                   </button>
-//                 </div>
-//               )}
-
-//               {order.orderStatus === "accepted" && (
-//                 <div className="mt-2 space-x-2 flex gap-2">
-//                   {["Cutting Completed", "Sewing Started", "Delivered"].map(step => {
-//                     const isCompleted = order.trackingLog?.some(t => t.step === step);
-//                     if (isCompleted) return null;
-
-//                     return (
-//                       <button
-//                         key={step}
-//                         onClick={() => handleTrackingUpdate(order._id, step)}
-//                         className="btn btn-sm btn-info"
-//                       >
-//                         {step}
-//                       </button>
-//                     );
-//                   })}
-//                 </div>
-//               )}
-
-
-//               {order.trackingLog?.length > 0 && (
-//                 <div className="mt-2">
-//                   <strong>Tracking:</strong>
-//                   <ul className="list-disc ml-5">
-//                     {order.trackingLog.map((t, i) => (
-//                       <li key={i}>{t.step} - {new Date(t.date).toLocaleString()}</li>
-//                     ))}
-//                   </ul>
-//                 </div>
-//               )}
-//             </div>
-//           ))}
-//         </div>
-//       )}
-//     </div>
-//   );
-// };
-
-// export default ManagerOrder;
 import React, { useEffect, useState } from "react";
 import useAxios from "../../../hooks/useAxios";
 import useAuth from "../../../hooks/useAuth";
@@ -135,7 +14,7 @@ const ManagerOrder = () => {
   // Fetch pending orders for this manager
   const fetchOrders = () => {
     axiosSecure
-      .get(`/orders/by-manager/${user.email}`)
+      .get(`/orders/pending/by-manager/${user.email}`)
       .then((res) => setOrders(res.data))
       .catch((err) => console.error(err));
   };
@@ -155,7 +34,7 @@ const ManagerOrder = () => {
       })
       .catch((err) => console.error(err));
   };
-console.log(orders);
+  console.log(orders);
 
   return (
     <div className="p-6">
@@ -176,7 +55,7 @@ console.log(orders);
           </thead>
 
           <tbody>
-            {orders.length ===0 ?  (
+            {orders.length === 0 ? (
               <tr>
                 <td colSpan="7" className="text-center py-4 text">
                   No pending orders found.
@@ -239,28 +118,78 @@ console.log(orders);
       {/* Modal for viewing order details */}
       {selectedOrder && (
         <div className="fixed inset-0 bg-black bg-opacity-40 flex justify-center items-center p-4 z-50">
-          <div className="bg-white p-6 rounded-lg w-full max-w-lg shadow-lg relative">
+          <div className="dash-card p-6 rounded-lg w-full max-w-lg shadow-lg relative overflow-y-auto max-h-[90vh]">
+
+            {/* Close Button */}
             <button
               className="absolute top-2 right-2 btn btn-sm btn-ghost"
               onClick={() => setSelectedOrder(null)}
             >
               ✕
             </button>
-            <h3 className="text-xl font-bold mb-4">Order Details</h3>
-            <img
-              src={selectedOrder.productImage}
-              alt={selectedOrder.productName}
-              className="w-64 h-64 object-cover rounded mb-4 mx-auto"
-            />
-            <p><strong>Product:</strong> {selectedOrder.productName}</p>
-            <p><strong>Buyer:</strong> {selectedOrder.customerEmail}</p>
-            <p><strong>Quantity:</strong> {selectedOrder.quantity}</p>
-            <p><strong>Total:</strong> ${selectedOrder.totalPrice}</p>
-            <p><strong>Status:</strong> {selectedOrder.orderStatus}</p>
-            <p><strong>Payment Method:</strong> {selectedOrder.paymentMethod}</p>
+
+            <h3 className="text-2xl font-bold mb-4 text-center">
+              Order Details
+            </h3>
+
+            {/* BASIC INFO */}
+            <div className="space-y-2 text-sm">
+              <p><strong>Order ID:</strong> {selectedOrder._id}</p>
+              <p><strong>Tracking ID:</strong> {selectedOrder.trackingId}</p>
+
+              <hr className="my-2 opacity-30" />
+
+              <p><strong>Product Name:</strong> {selectedOrder.productName}</p>
+              <p><strong>Product ID:</strong> {selectedOrder.productId}</p>
+              <p><strong>Quantity:</strong> {selectedOrder.quantity}</p>
+              <p><strong>Unit Price:</strong> {selectedOrder.unitPrice} BDT</p>
+              <p><strong>Total Price:</strong> {selectedOrder.totalPrice} BDT</p>
+
+              <hr className="my-2 opacity-30" />
+
+              <p><strong>Order Status:</strong>
+                <span className="ml-2 font-semibold text-yellow-400">
+                  {selectedOrder.orderStatus}
+                </span>
+              </p>
+
+              <p><strong>Payment Status:</strong> {selectedOrder.paymentStatus}</p>
+              <p><strong>Payment Method:</strong> {selectedOrder.payment_method}</p>
+              {selectedOrder.transactionId && (
+                <p><strong>Transaction ID:</strong> {selectedOrder.transactionId}</p>
+              )}
+
+              <hr className="my-2 opacity-30" />
+
+              {/* CUSTOMER INFO */}
+              <p><strong>Customer Name:</strong> {selectedOrder.firstName} {selectedOrder.lastName}</p>
+              <p><strong>Customer Email:</strong> {selectedOrder.customerEmail}</p>
+              <p><strong>Contact Number:</strong> {selectedOrder.contactNumber}</p>
+              <p><strong>Delivery Address:</strong> {selectedOrder.deliveryAddress}</p>
+
+              <hr className="my-2 opacity-30" />
+
+              {/* MANAGER INFO */}
+              <p><strong>Manager Email:</strong> {selectedOrder.managerEmail}</p>
+
+              {/* NOTES */}
+              {selectedOrder.additionalNotes && (
+                <>
+                  <hr className="my-2 opacity-30" />
+                  <p><strong>Additional Notes:</strong> {selectedOrder.additionalNotes}</p>
+                </>
+              )}
+
+              <hr className="my-2 opacity-30" />
+              <p>
+                <strong>Order Date:</strong>{" "}
+                {new Date(selectedOrder.createdAt).toLocaleString()}
+              </p>
+            </div>
           </div>
         </div>
       )}
+
     </div>
   );
 };

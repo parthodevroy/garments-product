@@ -24,7 +24,7 @@ const topDeals = [
 
 const OverVew = () => {
   return (
-    <div className="bg-card min-h-screen py-10">
+    <div className="bg-card h-full lg:min-h-screen py-10">
       
      
       

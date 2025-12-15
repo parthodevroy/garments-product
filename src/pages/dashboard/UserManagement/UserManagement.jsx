@@ -90,7 +90,7 @@ const UserManagement = () => {
 
       {/* User Table */}
       <div className="overflow-x-auto">
-        <table className="table dash-card  w-full">
+        <table className="table dash-card w-full min-w-[600px] md:min-w-full">
           <thead className="pb-2 ">
             <tr className="">
 

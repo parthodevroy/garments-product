@@ -48,7 +48,7 @@ const ManagerDashboards= () => {
   };
 
   return (
-    <div className="p-6 max-w-7xl mx-auto">
+    <div className=" max-w-full mx-auto">
       <h1 className="text-3xl font-bold mb-6 text-gray-800">Manager Dashboard</h1>
 
       {/* Stats Cards */}

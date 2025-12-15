@@ -43,13 +43,13 @@ const HomeProducts = () => {
   };
 
   return (
-    <div className="py-2 max-w-7xl mx-auto bg-hero">
+    <div className="py-2 max-w-full mx-auto bg-hero">
       <h2 className="text-3xl font-bold text-center mb-4">
         Featured Products
       </h2>
 
       <motion.div
-        className="grid grid-cols-1 sm:grid-cols-4 md:grid-cols-6 gap-4 p-6"
+        className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 p-6"
         variants={containerVariants}
         initial="hidden"
         animate="visible"

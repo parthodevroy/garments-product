@@ -12,10 +12,11 @@ const Navbar = () => {
   const { role } = useRole();
 
   const [showMenu, setShowMenu] = useState(false);
+   const [showDesktopMenu, setShowDesktopMenu] = useState(false);
   const { dbUser } = useUserStatus()
   const [dark, setDark] = useState(false)
 
-const [scrolled, setScrolled] =useState (false);
+  const [scrolled, setScrolled] = useState(false);
 
 
 
@@ -166,7 +167,7 @@ const [scrolled, setScrolled] =useState (false);
           </li>
 
 
-{/* 
+          {/* 
           {role === "Manager" && (
             <li>
               <NavLink
@@ -201,7 +202,7 @@ const [scrolled, setScrolled] =useState (false);
         {user ? (
           <div>
             <button
-              onClick={() => setShowMenu(!showMenu)}
+             onClick={() => setShowDesktopMenu(!showDesktopMenu)}
               className="w-10 h-10 rounded-full border-2 border-teal-500 overflow-hidden"
             >
               {user.
@@ -214,8 +215,8 @@ const [scrolled, setScrolled] =useState (false);
 
             </button>
 
-            {showMenu && (
-              <div className="absolute right-0 mt-2 bg-white shadow-lg rounded-lg w-44 p-2">
+            {showDesktopMenu && (
+              <div className="absolute right-0 mt-2 bg shadow-lg rounded-lg w-44 p-2">
                 {dbUser?.status === "suspended" && (
                   <div className="bg-red-100 p-2 mb-2 rounded border border-red-400 text-sm">
                     Suspended: {dbUser.suspendReason}
@@ -237,18 +238,14 @@ const [scrolled, setScrolled] =useState (false);
           </div>
         ) : (
           <div className="flex gap-2">
-            <li className="">
-
-              <input onChange={(e) => handelthem(e.target.checked)} checked={dark} type="checkbox" className="toggle " />
-              {/* <span className="pl-1">Select Theme</span> */}
-            </li>
+            
             <NavLink to="/login" className="px-4 py-2 bg-teal-600 text rounded">
               Login
             </NavLink>
-            <NavLink to="/register" className="px-4 py-2 bg-gray-200 text rounded">
+            <NavLink to="/register" className="px-4 py-2 bg text rounded">
               Register
             </NavLink>
-           
+
           </div>
         )}
       </div>
@@ -268,25 +265,43 @@ const [scrolled, setScrolled] =useState (false);
         </button>
 
         {showMenu && (
-          <ul className="absolute right-0 mt-2 bg-white shadow-lg rounded-lg w-52 flex flex-col gap-2 p-2">
+          <ul className="absolute right-0 mt-2 bg shadow-lg rounded-lg w-52 flex flex-col p-2">
+
+            {/* Navigation Links */}
             {linkItems}
 
+            {/* Suspended Warning */}
             {dbUser?.status === "suspended" && (
-              <div className="bg-red-100 p-2 rounded border border-red-400 text-sm">
+              <li className="bg-red-100 p-2 mt-1 rounded border border-red-400 text-sm">
                 Suspended: {dbUser.suspendReason}
-              </div>
+              </li>
             )}
 
+            {/* Logout only if user exists */}
             {user && (
-              <button
-                onClick={handleLogout}
-                className="w-full text-left px-4 py-2 hover:bg-teal-100"
-              >
-                <FaSignOutAlt className="inline mr-2" /> Logout
-              </button>
+              <li>
+                <button
+                  onClick={handleLogout}
+                  className="w-full flex items-center px-4 py-2 rounded hover:bg-teal-100"
+                >
+                  <FaSignOutAlt className="mr-2" /> Logout
+                </button>
+              </li>
             )}
+
+            {/* Theme toggle */}
+            <li className="flex items-center gap-2 px-2 py-2">
+              <input
+                type="checkbox"
+                checked={dark}
+                onChange={(e) => handelthem(e.target.checked)}
+                className="toggle"
+              />
+              <span className="text-xs">Select Theme</span>
+            </li>
           </ul>
         )}
+
       </div>
     </nav>
   );

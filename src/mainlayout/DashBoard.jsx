@@ -1,6 +1,4 @@
 
-
-
 import React, { useState } from "react";
 import { Link, Outlet } from "react-router";
 import useRole from "../hooks/useRole";
@@ -10,57 +8,60 @@ import {
   MdOutlineCreateNewFolder,
   MdPendingActions,
   MdProductionQuantityLimits,
+  MdApproval,
 } from "react-icons/md";
 import { FaHistory, FaUsers } from "react-icons/fa";
 import { ImProfile } from "react-icons/im";
 import { GrDeliver } from "react-icons/gr";
 import { GiClothes } from "react-icons/gi";
 import { IoMdCloudDone, IoMdMenu } from "react-icons/io";
-import { MdApproval } from "react-icons/md";
 import { SiManageiq } from "react-icons/si";
 import Logo from "../component/Logo";
 
 export default function DashBoard() {
   const { role, isLoading } = useRole();
-console.log("helow");
+  const [open, setOpen] = useState(false); 
+  const [mobileOpen, setMobileOpen] = useState(false); 
 
-  const [open, setOpen] = useState(false);
-
- if (isLoading || !role) return <LoadingPage />; 
-console.log(role);
-
+  if (isLoading || !role) return <LoadingPage />;
 
   return (
-    <div className="flex min-h-screen sticky text dash">
+    <div className="flex min-h-screen text dash">
       {/* Sidebar */}
       <div
         onMouseEnter={() => setOpen(true)}
         onMouseLeave={() => setOpen(false)}
         className={`h-screen dash text transition-all duration-300
-         ${open ? "w-64" : "w-16"} text border-gray-800`}
+          ${open ? "w-64" : "w-16"} 
+          text border-gray-800
+          fixed lg:relative z-50 
+          ${mobileOpen ? "left-0" : "-left-64"} lg:left-0
+        `}
       >
-      
-        <Link to={"/"}>
-          <div className="flex items-center gap-3">
+        <div className="flex items-center justify-between p-4">
+          <Link to={"/"}>
             <Logo />
+          </Link>
+          {/* M close button */}
+          <button
+            className="lg:hidden text-gray-300"
+            onClick={() => setMobileOpen(false)}
+          >
+            ✕
+          </button>
+        </div>
 
-          </div>
-        </Link>
-
-       
         <ul className="mt-4 space-y-3 px-2 text-sm">
-        
           <li>
             <Link
               to="/dashboard"
-              className="flex  items-center gap-4 hover:bg-gray-700/40 p-2 rounded-lg"
+              className="flex items-center gap-4 hover:bg-gray-700/40 p-2 rounded-lg"
             >
               <MdDashboardCustomize size={22} />
               {open && <span>Your Dashboard</span>}
             </Link>
           </li>
 
-        
           {role === "Buyer" && (
             <>
               <li>
@@ -95,7 +96,6 @@ console.log(role);
             </>
           )}
 
-          {/* Manager Role */}
           {role === "Manager" && (
             <>
               <li>
@@ -104,7 +104,7 @@ console.log(role);
                   className="flex items-center gap-4 hover:bg-gray-700/40 p-2 rounded-lg"
                 >
                   <MdOutlineCreateNewFolder size={22} />
-                  {open && <span>Created Product</span>}
+                  {open && <span>Create Product</span>}
                 </Link>
               </li>
 
@@ -138,7 +138,6 @@ console.log(role);
                 </Link>
               </li>
 
-
               <li>
                 <Link
                   to="/dashboard/completed-order"
@@ -148,7 +147,6 @@ console.log(role);
                   {open && <span>Completed Ordered</span>}
                 </Link>
               </li>
-
 
               <li>
                 <Link
@@ -162,7 +160,6 @@ console.log(role);
             </>
           )}
 
-          {/* Admin Role */}
           {role === "Admin" && (
             <>
               <li>
@@ -199,24 +196,29 @@ console.log(role);
         </ul>
       </div>
 
+      {/* Overlay for mobile */}
+      {mobileOpen && (
+        <div
+          className="fixed inset-0 bg-black/40 z-40 lg:hidden"
+          onClick={() => setMobileOpen(false)}
+        />
+      )}
+
       {/* CONTENT */}
-      <div className="flex-1 text-white">
+      <div className="flex-1 text-white lg:ml-0 ml-0">
         {/* TOP NAVBAR */}
-        {/* TOP NAVBAR */}
-        <nav className="w-full h-16 dash flex items-center px-6 border-gray-700">
+        <nav className="w-full h-16 dash flex items-center px-6">
+          {/* Hamburger only on mobile */}
           <IoMdMenu
             size={26}
-            className="text-gray-300 cursor-pointer"
-            onClick={() => setOpen(!open)}
+            className="text-gray-300 cursor-pointer lg:hidden"
+            onClick={() => setMobileOpen(true)}
           />
-          <h1 className="ml-4 text-xl font-semibold text-red-600">
-            {role}
-          </h1>
+          <h1 className="ml-4 text-xl font-semibold text-red-600">{role}</h1>
         </nav>
 
-
-        {/* PAGE CONTENT */}
-        <div className="p-6">
+       
+        <div className=" dash h-fit w-[420px] md:w-full lg:w-full lg:pl-2">
           <Outlet />
         </div>
       </div>

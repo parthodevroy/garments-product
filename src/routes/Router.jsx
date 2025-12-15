@@ -73,12 +73,12 @@ export const router = createBrowserRouter([
       
       {
         path: "/booking",
-        Component:Bookings
+       element:<PrivateRoutes><Bookings></Bookings></PrivateRoutes>
       },
       
       {
         path:'/traking-log/:trackingId',
-        Component:ProductTraking
+       element:<PrivateRoutes><ProductTraking></ProductTraking></PrivateRoutes>
       },
       {
         path:'/products',
@@ -138,10 +138,10 @@ export const router = createBrowserRouter([
       },
       {
         path: "Buyer-orders",
-       element:<BuyerOrder/>
+       element:<PrivateRoutes><BuyerOrder></BuyerOrder></PrivateRoutes>
       },
       {
-        path: "Buyer-order-details/:id",
+        path: "Buyer-order-details/:Id",
        element:<BuyerOrderDetails></BuyerOrderDetails>
       },
       {
@@ -153,7 +153,7 @@ export const router = createBrowserRouter([
         element:<PrivateRoutes><TrackOrder></TrackOrder></PrivateRoutes>
       },
       {
-        path: "Buyer-orders/:orderId",
+        path: "Buyer-orders/:Id",
         element:<PrivateRoutes><BuyerOrderDetails></BuyerOrderDetails></PrivateRoutes>
       },
      
@@ -170,10 +170,10 @@ export const router = createBrowserRouter([
        element:<PrivateRoutes><PaymentHistory/></PrivateRoutes>
       },
      
-      // rider related routes only rider can see this page
+      
        {
         path:"manage-order",
-        element:<ManagerOrder/>
+        element:<ManagerPrivateRoutes><ManagerOrder></ManagerOrder></ManagerPrivateRoutes>
 
       },
        {

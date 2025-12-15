@@ -50,7 +50,7 @@ console.log(payments);
                             </tr>
                         ) : (
                             payments.map((payment, index) => (
-                                <tr key={payment._id} className="hover:bg-gray-50  text transition">
+                                <tr key={payment._id} className="text">
                                     <td className="px-4 py-3 border-b border-white text-center">{index + 1}</td>
                                     <td className="px-4 py-3 border-b border-white">{payment.productName}</td>
                                     <td className="px-4 py-3 border-b border-white font-semibold text-green-600">${payment.amount}</td>
@@ -73,8 +73,8 @@ console.log(payments);
 
             {/* Modal */}
             {selectedPayment && (
-                <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
-                    <div className="bg-white rounded-lg p-6 w-150 relative">
+                <div className="fixed inset-0 bg-opacity-50 flex justify-center items-center z-50">
+                    <div className="dash rounded-lg p-6 w-150 relative">
                         <button
                             onClick={() => setSelectedPayment(null)}
                             className="absolute top-3 right-3 text-gray-600 hover:text-red-500"

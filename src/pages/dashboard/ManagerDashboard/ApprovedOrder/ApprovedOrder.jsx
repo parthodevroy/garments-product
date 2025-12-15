@@ -31,31 +31,44 @@ const ApprovedOrder = () => {
       Swal.fire({
         icon: "error",
         title: "Suspended",
-        text: "You cannot created an product because you are suspended.cheek your profile for suspended reason"
+        text: "You cannot create product because you are suspended."
       });
       return;
     }
+
     if (!trackingStep) return toast.error("Select a step");
+
     axiosSecure
       .patch(`/orders/${orderId}/tracking`, { step: trackingStep })
       .then(res => {
         toast.success(`Tracking step "${trackingStep}" added`);
-        setOrders(prev =>
-          prev.map(order => order._id === orderId ? res.data : order)
-        );
+
+       
+        if (trackingStep === "Delivered") {
+          setOrders(prev => prev.filter(order => order._id !== orderId));
+        } else {
+        
+          setOrders(prev =>
+            prev.map(order =>
+              order._id === orderId ? res.data : order
+            )
+          );
+        }
+
         setSelectedOrder(null);
         setTrackingStep("");
       })
-      .catch(err => toast.error(err.response?.data?.message || "Failed"));
+      .catch(err =>
+        toast.error(err.response?.data?.message || "Failed")
+      );
   };
-  console.log(orders);
 
   return (
-    <div className="p-6">
+    <div className="w-full overflow-x-auto">
       <h2 className="text-2xl text font-bold text-center mb-6">Approved Orders</h2>
 
 
-      <table className="table text  w-full dash-card shadow rounded-lg">
+      <table className="table min-w-[600px] lg:min-w-full dash-card shadow rounded-lg">
         <thead>
           <tr className="dash-card text">
             <th className="border-b border-white">Order ID</th>
@@ -75,7 +88,7 @@ const ApprovedOrder = () => {
             </tr>
           ) : (
             orders.map(order => (
-              <tr key={order._id}>
+              <tr className="text" key={order._id}>
                 <td className="border-b border-white">{order._id}</td>
                 <td className="border-b border-white">{order.customerEmail}</td>
                 <td className="border-b border-white">{order.productName}</td>

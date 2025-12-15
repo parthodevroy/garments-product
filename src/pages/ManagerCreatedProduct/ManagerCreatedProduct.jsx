@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import useAuth from "../../hooks/useAuth";
 import Swal from "sweetalert2";
+import LoadingPage from "../../component/LoadingPage/LoadingPage";
 
 const ManagerCreatedProduct = () => {
   const { user } = useAuth();
@@ -22,6 +23,7 @@ const ManagerCreatedProduct = () => {
         .catch(() => setLoading(false));
     }
   }, [user?.email]);
+console.log(user);
 
   // Handle edit form change
   const handleEditChange = (e) => {
@@ -72,8 +74,9 @@ const ManagerCreatedProduct = () => {
   const filtered = products.filter((p) =>
     p.product_name.toLowerCase().includes(searchText.toLowerCase())
   );
+console.log(products);
 
-  if (loading) return <p className="p-10 text-xl">Loading...</p>;
+  if (loading) return <LoadingPage></LoadingPage>
 
   return (
     <div className="p-6">

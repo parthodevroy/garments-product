@@ -7,7 +7,7 @@ const Reviwes = ({reviw}) => {
    
     const {review,userName,user_email,user_photoURL}=reviw
     return (
-        <div className="bg-white shadow-md rounded-xl p-6 md:p-8 border border-gray-100 w-full h-full">
+        <div className="bg shadow-md rounded-xl p-6 md:p-8 border border-gray-100 w-full h-full">
       
       <FaQuoteLeft className="text-teal-400 text-3xl mb-4" />
 

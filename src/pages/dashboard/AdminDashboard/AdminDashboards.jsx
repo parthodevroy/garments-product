@@ -47,7 +47,7 @@ const AdminDashboards= () => {
   };
 
   return (
-    <div className="p-6 max-w-7xl mx-auto">
+    <div className=" w-full mx-auto">
       <h1 className="text-3xl font-bold mb-6 text-gray-800">Admin Dashboard</h1>
 
       {/* Stats Cards */}
@@ -60,6 +60,7 @@ const AdminDashboards= () => {
             <div className="text-gray-500 text-sm font-semibold mb-2">{stat._id}</div>
             <div className="text-3xl font-bold text-gray-800">{stat.count}</div>
           </div>
+         
         ))}
       </div>
 

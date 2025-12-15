@@ -4,6 +4,7 @@ import useAuth from "../../../../hooks/useAuth";
 import useAxios from "../../../../hooks/useAxios";
 import useUserStatus from "../../../../hooks/useUserStatus";
 import Swal from "sweetalert2";
+import LoadingPage from "../../../../component/LoadingPage/LoadingPage";
 
 const PendingOrder = () => {
     const { user } = useAuth();
@@ -21,7 +22,7 @@ const PendingOrder = () => {
         setLoadingOrders(true);
         try {
             const res = await axiosSecure.get(`/orders/pending/by-manager/${user.email}`);
-            setOrders(res.data); // only pending orders from backend
+            setOrders(res.data); 
         } catch (err) {
             console.error(err);
         } finally {
@@ -29,13 +30,16 @@ const PendingOrder = () => {
         }
     };
 
+
     useEffect(() => {
         fetchOrders();
     }, [user]);
 
+    
     // Accept order
-    // Accept order
-    // Accept order
+    console.log(orders,user);
+    console.log("USER EMAIL:", user?.email);
+
     const handleAccept = async (orderId) => {
         try {
             await axiosSecure.patch(`/orders/accept/${orderId}`);
@@ -45,7 +49,7 @@ const PendingOrder = () => {
             setOrders(prev =>
                 prev.map(order =>
                     order._id === orderId
-                        ? { ...order, orderStatus: "accepted" } // update status
+                        ? { ...order, orderStatus: "accepted" } 
                         : order
                 )
             );
@@ -84,7 +88,7 @@ const PendingOrder = () => {
     if (statusLoading || loadingOrders) {
         return (
             <div className="flex justify-center items-center h-screen">
-                <p className="text-lg font-semibold">Loading...</p>
+               <LoadingPage></LoadingPage>
             </div>
         );
     }
@@ -129,7 +133,7 @@ const PendingOrder = () => {
                         </thead>
                         <tbody>
                             {filteredOrders.map((order) => {
-                                let statusColor = "bg-yellow-200 text-yellow-800"; // pending color
+                                let statusColor = "bg-yellow-200 text-yellow-800";
                                 return (
                                     <tr key={order._id} className="dash-card transition">
                                         <td className="px-4 py-3 border-b font-mono">{order._id}</td>
