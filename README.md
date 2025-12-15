@@ -174,6 +174,5 @@ npm run dev
 ## rpartho787@gmail.com
 
 
-**Live URL:** [Live Site](https://hilarious-crumble-f3e3a5.netlify.app/)
+**Live URL:** [Live Site](https://cheery-hummingbird-22f081.netlify.app/)
 **Email:** [Partho Roy](rpartho787@gmail.com)
-**Project Link:** [Project](https://github.com/parthodevroy/neighborhood-watch)

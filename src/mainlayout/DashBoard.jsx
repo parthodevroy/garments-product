@@ -42,7 +42,7 @@ export default function DashBoard() {
           <Link to={"/"}>
             <Logo />
           </Link>
-          {/* M close button */}
+          
           <button
             className="lg:hidden text-gray-300"
             onClick={() => setMobileOpen(false)}
