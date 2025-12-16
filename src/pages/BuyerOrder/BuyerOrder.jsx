@@ -34,7 +34,7 @@ const BuyerOrder = () => {
   // Delete only pending orders
   const handleDelete = (id, status) => {
     if (status !== "pending") {
-      return Swal.fire("❌ Error", "Only pending orders can be cancelled.", "error");
+      return Swal.fire(" Error", "Only pending orders can be cancelled.", "error");
     }
 
     Swal.fire({
@@ -90,16 +90,13 @@ const BuyerOrder = () => {
 
               </td>
               <td className="flex border-b border-white gap-2">
-                {/* VIEW BUTTON
-                <Link to={`/dashboard/Buyer-order-details/${o._id}`}>
-                  <button className="btn btn-sm"><MdPageview /></button>
-                </Link> */}
+                
                 <Link to={`/dashboard/Buyer-orders/${o._id}`}>
                   <button className="btn btn-primary btn-sm">View</button>
                 </Link>
 
 
-                {/* DELETE BUTTON */}
+                {/* DELETE */}
                 <button
                   onClick={() => handleDelete(o._id, o.orderStatus)}
                   className="btn border-b border-white btn-sm btn-error"
