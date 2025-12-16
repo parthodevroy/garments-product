@@ -10,7 +10,7 @@ const HomeProducts = () => {
   queryKey: ["home-products"],
   queryFn: async () => {
     const res = await axios.get("https://garments-management-server.vercel.app/products?limit=6");
-    console.log("HomeProducts API response:", res.data); // <--- debug
+    console.log("HomeProducts API response:", res.data); 
     return res.data;
   }
 });
@@ -24,7 +24,6 @@ const HomeProducts = () => {
     );
   }
 
-  // Framer Motion variants for staggered fade-in
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {

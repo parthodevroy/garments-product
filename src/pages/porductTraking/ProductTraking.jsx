@@ -13,7 +13,7 @@ const ProductTraking = () => {
       return res.data;
     },
   });
-// console.log(logs);
+
 
   return (
     <div className="p-5">
