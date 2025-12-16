@@ -28,7 +28,7 @@ const OrderDetails = () => {
   if (loading) return <LoadingPage />;
   if (!order) return <div className="p-6 text-center">Order not found.</div>;
 
-  // ✅ Safe sorting
+  //  Safe sorting
   const trackingLog = [...(order.trackingLog || [])].sort(
     (a, b) => new Date(a.date) - new Date(b.date)
   );
