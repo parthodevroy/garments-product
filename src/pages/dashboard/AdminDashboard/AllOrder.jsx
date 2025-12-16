@@ -107,7 +107,7 @@ const AllOrder = () => {
                     </Link>
 
 
-                    {/* Optional: quick status update */}
+                    {/* quick status update */}
                     {["pending", "paid", "order_paid"].includes(order.orderStatus) && (
                       <>
                         <button
